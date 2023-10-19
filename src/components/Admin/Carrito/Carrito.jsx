@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useAuth } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const Carrito = () => {
   const {auth} = useAuth();
+  const navigate = useNavigate();
   const [tipoDomicilio, setTipoDomicilio] = useState("opcion1"); // valor inicial
   const [carrito, setCarrito] = useState(JSON.parse(localStorage.getItem('carrito')) || []);
+
 
   // Función para agregar cantidad a un producto
   const agregarCantidad = (index) => {
@@ -24,25 +27,49 @@ export const Carrito = () => {
     }
   };
 
-  const handlePagar = () => {
+  const handlePagar = async () => {
     // Crear un array de productos seleccionados con sus cantidades
     const productosSeleccionados = carrito.map((item) => ({
-      idproducto: item.idproducto,
-      cantidad: item.cantidad || 1, // Iniciar en 1 si es undefined
+      id_producto: item.idproducto,
+      cantidad: item.cantidad || 1,
     }));
 
     const data = {
-      "productos": productosSeleccionados,
-      "tipo_entrega": tipoDomicilio
+      productos: productosSeleccionados,
+      tipo_entrega: tipoDomicilio
+    };
+
+    console.log(data)
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api-comercio/pago/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        // La solicitud fue exitosa, puedes manejar la respuesta aquí
+        const responseData = await response.json(); // Convertir la respuesta a JSON
+        console.log('Respuesta del servidor:', responseData);
+        setCarrito([]);
+        actualizarLocalStorage([]);
+        navigate(responseData)
+      } else {
+        // La solicitud no fue exitosa, maneja el error aquí
+        console.error('Error al realizar la compra');
+      }
+    } catch (error) {
+      // Error de red o cualquier otro error
+      console.error('Error:', error);
     }
-
-    // Aquí puedes enviar los datos de productosSeleccionados a tu servidor o realizar otras acciones necesarias para completar la compra
-    console.log(data);
-
-    // Limpiar el carrito después de la compra
-    setCarrito([]);
-    actualizarLocalStorage([]);
   };
+
+    
+
+  
 
 
   // Función para actualizar el carrito en el almacenamiento local
