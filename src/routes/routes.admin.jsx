@@ -1,3 +1,4 @@
+import { PasswordReset1 } from '../components/Admin';
 import { ClientVerification } from '../components/Admin/PerfilAdmin/ClientVerification';
 import { ClientesEditar } from '../components/Staff';
 import {AdminLayout, ClientLayout} from '../layouts';
@@ -38,6 +39,11 @@ const routesAdmin = [
         path: "/admin/verification/:token",
         layout: ClientLayout,
         component: ClientVerification
+    },
+    {
+        path: "/admin/resetpassword/correo",
+        layout: ClientLayout,
+        component: PasswordReset1
     },
     {
         path: "/admin/productos",

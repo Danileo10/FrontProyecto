@@ -27,6 +27,86 @@ export const loginApi = async(formValue) => {
     }
 }
 
+export const correoReset = async(formValue) => {
+    //eslint-disable-next-line
+    try{
+        const url = `${BASE_API}/api/correo_pass/`;
+        const params = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formValue),
+        };
+
+        const response = await fetch(url, params);
+
+        if(response.status !== 200){
+            throw new Error("email incorrcto");
+        }
+
+        const result = await response.json();
+
+        return result;
+    }catch(error){
+        throw error;
+    }
+}
+
+export const codeVerification = async(formValue) => {
+    //eslint-disable-next-line
+    try{
+        const url = `${BASE_API}/api/verificar_codigo/`;
+        const params = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formValue),
+        };
+
+        const response = await fetch(url, params);
+
+        if(response.status !== 200){
+            throw new Error("Codigo Incorrecto");
+        }
+
+        const result = await response.json();
+
+        return result;
+    }catch(error){
+        throw error;
+    }
+}
+
+export const passwordChange = async(formValue) => {
+    //eslint-disable-next-line
+    try{
+        const url = `${BASE_API}/api/cambio_password/`;
+        const params = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formValue),
+        };
+
+        const response = await fetch(url, params);
+
+        if(response.status !== 200){
+            throw new Error("Error en la contraseña");
+        }
+
+        const result = await response.json();
+
+        return result;
+    }catch(error){
+        throw error;
+    }
+}
+
+
+
 export const crearMascotaApi = async(formValue, id) => {
     //eslint-disable-next-line
     try{

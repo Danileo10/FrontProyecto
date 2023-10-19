@@ -1,5 +1,6 @@
 import './LoginForm.scss';
 import {Form, Button} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
@@ -54,7 +55,7 @@ export const LoginForm = () => {
               <Button type='submit' content="Iniciar Sesión" primary fluid/>
               <Button className='btnRegister' content="Regístrate" fluid/> 
             </div>
-            
+            <Link to={"/admin/resetpassword/correo"}>¿Olvidaste la contraseña?</Link>
         </Form>
     </>
   )

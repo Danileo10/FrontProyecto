@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useAuth } from '../../../hooks';
 
 export const Carrito = () => {
+  const {auth} = useAuth();
+  const [tipoDomicilio, setTipoDomicilio] = useState("opcion1"); // valor inicial
   const [carrito, setCarrito] = useState(JSON.parse(localStorage.getItem('carrito')) || []);
 
   // Función para agregar cantidad a un producto
@@ -28,8 +31,13 @@ export const Carrito = () => {
       cantidad: item.cantidad || 1, // Iniciar en 1 si es undefined
     }));
 
+    const data = {
+      "productos": productosSeleccionados,
+      "tipo_entrega": tipoDomicilio
+    }
+
     // Aquí puedes enviar los datos de productosSeleccionados a tu servidor o realizar otras acciones necesarias para completar la compra
-    console.log(productosSeleccionados);
+    console.log(data);
 
     // Limpiar el carrito después de la compra
     setCarrito([]);
@@ -58,6 +66,16 @@ export const Carrito = () => {
           </li>
         ))}
       </ul>
+
+      <h4>Informacion Adicional</h4>
+          <h6>Tipo de domicilio</h6>
+      <select value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
+        <option value="opcion1">Domicilio</option>
+        <option value="opcion2">Recoger en tienda</option>
+      </select>
+
+
+      
 
       <button onClick={handlePagar}>Pagar</button>
     </div>
