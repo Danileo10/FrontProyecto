@@ -19,51 +19,54 @@ export const TopMenu = () => {
     <>
       <Menu fixed='top' className='top-menu-admin'>
         <Menu.Item className='top-menu-admin__logo'>
-          <img src={logo} alt="logo" className='logom'/>
+          <Link to="/home">
+            <img src={logo} alt="logo" className='logom'/>
+          </Link>
+         
         </Menu.Item>
         {auth.me.is_staff &&
           <Menu.Item className='top-menu-admin__item'>
-            <Link to={"/staff/clientes"}>
+            <Link to={"/admin/clientes"}>
               Clientes Admin
             </Link>
           </Menu.Item>
         }
         {auth.me.is_staff &&
           <Menu.Item className='top-menu-admin__item'>
-            <Link to={"/staff/productos"}>
+            <Link to={"/admin/productos"}>
               Productos Admin
             </Link>
           </Menu.Item>
         }
         {auth.me.is_staff &&
           <Menu.Item className='top-menu-admin__item'>
-            <Link to={"/staff/pedidos"}>
+            <Link to={"/admin/pedidos"}>
               Pedidos Admin
             </Link>
           </Menu.Item>
         }
         {auth.me.is_staff &&
           <Menu.Item className='top-menu-admin__item'>
-            <Link to={"/staff/citas"}>
+            <Link to={"/admin/citas"}>
               Citas Admin
             </Link>
           </Menu.Item>
         }
 
         <Menu.Item className='top-menu-admin__item'>
-          <Link to={"/admin/mascotas"}>
+          <Link to={"/client/mascotas"}>
             Mascotas
           </Link>
         </Menu.Item>
 
         <Menu.Item className='top-menu-admin__item'>
-          <Link to={"/admin/productos"}>
+          <Link to={"/client/productos"}>
             Tienda
           </Link>
         </Menu.Item>
 
         <Menu.Item className='top-menu-admin__item'>
-          <Link to={"/admin/citas"}>
+          <Link to={"/client/citas"}>
             Citas
           </Link>
         </Menu.Item>
@@ -74,13 +77,13 @@ export const TopMenu = () => {
           </Menu.Item>
 
           <Menu.Item className='top-menu-admin__item_'>
-            <Link to={"/admin/carrito "}>
+            <Link to={"/client/carrito "}>
               <a href=""><img src={nav} alt="Icon" className='carrito' /></a>
             </Link>
           </Menu.Item>
 
           <Menu.Item className='top-menu-admin__item'>
-            <Link to={"/admin/perfil"}>
+            <Link to={"/perfil"}>
               Perfil
             </Link>
           </Menu.Item>

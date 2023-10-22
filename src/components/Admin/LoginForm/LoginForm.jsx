@@ -1,6 +1,7 @@
 import './LoginForm.scss';
 import {Form, Button} from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
@@ -11,8 +12,12 @@ import {loginApi} from '../../../api/user'
 
 export const LoginForm = () => {
   //console.log(useAuth())
-
+  const navigate = useNavigate();
   const {login} = useAuth();
+  
+  const handleRegister = () => {
+    navigate('/register')
+  }
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -53,9 +58,9 @@ export const LoginForm = () => {
             />
             <div className='contenedorBtn'>
               <Button type='submit' content="Iniciar Sesión" primary fluid/>
-              <Button className='btnRegister' content="Regístrate" fluid/> 
+              <Button className='btnRegister' content="Regístrate" fluid onClick={handleRegister}/> 
             </div>
-            <Link className='rescatar' to={"/admin/resetpassword/correo"}>¿Olvidaste la contraseña?</Link>
+            <Link className='rescatar' to={"/client/resetpassword/correo"}>¿Olvidaste la contraseña?</Link>
         </Form>
     </>
   )

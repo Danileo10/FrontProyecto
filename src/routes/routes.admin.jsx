@@ -11,82 +11,82 @@ import CrearProductosStaff from '../pages/Staff/ProductosStaff/CrearProductosSta
 
 const routesAdmin = [
     {
-        path: "/admin",
+        path: "/home",
         layout : AdminLayout,
         component : HomeAdmin
     },
     {
-        path: "/admin/register",
+        path: "/client/register",
         layout : AdminLayout,
         component : RegisterAdmin
     },
     {
-        path: "/admin/mascotas",
+        path: "/client/mascotas",
         layout : AdminLayout,
         component : MascotasAdmin,
     },
     {
-        path: "/admin/citas",
+        path: "/client/citas",
         layout: AdminLayout,
         component : CitasAdmin,
     },
     {
-        path: "/admin/perfil",
+        path: "/perfil",
         layout: AdminLayout,
         component: Perfil,
     },
     {
-        path: "/admin/verification/:token",
+        path: "/client/verification/:token",
         layout: ClientLayout,
         component: ClientVerification
     },
     {
-        path: "/admin/resetpassword/correo",
+        path: "/client/resetpassword/correo",
         layout: ClientLayout,
         component: PasswordReset1
     },
     {
-        path: "/admin/productos",
+        path: "/client/productos",
         layout: AdminLayout,
         component: ProductosAdmin,
     },
     {
-        path: "/admin/carrito",
+        path: "/client/carrito",
         layout: AdminLayout,
         component: CarritodeCompras
     },
     {
-        path: "/staff/clientes",
+        path: "/admin/clientes",
         layout: AdminLayout,
         component: ClientesStaff,
     },
     {
-        path: "/staff/clientes/editar/:id",
+        path: "/admin/clientes/editar/:id",
         layout: AdminLayout,
         component: ClientesEditar,
     },
     {
-        path: "/staff/productos",
+        path: "/admin/productos",
         layout: AdminLayout,
         component: ProductosStaff,
     },
     {
-        path: "/staff/productos/crear",
+        path: "/admin/productos/crear",
         layout: AdminLayout,
         component: CrearProductosStaff
     },
     {
-        path: "/staff/productos/editar/:id",
+        path: "/admin/productos/editar/:id",
         layout: AdminLayout,
         component: EditarProductosStaff
     },
     {
-        path: "/staff/pedidos",
+        path: "/admin/pedidos",
         layout: AdminLayout,
         component: PedidosStaff,
     },
     {
-        path: "/staff/citas",
+        path: "/admin/citas",
         layout: AdminLayout,
         component: CitasStaff
     }

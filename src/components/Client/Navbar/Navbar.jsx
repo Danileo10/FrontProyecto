@@ -23,7 +23,7 @@ export const Navbar = () => {
         </Menu.Menu>
 
         <Menu.Menu position='right'>
-            <Menu.Item className='top-menu-client__item'><Link to="/admin">Ingresar</Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/home">Ingresar</Link></Menu.Item>
             <Menu.Item className='top-menu-client__item'><Link to="/register">Regístrate</Link></Menu.Item>
         </Menu.Menu>  
 

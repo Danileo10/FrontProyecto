@@ -60,12 +60,12 @@ export const BannerAdmin = () => {
                 <h1>{`Angelitos Fieles,`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Tu clínica Veterinaria de confianza" ]'><span className="wrap">{text}</span></span></h1>
                   <p>En Angelitos Fieles entendemos lo importante que son tus mascotas para ti, y es por eso que ofrecemos una atención personalizada y amigable, adaptada a las necesidades únicas de cada animal. Nuestros servicios incluyen consultas generales, vacunaciones, cirugías, servicios de urgencia, entre otros.</p>
                   <button onClick={() => console.log('connect')}>
-                    <Link className="registrate" to={"/admin"}>
-                        Ingresar 
+                    <Link className="registrate" to={"/home"}>
+                        Ingresar <ArrowRightCircle size={25} />
                     </Link>
                     
                     
-                    <ArrowRightCircle size={25} /></button>
+                    </button>
               </div>}
             </TrackVisibility>
           </Col>
