@@ -7,7 +7,7 @@ export const LoginAdmin = () => {
     <>
       <div className='login-admin'>
         <div className='login-admin__content'>
-          <h1>Fieles Angelitos</h1>
+          <h1>BIENVENIDO</h1>
           <img className='logo' src={logo} alt="Logo" />
           <LoginForm/>
         </div>

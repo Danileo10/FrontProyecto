@@ -55,7 +55,7 @@ export const LoginForm = () => {
               <Button type='submit' content="Iniciar Sesión" primary fluid/>
               <Button className='btnRegister' content="Regístrate" fluid/> 
             </div>
-            <Link to={"/admin/resetpassword/correo"}>¿Olvidaste la contraseña?</Link>
+            <Link className='rescatar' to={"/admin/resetpassword/correo"}>¿Olvidaste la contraseña?</Link>
         </Form>
     </>
   )

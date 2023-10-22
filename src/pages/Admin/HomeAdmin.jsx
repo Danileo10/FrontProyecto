@@ -1,11 +1,17 @@
+import { BannerAdmin } from "../../components/Admin/BannerAdmin/BannerAdmin"
 
 export const HomeAdmin = () => {
  
   return (
-    <div>
-      <h1>Estas en Home Admin</h1>
+    <>
       
-    </div>
+      <div className='register-admin_Home'>
+           
+          <BannerAdmin />
+
+      </div>
+
+    </>
   )
 }
 

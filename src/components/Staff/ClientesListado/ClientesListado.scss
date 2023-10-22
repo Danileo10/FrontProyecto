@@ -1,0 +1,141 @@
+/* Estilos generales del componente ClientesListado */
+.admin-layout__content{
+    margin-top: 100px;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    width: 500px;
+    border: 1px solid #ccc;
+    padding: 40px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 10px !important;
+  }
+  
+  button {
+    margin-top: 10px;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Estilos de la ventana modal */
+  .modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+   
+    
+  }
+  
+  .modal-content {
+    background-color: white !important;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 40px;
+    max-width: 400px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px !important;
+  }
+  
+  .titulo2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+  
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  }
+  
+  .input-group_emp {
+    display: flex;
+    align-items: center;
+    
+    label {
+      margin-right: 10px;
+    }
+  
+    input {
+      margin-left: 10px;
+    }
+  }
+  
+  button[type='button_save'] {
+    margin-top: 30px;
+    background-color: rgb(42, 89, 245);;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+
+  }
+
+  button:hover[type='button_save']{
+    background-color: rgb(16, 69, 241);;
+  }
+
+  button[type='button_close'] {
+    position: absolute;
+    bottom: 380px;
+    right: 20px;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+  .cerrar{
+    width: 13px;
+    display: flex;
+  }
+
+  .button1{
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: rgb(74, 113, 241);
+  }
+
+  .button1:hover{
+    background-color: rgb(42, 89, 245);
+  }
+
+
+  

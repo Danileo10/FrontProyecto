@@ -84,6 +84,7 @@ export const RegisterForm = () => {
             error={formik.errors.direccion}
         />
         <Button type='submit' content="Registrarse" primary fluid/>
+        
       </Form>
     </>
   )

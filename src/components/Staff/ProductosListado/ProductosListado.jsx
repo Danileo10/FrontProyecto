@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './ProductosListado.scss'
 
 export const ProductosListado = () => {
     const [data, setData] = useState([]);
@@ -127,16 +128,16 @@ const handleEliminar = async (idProducto) => {
     return (
         <>
             <h1>Listado de Productos</h1>
-            <ul>
+            <ul className='ul-productos'>
                 {data.map((item) => (
-                    <li key={item.idproducto}>
+                    <li className='li-producto' key={item.idproducto}>
                         <p>{item.nombre}</p>
                         <p>{item.precio}</p>
                         <p>{item.descripcion}</p>
                         <p>{item.imagen}</p>
-                        <button onClick={() => handleEditar(item)}>Editar</button>
+                        <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
                          {/* Botón para eliminar el producto */}
-                         <button onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
+                         <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
                     </li>
                 ))}
             </ul>

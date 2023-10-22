@@ -1,11 +1,36 @@
 .ui.button{
     margin-top: 10px;
+    background-color: white;
+    color: #eb2592; 
+    margin-bottom: 20px;
 }
-
+.ui.button:hover{
+    background-color: #dfdfdf;
+    color: #eb2592; 
+}
+.ui.button.primary{
+    background-color: #eb2592
+}
+.ui.button.primary:hover{
+    background-color: #ffffff;
+    color: #eb2592;
+}
 .contenedorBtn{
-    display: flex;
+    display: flex;  
 }
 
 .btnRegister{
     width: 100px;
 }
+
+.rescatar{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.rescatar:hover{
+    color: #dadada;
+    text-decoration: none;
+}
+

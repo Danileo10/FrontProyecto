@@ -1,0 +1,89 @@
+/* Estilo general para el perfil */
+.profile {
+    
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+  }
+  
+  /* Estilo para el encabezado del perfil */
+  .profile-header {
+    text-align: center;
+    background-color: #f49595;
+    color: #fff;    
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .profile-header h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  /* Estilo para la foto de perfil */
+  .profile-picture {
+    border: 5px solid #fff;
+    border-radius: 50%;
+    max-width: 150px;
+    margin: 20px auto;
+    display: block;
+  }
+  
+  /* Estilo para la información de contacto */
+  .contact-info {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Estilo para secciones de contenido */
+  .section {
+    margin: 20px 0;
+  }
+  
+  /* Estilo para títulos de sección */
+  .section-title {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Estilo para listas de experiencia laboral */
+  .work-experience ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .work-experience li {
+    margin-bottom: 15px;
+  }
+  
+  .work-experience .job-title {
+    font-weight: bold;
+  }
+  
+  /* Estilo para botones */
+  .button-group {
+    display: flex;
+    justify-content: space-between; // Esto separará los botones al máximo
+    margin-top: 20px; // Agrega margen entre los botones y el contenido superior
+  }
+
+  .button {
+    background-color: #048a16;
+    color: rgb(255, 255, 255);
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+
+  .button:hover {
+    background-color: #f49595;
+    color: white;
+  }

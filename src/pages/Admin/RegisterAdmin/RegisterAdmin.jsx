@@ -6,14 +6,16 @@ import { Link } from 'react-router-dom';
 export const RegisterAdmin = () => {
   return (
     <>
-      <Link to="/">
-        <button>Ir a Home</button>
-      </Link>
+      
       <div className='register-admin'>
+        
         <div className='register-admin__content'>
-          <h1>Fieles Angelitos</h1>
+          <h1>Angelitos Fieles</h1>
           <img className='logo' src={logo} alt="Logo" />
           <RegisterForm />
+          <Link to="/">
+            <button className='volver'>Volver al Inicio</button>
+          </Link>
         </div>
       </div>
 

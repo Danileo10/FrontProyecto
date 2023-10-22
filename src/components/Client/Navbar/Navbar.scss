@@ -1,62 +1,69 @@
-.top-menu-client{
-    &__logo{
-        width: 200px;
-        display: flex;
+.top-menu-client {
+
+    &{
         align-items: center;
-        justify-content: center;
+        text-align: center;
     }
 
-    &__item{
-        padding: auto!important;
-        color: white !important;
-        font-family: 'Manrope', sans-serif;
-        font-family: 'Poppins', sans-serif;
-        text-decoration: none!important;
+    &__logo {
+        width: 600px;
+        margin-left: 100px;
+        filter: drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    &__item {
+        padding: auto !important;
+        color: #f49595 !important; 
+        font-family: 'Manrope', sans-serif !important;
+        font-family: 'Poppins', sans-serif !important; 
+        text-decoration: none !important;
         border-radius: 50px;
         background: #f49595;
-        box-shadow:  5px 5px 10px #e58c8c,
-             -5px -5px 10px #ff9e9e;
+        box-shadow: 5px 5px 10px #e58c8c, -5px -5px 10px #ff9e9e;
         margin: 0 0.5rem;
-        height:40px;
-        top: 1.4rem;
+        height: 40px;
+        transition: color 0.3s !important; 
     }
 
-    &__item a{
-        color: white;
-        text-decoration: none;
+    &__item a {
+        color: #ffffff ; 
+        text-decoration: none !important;
+        transition: color 0.3s !important; 
     }
-    
+    &__item a:hover{
+        background-color: #ffffff;
+        color: black;
 
-    &__item:hover{
-        background-color:black !important;
-        text-decoration: none!important;
     }
-    
+
+    &__item:hover {
+        background-color: #ffffff!important; 
+        color: black !important; 
+    }
 }
 
-.ui.menu{
+.ui.menu {
     background-color: #f49595;
     border-radius: 0;
-    
 }
 
-.ui.menu .item>img:not(.ui){
-    width: 12rem;
+.ui.menu .item>img:not(.ui) {
+    width: 8rem;
     top: 1rem;
     left: 5rem;
-    
-
-    
 }
 
 .ui.menu .item:before {
     width: 0;
 }
 
-.ui.menu:not(.vertical) .item{
+.ui.menu:not(.vertical) .item {
     left: 1rem;
 }
 
-.ui.menu:not(.vertical) .right.menu{
+.ui.menu:not(.vertical) .right.menu {
     margin-right: 7rem;
+    display: flex;
+    margin-left: auto!important;
+    align-items: center;
 }

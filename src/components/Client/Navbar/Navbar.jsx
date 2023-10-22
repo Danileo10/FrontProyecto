@@ -1,6 +1,5 @@
 import './Navbar.scss'
-import logo from '../../../../public/logoF.png'
-import logoname from '../../../../public/NameFA.png'
+import logo from '../../../../public/logofa.png'
 import {Icon, Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
@@ -18,15 +17,15 @@ export const Navbar = () => {
             <Menu.Item className='top-menu-client__item'>
                 <Link to="/">Inicio</Link>
             </Menu.Item>
-            <Menu.Item className='top-menu-client__item'><Link to="/citas">Citas</Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/citas">Servicios</Link></Menu.Item>
             <Menu.Item className='top-menu-client__item'><Link to="/productos">Productos</Link></Menu.Item>
             
         </Menu.Menu>
 
         <Menu.Menu position='right'>
-            <Menu.Item className='top-menu-client__item'><Link to="/admin">Ingresa</Link></Menu.Item>
-            <Menu.Item className='top-menu-client__item'><Link to="/register">Registrate</Link></Menu.Item>
-        </Menu.Menu>
+            <Menu.Item className='top-menu-client__item'><Link to="/admin">Ingresar</Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/register">Regístrate</Link></Menu.Item>
+        </Menu.Menu>  
 
         
       </Menu>
