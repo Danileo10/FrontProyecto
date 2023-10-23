@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import './ProductosListado.scss'
+import close from "../../../../public/x.svg"
 
 export const ProductosListado = () => {
     const [data, setData] = useState([]);
     const [productoAEditar, setProductoAEditar] = useState(null); // Estado para el producto que se está editando
     const [nuevosDatos, setNuevosDatos] = useState({}); // Estado para los nuevos datos del producto
+    const [mostrarModal, setMostrarModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,7 +27,9 @@ export const ProductosListado = () => {
     // Función para manejar el clic en el botón "Editar"
     const handleEditar = (producto) => {
         setProductoAEditar(producto);
+        setMostrarModal(true);
     };
+      
 
     // Función para manejar los cambios en los campos de edición
     const handleInputChange = (e) => {
@@ -127,7 +131,7 @@ const handleEliminar = async (idProducto) => {
 
     return (
         <>
-            <h1>Listado de Productos</h1>
+            <h1 className='title'>Listado de Productos</h1>
             <ul className='ul-productos'>
                 {data.map((item) => (
                     <li className='li-producto' key={item.idproducto}>
@@ -135,18 +139,21 @@ const handleEliminar = async (idProducto) => {
                         <p>{item.precio}</p>
                         <p>{item.descripcion}</p>
                         <p>{item.imagen}</p>
+                        <div className='containerBtn'>
                         <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
                          {/* Botón para eliminar el producto */}
-                         <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
+                        <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
+                        </div>
                     </li>
                 ))}
             </ul>
 
-            {productoAEditar && (
-                <div>
-                    <h2>Editar Producto</h2>
-                    <form>
+            {mostrarModal && productoAEditar && (
+                <div className='modal-pro'>
+                    <form className='form-dos'>
+                        <h2 className='title'>Editar Producto</h2>
                         <input
+                            className='input-1'
                             type="text"
                             name="nombre"
                             value={nuevosDatos.nombre || productoAEditar.nombre}
@@ -154,6 +161,7 @@ const handleEliminar = async (idProducto) => {
                             placeholder="Nombre"
                         />
                         <input
+                            className='input-1'
                             type="text"
                             name="precio"
                             value={nuevosDatos.precio || productoAEditar.precio}
@@ -161,6 +169,7 @@ const handleEliminar = async (idProducto) => {
                             placeholder="Precio"
                         />
                         <input
+                            className='input-1'
                             type="text"
                             name="descripcion"
                             value={nuevosDatos.descripcion || productoAEditar.descripcion}
@@ -168,13 +177,17 @@ const handleEliminar = async (idProducto) => {
                             placeholder="Descripción"
                         />
                         <input
+                            className='input-1'
                             type="text"
                             name="imagen"
                             value={nuevosDatos.imagen || productoAEditar.imagen}
                             onChange={handleInputChange}
                             placeholder="Imagen"
                         />
-                        <button type="button" onClick={handleGuardarCambios}>Guardar Cambios</button>
+                        <button className='button-guardar' type="button-g" onClick={handleGuardarCambios}>Guardar Cambios</button>
+                        <button className='button-close' type="button-close" onClick={() => setMostrarModal(false)}>
+                            <img src={close} alt="close" className='close' />
+                        </button>
                     </form>
                 </div>
             )}

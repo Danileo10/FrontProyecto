@@ -146,10 +146,10 @@ export const ClientesListado = () => {
                   />
                 </label>
               </div>
-              <button type="button_save" onClick={handleGuardarCambios}>
+              <button className='button_save' type="button_save" onClick={handleGuardarCambios}>
                 Guardar Cambios
               </button>
-              <button type="button_close" onClick={() => setMostrarModal(false)}>
+              <button className='button_close' type="button_close" onClick={() => setMostrarModal(false)}>
                 <img src={cerrar} alt="cerrar" className='cerrar' />
               </button>
             </form>

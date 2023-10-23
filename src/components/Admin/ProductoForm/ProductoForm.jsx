@@ -1,5 +1,5 @@
 import { Form, Button } from 'semantic-ui-react';
-
+import './ProductoForm.scss'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 
@@ -29,8 +29,8 @@ export const ProductoForm = () => {
 
 
     return (
-        <>
-            <Form className='login-form-admin' onSubmit={formik.handleSubmit}>
+        <>  <div className='contentFrom'>
+                <Form className='productosFrom' onSubmit={formik.handleSubmit}>
                 <Form.Input
                     name="nombre"
                     placeholder="Nombre del producto"
@@ -72,6 +72,7 @@ export const ProductoForm = () => {
                 </div>
 
             </Form>
+            </div>
         </>
     )
 }
