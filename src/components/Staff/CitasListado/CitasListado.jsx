@@ -23,7 +23,7 @@ export const CitasListado = () => {
             <h1>listado citas</h1>
             <ul>
                 {data.map((item) => (
-                    <li key={item.id}>
+                    <li key={item.id} className='c'>
                         <p>fecha: {item.Fecha}</p>
                         <p>bloque: {item.Bloque}</p>
                         <p>servicio: {item.Servicio}</p>

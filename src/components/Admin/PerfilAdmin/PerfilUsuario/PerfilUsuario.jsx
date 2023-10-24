@@ -67,9 +67,9 @@ export const PerfilUsuario = () => {
         <h1>PERFIL</h1>
       </div>
 
-      <div className="contact-info">
+      <div className="contact-info">  
         <div className="section">
-          <p className="section-title">Nombre:</p>
+          <p className="section-title">Nombre</p>
           {modoEdicion ? (
             <input
               type="text"
@@ -83,7 +83,7 @@ export const PerfilUsuario = () => {
         </div>
 
         <div className="section">
-          <p className="section-title">Apellido:</p>
+          <p className="section-title">Apellido</p>
           {modoEdicion ? (
             <input
               type="text"
@@ -97,7 +97,7 @@ export const PerfilUsuario = () => {
         </div>
 
         <div className="section">
-          <p className="section-title">Email:</p>
+          <p className="section-title">Email</p>
           {modoEdicion ? (
             <input
               type="text"
@@ -111,7 +111,7 @@ export const PerfilUsuario = () => {
         </div>
 
         <div className="section">
-          <p className="section-title">Teléfono:</p>
+          <p className="section-title">Teléfono</p>
           {modoEdicion ? (
             <input
               type="text"
@@ -125,7 +125,7 @@ export const PerfilUsuario = () => {
         </div>
 
         <div className="section">
-          <p className="section-title">Dirección:</p>
+          <p className="section-title">Dirección</p>
           {modoEdicion ? (
             <input
               type="text"

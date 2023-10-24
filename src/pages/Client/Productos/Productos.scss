@@ -1,6 +1,8 @@
 .card {
     width: 18rem;
     margin-bottom: 40px;
+    border-radius: 10px !important;
+    box-shadow: -1px 2px 10px 0px rgba(0, 0, 0, 0.73)
 }
 
 .botonMore{
@@ -11,12 +13,11 @@
 
 .card-img-top{
     height: 200px;
+    border-radius: 10px 10px 0px 0px!important;
 }
 
 .productos{
     display: flex;
-
-
 }
 
 .hide {
@@ -36,4 +37,9 @@
     align-items: center;
     justify-content:space-between;
     flex-wrap: wrap;
+}
+
+.top-menu-client__item_pro{
+    color: rgb(224, 94, 116);
+    border-radius: 5px;
 }

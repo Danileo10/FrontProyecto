@@ -1,0 +1,24 @@
+.eliminar-button_pet{
+    background: rgb(74, 113, 241);
+    border-radius: 5px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.eliminar-button_pet:hover{
+    background: rgb(40, 82, 221);
+    border-radius: 5px;
+}   
+
+.ul-mascotas{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title2{
+    margin-left: 45px;
+}
+
+.li-mascotas{
+    width: 400px;
+}

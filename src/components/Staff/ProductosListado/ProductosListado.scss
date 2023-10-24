@@ -4,15 +4,13 @@
     margin-bottom: 20px;
 }
 
-li ,.li-productos{
-    margin: 20px !important;
-}
 .ul-productos{
     display: flex;
     flex-wrap: wrap;
 }
 
-.containerBtn{
+
+.containerBtn_pl{
     display: flex;
     justify-content: space-around;
 }
@@ -20,8 +18,17 @@ li ,.li-productos{
   background-color: rgb(74, 113, 241);
   border-radius: 5px;
 }
+.editar:hover{
+    background-color: rgb(38, 86, 241);
+    border-radius: 5px;
+  }
 .eliminar{
-    background-color: rgb(241, 74, 74);
+    background-color: rgb(226, 107, 107);
+    border-radius: 5px;
+}
+
+.eliminar:hover{
+    background-color: rgb(223, 72, 72);
     border-radius: 5px;
 }
 
@@ -65,6 +72,11 @@ li ,.li-productos{
     padding: 10px 20px;
     cursor: pointer;
     margin-top: 20px;
+}
+
+.button-guardar:hover{
+    background-color: rgb(36, 84, 240);
+    color: white;
 }
 
 

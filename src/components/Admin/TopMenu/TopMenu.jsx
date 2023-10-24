@@ -4,6 +4,7 @@ import { Icon, Menu } from 'semantic-ui-react'
 import { useAuth } from '../../../hooks'
 import { Link } from 'react-router-dom'
 import nav from "../../../../public/carro.svg"
+import logout_top from "../../../../public/logout1.svg"
 
 export const TopMenu = () => {
   const { auth, logout } = useAuth();
@@ -90,7 +91,7 @@ export const TopMenu = () => {
 
           <Link to={'/'}>
             <Menu.Item onClick={logout}>
-              <Icon name='sign-out'></Icon>
+            <a href=""><img src={logout_top} alt="Icon" className='logout_top' /></a>
             </Menu.Item>
           </Link>
 

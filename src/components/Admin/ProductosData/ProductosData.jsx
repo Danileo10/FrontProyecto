@@ -46,7 +46,7 @@ const agregarAlCarrito = (producto) => {
                 <h1>Tienda</h1>
                 <ul>
                     {productos.map((producto) => (
-                        <li key={producto.idproducto}>
+                        <li key={producto.idproducto} className='c'>
                             <p>{producto.nombre}</p>
                             <p>{producto.precio}</p>
                             <p>{producto.descripcion}</p>

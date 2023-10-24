@@ -10,29 +10,32 @@ const ProductoCard = ({ product }) => {
   };
 
   function formatNumber(number) {
-    return new Intl.NumberFormat().format(number)
+    return new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(number);
   }
+
+  // Modificación: Obtén el precio formateado
+  const formattedPrecio = formatNumber(product.precio);
 
   return (
     <div className="card" key={product.idproducto}>
       <img className="card-img-top" src={product.imagen} alt="" />
       <div className="card-body">
         <h5 className="card-title">{product.nombre}</h5>
-        <p className="card-text">{formatNumber(product.precio)}$</p>
+        <p className="card-text">{formattedPrecio}</p>
         {showDescription && <p className="card-text">{product.descripcion}</p>}
         <div className="botonMore">
           <button
-            className=" top-menu-client__item"
+            className="top-menu-client__item_pro"
             id="hideText_btn"
             onClick={handleMostrarMasClick}
           >
-            {showDescription ? 'Ocultar' : 'Mostrar Más'}
+            {showDescription ? 'Ocultar' : 'Ver más'}
           </button>
         </div>
         
       </div>
     </div>
-  );
+  );  
 };
 
 export const Productos = () => {

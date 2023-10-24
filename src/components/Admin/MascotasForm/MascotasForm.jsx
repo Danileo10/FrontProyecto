@@ -1,11 +1,10 @@
 
 import { Form, Button } from 'semantic-ui-react';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks'
-
 import { crearMascotaApi } from '../../../api/user'
+import './MascotasForm.scss'
 
 export const MascotasForm = () => {
     //console.log(useAuth())
@@ -28,11 +27,10 @@ export const MascotasForm = () => {
         }
     });
 
-
-
     return (
         <>
-            <Form className='login-form-admin' onSubmit={formik.handleSubmit}>
+            <h2 className="titulo-mascotas">Añade Mascotas</h2>
+            <Form className="login-form-admin_mascotas" onSubmit={formik.handleSubmit}>
                 <Form.Input
                     name="nombre"
                     placeholder="Nombre de la mascota"
@@ -62,14 +60,12 @@ export const MascotasForm = () => {
                     onChange={formik.handleChange}
                     error={formik.errors.string}
                 />
-                <div className='contenedorBtn'>
-                    <Button type='submit' content="Crear" primary fluid />
-
+                <div className="contenedorBtn_mascotas">
+                    <Button type='submit' content="Crear" primary fluid className="btn-crear" />
                 </div>
-
             </Form>
         </>
-    )
+    );
 }
 
 

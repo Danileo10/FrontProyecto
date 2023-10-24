@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks";
-
-
-
-
+import './Citaslistado.scss';
 
 export const CitasListado = () => {
   const [citas, setCitas] = useState([]);
@@ -84,14 +81,14 @@ export const CitasListado = () => {
   return (
       <>
          <h1>Citas Agendadas</h1>
-          <ul>
+          <ul className="ul-mascotas">
               {citas.map((cita) => (
                   <li key={cita.idcita}>
                       <p>Fecha de la Cita: {cita.Fecha}</p>
                       <p>Bloque de horas de la Cita: {cita.Bloque}</p>
                       <p>Servicio a atender: {cita.Servicio}</p>
                       <p>Mascota a atender: {cita.Mascota}</p>
-                      <button onClick={() => handleEliminar(cita.idcita)}>Cancelar</button>
+                      <button className="eliminar-button_pet" onClick={() => handleEliminar(cita.idcita)}>Cancelar</button>
                      
                       {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}
                   </li>

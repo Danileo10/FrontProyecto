@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../../hooks";
-
-
+import './PerfilMascota.scss';
 
 export const PerfilMascota = () => {
     const [mascotas, setMascotas] = useState([]);
@@ -81,15 +80,15 @@ export const PerfilMascota = () => {
     };
     return (
         <>
-           <h1>Mascotas</h1>
-            <ul>
+           <h1 className="title2">Mascotas</h1>
+            <ul className="ul-mascotas">
                 {mascotas.map((mascota) => (
-                    <li key={mascota.idmascota}>
+                    <li className="li-mascotas c" key={mascota.idmascota}>
                         <p>Nombre: {mascota.nombre}</p>
                         <p>Fecha de nacimiento: {mascota.fecha_nacim}</p>
                         <p>Raza: {mascota.raza}</p>
                         <p>Fecha de defunción: {mascota.fecha_defun}</p>
-                        <button onClick={() => handleEliminar(mascota.idmascota)}>Eliminar</button>
+                        <button className="eliminar-button_pet" onClick={() => handleEliminar(mascota.idmascota)}>Eliminar</button>
                         {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}
                     </li>
                 ))}

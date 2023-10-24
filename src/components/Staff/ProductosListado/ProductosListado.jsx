@@ -134,14 +134,13 @@ const handleEliminar = async (idProducto) => {
             <h1 className='title'>Listado de Productos</h1>
             <ul className='ul-productos'>
                 {data.map((item) => (
-                    <li className='li-producto' key={item.idproducto}>
+                    <li key={item.idproducto} className='c' >
                         <p>{item.nombre}</p>
                         <p>{item.precio}</p>
                         <p>{item.descripcion}</p>
                         <p>{item.imagen}</p>
-                        <div className='containerBtn'>
+                        <div className='containerBtn_pl'>
                         <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
-                         {/* Botón para eliminar el producto */}
                         <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
                         </div>
                     </li>

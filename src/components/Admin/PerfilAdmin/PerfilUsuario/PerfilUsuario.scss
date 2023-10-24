@@ -4,7 +4,7 @@
     font-family: 'Arial', sans-serif;
     max-width: 800px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 20px;
     padding: 20px;
   }
   
@@ -20,15 +20,6 @@
   .profile-header h1 {
     font-size: 24px;
     margin: 0;
-  }
-  
-  /* Estilo para la foto de perfil */
-  .profile-picture {
-    border: 5px solid #fff;
-    border-radius: 50%;
-    max-width: 150px;
-    margin: 20px auto;
-    display: block;
   }
   
   /* Estilo para la información de contacto */
@@ -51,20 +42,7 @@
     margin: 0;
   }
   
-  /* Estilo para listas de experiencia laboral */
-  .work-experience ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .work-experience li {
-    margin-bottom: 15px;
-  }
-  
-  .work-experience .job-title {
-    font-weight: bold;
-  }
+
   
   /* Estilo para botones */
   .button-group {
@@ -87,3 +65,17 @@
     background-color: #f49595;
     color: white;
   }
+
+  /* Estilo para secciones de contenido */
+.section {
+  margin: 20px 0;
+  text-align: center; /* Añadido para centrar el texto */
+}
+
+/* Estilo para títulos de sección */
+.section-title {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+  text-align: center; /* Añadido para centrar el texto */
+} 

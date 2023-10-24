@@ -82,7 +82,8 @@ export const CitasForm = () => {
 
     return (
         <>
-            <Form className='login-form-admin' onSubmit={formik.handleSubmit}>
+        <h2 className="titulo-mascotas">Agenda Citas</h2>
+            <Form className='login-form-admin_mascotas' onSubmit={formik.handleSubmit}>
                 <Form.Input
                     name="fecha"
                     type='date'
@@ -116,7 +117,7 @@ export const CitasForm = () => {
                     error={formik.errors.id_servicio}
                 />
                 <div className='contenedorBtn'>
-                    <Button type='submit' content="Crear" primary fluid />
+                    <Button type='submit' content="Crear" primary fluid className="btn-crear" />
 
                 </div>
 

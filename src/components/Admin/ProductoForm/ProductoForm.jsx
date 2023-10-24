@@ -30,6 +30,7 @@ export const ProductoForm = () => {
 
     return (
         <>  <div className='contentFrom'>
+            
                 <Form className='productosFrom' onSubmit={formik.handleSubmit}>
                 <Form.Input
                     name="nombre"
@@ -72,6 +73,7 @@ export const ProductoForm = () => {
                 </div>
 
             </Form>
+            <h1>hola</h1>
             </div>
         </>
     )

@@ -2,6 +2,8 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {Form, Button} from 'semantic-ui-react';
 import { correoReset } from '../../../../api/user';
+import './EmailInputForm.scss';
+
 export const EmailInputForm = (props) => {
   
   const formik = useFormik({
@@ -23,6 +25,8 @@ export const EmailInputForm = (props) => {
     
   return (
     <>
+    <div className="reset-password-container">
+      <h2>Restablece tu contraseña</h2>
       <Form className='login-form-admin_reset' onSubmit={formik.handleSubmit}>
             <Form.Input
                 name="email"
@@ -36,6 +40,7 @@ export const EmailInputForm = (props) => {
             </div>
       
         </Form> 
+        </div>
     </>
   )
 }
