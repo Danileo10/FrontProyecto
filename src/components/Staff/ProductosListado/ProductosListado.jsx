@@ -158,7 +158,8 @@ const handleEliminar = async (idProducto) => {
                         <p>{item.nombre}</p>
                         <p>{item.precio}</p>
                         <p>{item.descripcion}</p>
-                        <p>{item.imagen}</p>
+                        <img src={item.imagen} alt="producto" />
+                        
                         <div className='containerBtn_pl'>
                         <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
                         <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
