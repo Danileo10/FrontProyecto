@@ -51,7 +51,7 @@ const agregarAlCarrito = (producto) => {
                             <p>{producto.precio}</p>
                             <p>{producto.descripcion}</p>
                             <p>{producto.imagen}</p>
-                            <button onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                            <button className='button_save' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
                         </li>
                     ))}
                 </ul>

@@ -90,8 +90,8 @@ export const Carrito = () => {
             <p>Precio: {item.precio}</p>
             <p>Cantidad: {item.cantidad || 1}</p> {/* Iniciar en 1 si es undefined */}
             {/* Agregar botones para agregar y restar cantidad */}
-            <button onClick={() => agregarCantidad(index)}>Agregar</button>
-            <button onClick={() => restarCantidad(index)}>Restar</button>
+            <button className='button_save' onClick={() => agregarCantidad(index)}>Agregar</button>
+            <button className='button_save' onClick={() => restarCantidad(index)}>Restar</button>
           </li>
         ))}
       </ul>
@@ -106,7 +106,7 @@ export const Carrito = () => {
 
       
 
-      <button onClick={handlePagar}>Pagar</button>
+      <button className='button_save' onClick={handlePagar}>Pagar</button>
     </div>
   );
 }
