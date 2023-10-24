@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 import './ProductosListado.scss'
 import close from "../../../../public/x.svg"
+import { useAuth } from '../../../hooks';
 
 export const ProductosListado = () => {
+    
     const [data, setData] = useState([]);
+    const { auth } = useAuth();
+
     const [productoAEditar, setProductoAEditar] = useState(null); // Estado para el producto que se está editando
     const [nuevosDatos, setNuevosDatos] = useState({}); // Estado para los nuevos datos del producto
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -27,9 +31,15 @@ export const ProductosListado = () => {
     // Función para manejar el clic en el botón "Editar"
     const handleEditar = (producto) => {
         setProductoAEditar(producto);
+        setNuevosDatos({
+            nombre: producto.nombre || '',
+            precio: producto.precio || '',
+            descripcion: producto.descripcion || '',
+            imagen: producto.imagen || '',
+        });
         setMostrarModal(true);
     };
-      
+    
 
     // Función para manejar los cambios en los campos de edición
     const handleInputChange = (e) => {
@@ -39,15 +49,24 @@ export const ProductosListado = () => {
 
     // Función para enviar la solicitud PATCH al servidor
     // Función para enviar la solicitud PATCH al servidor
-const handleGuardarCambios = async () => {
+const handleGuardarCambios = async (e) => {
+    e.preventDefault();
     try {
+
+        const empleado = auth.me.idcliente;
+
+        const datosConId = {
+            ...nuevosDatos
+        };
+
+        console.log(datosConId)
         // Realizar la solicitud PATCH con los nuevos datos
-        const response = await fetch(`http://127.0.0.1:8000/api-comercio/modificar_producto/?id_producto=${productoAEditar.idproducto}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api-comercio/modificar_producto/?id_producto=${productoAEditar.idproducto}&empleado=${empleado}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(nuevosDatos),
+            body: JSON.stringify(datosConId),
         });
 
         if (response.ok) {
@@ -82,8 +101,9 @@ const handleEliminar = async (idProducto) => {
             // Esperar 5 segundos antes de eliminar el producto definitivamente
             const timer = setTimeout(async () => {
                 try {
+                    const empleado = auth.me.idcliente;
                     // Realizar la solicitud DELETE al servidor
-                    const response = await fetch(`http://127.0.0.1:8000/api-comercio/eliminar_producto/?id_producto=${idProducto}`, {
+                    const response = await fetch(`http://127.0.0.1:8000/api-comercio/eliminar_producto/?id_producto=${idProducto}&empleado=${empleado}`, {
                         method: 'DELETE',
                     });
 
@@ -156,7 +176,7 @@ const handleEliminar = async (idProducto) => {
                             className='input-1'
                             type="text"
                             name="nombre"
-                            value={nuevosDatos.nombre || productoAEditar.nombre}
+                            value={(productoAEditar && nuevosDatos.nombre) || ''}
                             onChange={handleInputChange}
                             placeholder="Nombre"
                         />
@@ -164,7 +184,7 @@ const handleEliminar = async (idProducto) => {
                             className='input-1'
                             type="text"
                             name="precio"
-                            value={nuevosDatos.precio || productoAEditar.precio}
+                            value={(productoAEditar && nuevosDatos.precio) || ''}
                             onChange={handleInputChange}
                             placeholder="Precio"
                         />
@@ -172,7 +192,7 @@ const handleEliminar = async (idProducto) => {
                             className='input-1'
                             type="text"
                             name="descripcion"
-                            value={nuevosDatos.descripcion || productoAEditar.descripcion}
+                            value={(productoAEditar && nuevosDatos.descripcion) || ''}
                             onChange={handleInputChange}
                             placeholder="Descripción"
                         />
@@ -180,7 +200,7 @@ const handleEliminar = async (idProducto) => {
                             className='input-1'
                             type="text"
                             name="imagen"
-                            value={nuevosDatos.imagen || productoAEditar.imagen}
+                            value={(productoAEditar && nuevosDatos.imagen) || ''}
                             onChange={handleInputChange}
                             placeholder="Imagen"
                         />

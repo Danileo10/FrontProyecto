@@ -7,8 +7,10 @@ export const ProductosStaff = () => {
       <ProductosListado>
         
       </ProductosListado>
-      <Link to={"/staff/productos/crear"}>
-          Crear Producto
+      <Link to={"/admin/productos/crear"}>
+          <button className="editar">
+            Crear Producto
+          </button>
       </Link>
       
     </div>

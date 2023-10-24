@@ -2,13 +2,14 @@ import { Form, Button } from 'semantic-ui-react';
 import './ProductoForm.scss'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import { useAuth } from '../../../hooks';
 
 
 import { crearProductoApi } from '../../../api/user'
 
 export const ProductoForm = () => {
     //console.log(useAuth())
-
+    const {auth} = useAuth();
 
     const formik = useFormik({
         initialValues: initialValues(),
@@ -16,7 +17,7 @@ export const ProductoForm = () => {
         onSubmit: async (formValue) => {
             try {
                 console.log(formValue)
-                const response = await crearProductoApi(formValue);
+                const response = await crearProductoApi(formValue, auth.me.idcliente);
                 console.log(response)
 
             } catch (e) {
@@ -82,9 +83,10 @@ const initialValues = (id) => {
     return {
         id: id,
         nombre: "",
-        fecha_nacim: "",
-        especie: "",
-        raza: "",
+        precio: "",
+        descripcion: "",
+        stock: "",
+        imagen: "",
     };
 }
 

@@ -90,7 +90,7 @@ export const CitasListado = () => {
                       <p>Fecha de la Cita: {cita.Fecha}</p>
                       <p>Bloque de horas de la Cita: {cita.Bloque}</p>
                       <p>Servicio a atender: {cita.Servicio}</p>
-                      <p>Mascota a atender: {cita.Mascota}</p>
+                      <p>Mascota a atender: {cita.Nombre_mascota} - {cita.Raza_mascota}</p>
                       <button onClick={() => handleEliminar(cita.idcita)}>Cancelar</button>
                      
                       {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}

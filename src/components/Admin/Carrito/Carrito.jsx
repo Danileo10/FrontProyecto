@@ -30,13 +30,14 @@ export const Carrito = () => {
   const handlePagar = async () => {
     // Crear un array de productos seleccionados con sus cantidades
     const productosSeleccionados = carrito.map((item) => ({
-      id_producto: item.idproducto,
+      producto_idProducto: item.idproducto,
       cantidad: item.cantidad || 1,
     }));
 
     const data = {
       productos: productosSeleccionados,
-      tipo_entrega: tipoDomicilio
+      tipo_entrega: tipoDomicilio,
+      id_cliente: auth.me.idcliente
     };
 
     console.log(data)
@@ -54,9 +55,10 @@ export const Carrito = () => {
         // La solicitud fue exitosa, puedes manejar la respuesta aquí
         const responseData = await response.json(); // Convertir la respuesta a JSON
         console.log('Respuesta del servidor:', responseData);
+        window.location.href = responseData
         setCarrito([]);
         actualizarLocalStorage([]);
-        navigate(responseData)
+
       } else {
         // La solicitud no fue exitosa, maneja el error aquí
         console.error('Error al realizar la compra');
