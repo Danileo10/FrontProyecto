@@ -23,7 +23,7 @@ export const EmailInputForm = (props) => {
     
   return (
     <>
-      <Form className='login-form-admin' onSubmit={formik.handleSubmit}>
+      <Form className='login-form-admin_reset' onSubmit={formik.handleSubmit}>
             <Form.Input
                 name="email"
                 placeholder="Email"
