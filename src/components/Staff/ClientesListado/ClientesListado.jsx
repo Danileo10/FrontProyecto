@@ -30,12 +30,15 @@ export const ClientesListado = () => {
   const handleEditar = (cliente) => {
     setClienteAEditar(cliente);
     setNuevosDatos({
-      ...cliente,
+      nombre: cliente.persona_idusuario.nombre || '',
+      apellido: cliente.persona_idusuario.apellido || '',
+      email: cliente.persona_idusuario.email || '',
+      direccion: cliente.direccion || '',
       is_staff: cliente.persona_idusuario.is_staff === 1,
     });
     setMostrarModal(true);
   };
-
+  
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const inputValue = type === 'checkbox' ? checked : value;
@@ -45,7 +48,12 @@ export const ClientesListado = () => {
     }));
   };
 
-  const handleGuardarCambios = async () => {
+  const handleGuardarCambios = async (e) => {
+    e.preventDefault();
+    if (!nuevosDatos.nombre || !nuevosDatos.apellido || !nuevosDatos.email || !nuevosDatos.direccion) {
+      console.error('Todos los campos son obligatorios');
+      return;
+    }
     try {
       const response = await fetch(
         `http://127.0.0.1:8000/api/modificar_cliente/?id_cliente=${clienteAEditar.idcliente}`,
@@ -72,6 +80,8 @@ export const ClientesListado = () => {
       } else {
         throw new Error('Error al editar el producto');
       }
+
+      
     } catch (error) {
       console.error(error);
     }
@@ -103,7 +113,7 @@ export const ClientesListado = () => {
                 <input
                   type="text"
                   name="nombre"
-                  value={nuevosDatos.nombre || clienteAEditar.persona_idusuario.nombre}
+                  value={nuevosDatos.nombre !== undefined ? nuevosDatos.nombre : clienteAEditar.persona_idusuario.nombre}
                   onChange={handleInputChange}
                   placeholder="Nombre"
                 />
@@ -112,7 +122,7 @@ export const ClientesListado = () => {
                 <input
                   type="text"
                   name="apellido"
-                  value={nuevosDatos.apellido || clienteAEditar.persona_idusuario.apellido}
+                  value={nuevosDatos.apellido !== undefined ? nuevosDatos.apellido : clienteAEditar.persona_idusuario.apellido}
                   onChange={handleInputChange}
                   placeholder="Apellido"
                 />
@@ -121,7 +131,7 @@ export const ClientesListado = () => {
                 <input
                   type="text"
                   name="email"
-                  value={nuevosDatos.email || clienteAEditar.persona_idusuario.email}
+                  value={nuevosDatos.email !== undefined ? nuevosDatos.email : clienteAEditar.persona_idusuario.email}
                   onChange={handleInputChange}
                   placeholder="Email"
                 />
@@ -130,7 +140,7 @@ export const ClientesListado = () => {
                 <input
                   type="text"
                   name="direccion"
-                  value={nuevosDatos.direccion || clienteAEditar.direccion}
+                  value={nuevosDatos.direccion !== undefined ? nuevosDatos.direccion : clienteAEditar.direccion}
                   onChange={handleInputChange}
                   placeholder="Dirección"
                 />

@@ -1,17 +1,16 @@
-import { Form, Button } from 'semantic-ui-react';
-import { Link, Navigate } from 'react-router-dom';
-import React, { useState } from 'react';
+
+import  { useState } from 'react';
 import { EmailInputForm } from './EmailInputForm';
 import { ResetPassword } from './ResetPassword';
 import { VerificationCodeInputForm } from './VerificationCodeInputForm';
-import { BASE_API } from '../../../../utils/constants';
+
 import { useNavigate } from 'react-router-dom';
 
 export const PasswordReset1 = () => {
     const [step, setStep] = useState(1);
-    const [email, setEmail] = useState('');
+    
     const [idUser, setidUser ] = useState('');
-    const [codeVerification, setcodeVerification] = useState('');
+    
     const navigate = useNavigate();
 
     const handleEmailSubmit =  () => {

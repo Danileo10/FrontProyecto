@@ -161,10 +161,11 @@ export const crearCitaApi = async(formValue) => {
     }
 }
 
-export const crearProductoApi = async(formValue) => {
+export const crearProductoApi = async(formValue, id) => {
     //eslint-disable-next-line
     try{
-        const url = `${BASE_API}/api-comercio/crear_producto/`;
+        
+        const url = `${BASE_API}/api-comercio/crear_producto/?empleado=${id}`;
         const params = {
             method: 'POST',
             headers: {
@@ -187,31 +188,6 @@ export const crearProductoApi = async(formValue) => {
     }
 }
 
-export const modificarProductoApi = async(formValue) => {
-    //eslint-disable-next-line
-    try{
-        const url = `${BASE_API}/api-comercio/crear_producto/`;
-        const params = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formValue),
-        };
-
-        const response = await fetch(url, params);
-
-        if(response.status !== 200){
-            throw new Error(response.statusText);
-        }
-
-        const result = await response.json();
-
-        return result;
-    }catch(error){
-        throw error;
-    }
-}
 
 
 
