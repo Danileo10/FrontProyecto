@@ -99,8 +99,8 @@ export const Carrito = () => {
       <h4>Informacion Adicional</h4>
           <h6>Tipo de domicilio</h6>
       <select value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
-        <option value="opcion1">Domicilio</option>
-        <option value="opcion2">Recoger en tienda</option>
+        <option value="Domicilo">Domicilio</option>
+        <option value="Recoger en tienda">Recoger en tienda</option>
       </select>
 
 

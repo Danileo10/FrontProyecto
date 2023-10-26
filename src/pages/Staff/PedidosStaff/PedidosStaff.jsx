@@ -1,10 +1,11 @@
+import { PedidosAdmin } from "../../../components/Admin"
 
 
 export const PedidosStaff = () => {
   return (
-    <div>
-      hola pedidos staff
-    </div>
+    <PedidosAdmin>
+      
+    </PedidosAdmin>
   )
 }
 
