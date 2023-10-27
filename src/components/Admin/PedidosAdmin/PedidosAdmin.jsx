@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../../hooks';
 
 export const PedidosAdmin = () => {
+    const {auth} = useAuth()
     const [pedidos, setPedidos] = useState([]);
     const [pedidoDetallado, setPedidoDetallado] = useState([]);
+    
+
+    const confirmarEliminarPedido = (idpedido) => {
+        const confirmacion = window.confirm("¿Estás seguro de que quieres eliminar este pedido?");
+        if (confirmacion) {
+          eliminarPedido(idpedido);
+        }
+      };
+      
+    
 
     useEffect(() => {
         fetchData();
@@ -10,18 +22,35 @@ export const PedidosAdmin = () => {
 
     async function fetchData() {
         try {
-            const response = await fetch("http://127.0.0.1:8000/api-comercio/pedidos/", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            const data = await response.json();
-            setPedidos(data);
+          const response = await fetch("http://127.0.0.1:8000/api-comercio/pedidos/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await response.json();
+          setPedidos(data);
         } catch (error) {
-            console.error("Error al obtener los datos del servidor: ", error);
+          console.error("Error al obtener los datos del servidor: ", error);
         }
-    }
+      }
+      
+    async function eliminarPedido(idpedido) {
+        try {
+          await fetch(`http://127.0.0.1:8000/api-comercio/eliminar_pedido/?id_pedido=${idpedido}&empleado=${auth.me.idcliente}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          // Refresca la lista de pedidos después de eliminar uno
+          fetchData();
+          console.log("Pedido eliminado correctamente.");
+        } catch (error) {
+          console.error("Error al eliminar el pedido: ", error);
+        }
+      }
+      
 
     async function fetchPedidoDetallado(idpedido) {
         try {
@@ -49,6 +78,7 @@ export const PedidosAdmin = () => {
                         <p>Tipo de entrega: {pedido.tipo_entrega}</p>
                         <p>Total: {pedido.total}</p>
                         <button onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
+                        <button onClick={() => confirmarEliminarPedido(pedido.idpedido)}>Eliminar</button>
                     </li>
                 ))}
             </ul>
