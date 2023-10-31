@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks'
 import { crearMascotaApi } from '../../../api/user'
+import { toast } from 'react-toastify';
 import './MascotasForm.scss'
 
 export const MascotasForm = () => {
@@ -19,6 +20,13 @@ export const MascotasForm = () => {
                 console.log(formValue)
                 const response = await crearMascotaApi(formValue, auth.me.idcliente);
                 console.log(response)
+                if (response.status === response.ok) {
+                    toast.success('Mascota creada con éxito');
+                    window.location.reload(); // Recarga la página después de mostrar la notificación
+                  } else {
+                    // Si hay un error en la creación de la mascota, muestra una notificación de error
+                    toast.error('Error al crear la mascota');
+                  }
 
             } catch (e) {
                 console.log("Error");
