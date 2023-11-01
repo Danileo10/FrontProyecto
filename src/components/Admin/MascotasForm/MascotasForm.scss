@@ -2,10 +2,14 @@
     padding: 20px;
     width: 500px;
     margin: 90px ;
-    margin-top: 20px;
-    
+    margin-top: 20px;   
 }
 
+.label1 {
+    width: 100%;
+    text-align: left !important;
+    margin-bottom: 5px;
+}
 .login-form-admin_mascotas {
     display: flex;
     flex-direction: column;

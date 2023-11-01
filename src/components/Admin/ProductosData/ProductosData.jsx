@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CarritoProvider } from '../../../context';
+import '../ProductosData/ProductosData.scss';
 
 export const ProductosData = () => {
     const [productos, setProductos] = useState([]);
@@ -40,13 +41,13 @@ const agregarAlCarrito = (producto) => {
 
 
     return (
-        <>
+        <div className='content2'>
 
             <CarritoProvider>
-                <h1>Tienda</h1>
+                <h1 className="titulo-mascotas">Tienda</h1>
                 <ul>
                     {productos.map((producto) => (
-                        <li key={producto.idproducto} className='c'>
+                        <li key={producto.idproducto} className='tienda_add'>
                             <p>{producto.nombre}</p>
                             <p>{producto.precio}</p>
                             <p>{producto.descripcion}</p>
@@ -54,11 +55,11 @@ const agregarAlCarrito = (producto) => {
                             <button className='button_save' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
                         </li>
                     ))}
-                </ul>
+                </ul>   
 
             </CarritoProvider>
 
 
-        </>
+        </div>
     );
 };
