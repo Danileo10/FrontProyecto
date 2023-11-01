@@ -149,7 +149,7 @@ export const crearCitaApi = async(formValue) => {
 
         const response = await fetch(url, params);
 
-        if(response.status !== 200){
+        if(response.status !== 201){
             throw new Error(response.statusText);
         }
 
@@ -176,7 +176,7 @@ export const crearProductoApi = async(formValue, id) => {
 
         const response = await fetch(url, params);
 
-        if(response.status !== 200){
+        if(response.status !== 201){
             throw new Error(response.statusText);
         }
 

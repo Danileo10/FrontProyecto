@@ -145,8 +145,8 @@ export const PedidosAdmin = () => {
             <p>Estado: {pedido.estado}</p>
             <p>Tipo de entrega: {pedido.tipo_entrega}</p>
             <p>Total: {pedido.total}</p>
-            <button onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-            <button onClick={() => confirmarEliminarPedido(pedido.idpedido)}>Eliminar</button>
+            <button className='button1' onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
+            <button className='button1' onClick={() => confirmarEliminarPedido(pedido.idpedido)}>Eliminar</button>
             <button className='button1' onClick={() => handleEditar(pedido)}>Editar</button>
           </li>
         ))}

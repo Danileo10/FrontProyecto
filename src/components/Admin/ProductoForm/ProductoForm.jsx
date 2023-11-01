@@ -3,6 +3,7 @@ import './ProductoForm.scss'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 
 import { crearProductoApi } from '../../../api/user'
@@ -10,7 +11,7 @@ import { crearProductoApi } from '../../../api/user'
 export const ProductoForm = () => {
     //console.log(useAuth())
     const {auth} = useAuth();
-
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(validationSchema()),
@@ -19,6 +20,7 @@ export const ProductoForm = () => {
                 console.log(formValue)
                 const response = await crearProductoApi(formValue, auth.me.idcliente);
                 console.log(response)
+                navigate('/admin/productos');
 
             } catch (e) {
                 console.log("Error");
