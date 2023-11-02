@@ -40,25 +40,26 @@ export const TopMenu = () => {
   <>
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/clientes"}>
-        Clientes Admin
+        <button>Gestionar Clientes</button>
+        
       </Link>
     </Menu.Item>
 
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/productos"}>
-        Productos Admin
+        <button>Gestionar Productos</button>
       </Link>
     </Menu.Item>
 
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/pedidos"}>
-        Pedidos Admin
+        <button>Gestionar Pedidos</button>
       </Link>
     </Menu.Item>
 
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/citas"}>
-        Citas Admin
+       <button>Gestionar Citas</button>
       </Link>
     </Menu.Item>
   </>
@@ -68,25 +69,25 @@ export const TopMenu = () => {
           <>
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/mascotas"}>
-                Mascotas
+                <button>Mascotas</button>
               </Link>
             </Menu.Item>
 
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/productos"}>
-                Tienda
+                <button>Tienda</button>
               </Link>
             </Menu.Item>
 
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/citas"}>
-                Citas
+               <button>Citas</button>
               </Link>
             </Menu.Item>
 
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/pedidos"}>
-                Pedidos
+                <button>Pedidos</button>
               </Link>
             </Menu.Item>
           </>
@@ -105,7 +106,7 @@ export const TopMenu = () => {
 
           <Menu.Item className='top-menu-admin__item'>
             <Link to={"/perfil"}>
-              Perfil
+              <button>Perfil</button>
             </Link>
           </Menu.Item>
           {auth.me.is_staff && 

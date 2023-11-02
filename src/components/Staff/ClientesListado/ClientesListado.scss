@@ -17,8 +17,12 @@
     justify-items: center;
     align-items: center;
   }
+
+  ul{
+    list-style: none;
+  }
   
-  ul {
+  .ulC {
     list-style: none;
     padding: 0;
     display: grid;

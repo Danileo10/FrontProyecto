@@ -90,7 +90,7 @@ export const ClientesListado = () => {
   return (
     <div className='content'>
       <h1 className='titulo'>Listado de Clientes</h1>
-      <ul>
+      <ul className='ulC'>
         {data.map((item) => (
           <li key={item.idcliente} className='c'>
             <p>ID Cliente: {item.idcliente}</p>
