@@ -6,7 +6,6 @@ export const Pedidos = () => {
     <ListadoPedidos>
         
     </ListadoPedidos>
-        estas en pedidos 
     </>
   )
 }

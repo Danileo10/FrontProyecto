@@ -19,7 +19,6 @@ export const ProductoForm = () => {
             try {
                 console.log(formValue.imagen)
                 const response = await crearProductoApi(formValue, auth.me.idcliente);
-                console.log(response)
                 navigate('/admin/productos');
 
             } catch (e) {

@@ -44,17 +44,22 @@ const agregarAlCarrito = (producto) => {
 
             <CarritoProvider>
                 <h1>Tienda</h1>
-                <ul>
-                    {productos.map((producto) => (
-                        <li key={producto.idproducto} className='c'>
-                            <p>{producto.nombre}</p>
-                            <p>{producto.precio}</p>
-                            <p>{producto.descripcion}</p>
-                            <p>{producto.imagen}</p>
-                            <button className='button_save' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
-                        </li>
-                    ))}
-                </ul>
+
+                <div className='container'>
+                    <ul>
+                        {productos.map((producto) => (
+                            <li key={producto.idproducto} className='c'>
+                                <img src={`http://127.0.0.1:8000${producto.imagen}`} alt="" />
+                                <p>{producto.nombre}</p>
+                                <p>{producto.precio}</p>
+                                <p>{producto.descripcion}</p>
+                                
+                                <button className='button_save' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                
 
             </CarritoProvider>
 

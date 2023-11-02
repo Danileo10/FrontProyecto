@@ -81,13 +81,15 @@ export const PerfilMascota = () => {
     return (
         <>
            <h1 className="title2">Mascotas</h1>
-            <ul className="ul-mascotas">
+            <ul className="ul-mascotas ">
                 {mascotas.map((mascota) => (
                     <li className="li-mascotas c" key={mascota.idmascota}>
+                        <img className="foto_mascota" src={`http://127.0.0.1:8000${mascota.imagen}`} alt="mascota" />
                         <p>Nombre: {mascota.nombre}</p>
                         <p>Fecha de nacimiento: {mascota.fecha_nacim}</p>
                         <p>Raza: {mascota.raza}</p>
                         <p>Fecha de defunción: {mascota.fecha_defun}</p>
+                        
                         <button className="eliminar-button_pet" onClick={() => handleEliminar(mascota.idmascota)}>Eliminar</button>
                         {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}
                     </li>

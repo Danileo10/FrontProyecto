@@ -1,0 +1,120 @@
+.contenedorPedidos{
+  display: flex;
+}
+
+h2, h3 {
+  font-weight: 900;
+}
+
+p{
+  font-size: 1.5rem;
+}
+
+.tituloPedidos{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
+  .lista-pedidos {
+    width: 70%;
+    flex-wrap: wrap;
+   /* Ocupa el espacio disponible en el contenedor */
+    
+
+  }
+
+  .tarjetaPedido{
+    border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+    width: 300px;
+    background-color: #F9F3CC;
+    font-size: large;
+  }
+
+  .contenedorDetalles{
+    width: 30%;
+  }
+  
+  .detalles-pedido {
+ /* Ancho fijo para los detalles del pedido */
+    padding: 20px;
+    margin-left: 20px;
+    margin-top: 1rem;
+    background-color: #D7E5CA;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+font-size: large;
+  }
+  
+.tarjetaDetalle{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}                
+
+.custom-btn {
+  width: 200px;
+  height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+
+.btn-16 {
+  border: none;
+  color: #000;
+}
+.btn-16:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+  transition: all 0.3s ease;
+}
+.btn-16:hover {
+  color: #000;
+}
+.btn-16:hover:after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+.btn-16:active {
+  top: 2px;
+}

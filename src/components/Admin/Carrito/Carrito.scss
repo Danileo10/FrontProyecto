@@ -1,0 +1,77 @@
+.carrito{
+    display: flex;
+    
+}
+
+
+.ladoizq_carrito{
+    padding-right: 1rem;
+    width: 70%;
+}
+
+.ladoder_carrito{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    width: 30%;
+    font-size: 700;
+    font-weight: bold;
+    font-family: 'Manrope', sans-serif;
+font-family: 'Poppins', sans-serif;
+
+}
+
+.titulo_carrito{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.tajeta_producCarrito{
+    display: flex;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+}
+
+.ladoizq_producto{
+    width: 30%;
+    padding: 0.5rem;
+    background-color: rgb(59, 59, 59);
+    border-radius: 10px 0px 0px 10px;
+-webkit-border-radius: 10px 0px 0px 10px;
+-moz-border-radius: 10px 0px 0px 10px;
+
+
+    
+}
+
+.imgCarrito{
+    width: 100%;
+    height:100%;
+    
+
+}
+
+.ladoder_producto{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: #F9F3CC;
+    font-weight: 700;
+    font-family: 'Manrope', sans-serif;
+font-family: 'Poppins', sans-serif;
+
+    font-size:large;
+    border-radius: 0px 10px 10px 0px;
+-webkit-border-radius: 0px 10px 10px 0px;
+-moz-border-radius: 0px 10px 10px 0px;
+
+}

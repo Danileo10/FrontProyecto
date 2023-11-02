@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useAuth } from '../../../hooks';
-import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import './Carrito.scss'
 
 export const Carrito = () => {
-  const {auth} = useAuth();
-  const navigate = useNavigate();
+  const { auth } = useAuth();
+ 
   const [tipoDomicilio, setTipoDomicilio] = useState("opcion1"); // valor inicial
   const [carrito, setCarrito] = useState(JSON.parse(localStorage.getItem('carrito')) || []);
 
@@ -13,6 +14,13 @@ export const Carrito = () => {
   const agregarCantidad = (index) => {
     const nuevoCarrito = [...carrito];
     nuevoCarrito[index].cantidad = (nuevoCarrito[index].cantidad || 0) + 1; // Iniciar en 1 si es undefined
+    setCarrito(nuevoCarrito);
+    actualizarLocalStorage(nuevoCarrito);
+  };
+
+  const eliminarProducto = (index) => {
+    const nuevoCarrito = [...carrito];
+    nuevoCarrito.splice(index, 1); // Elimina el producto en la posición 'index'
     setCarrito(nuevoCarrito);
     actualizarLocalStorage(nuevoCarrito);
   };
@@ -46,7 +54,7 @@ export const Carrito = () => {
       const response = await fetch('http://127.0.0.1:8000/api-comercio/pago/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
@@ -69,9 +77,9 @@ export const Carrito = () => {
     }
   };
 
-    
 
-  
+
+
 
 
   // Función para actualizar el carrito en el almacenamiento local
@@ -80,33 +88,51 @@ export const Carrito = () => {
   };
 
   return (
-    <div>
-      <h2>Carrito de Compras</h2>
-      <ul>
-        {carrito.map((item, index) => (
-          <li key={index}>
-            {/* Muestra los detalles del producto en el carrito */}
-            <p>Nombre: {item.nombre}</p>
-            <p>Precio: {item.precio}</p>
-            <p>Cantidad: {item.cantidad || 1}</p> {/* Iniciar en 1 si es undefined */}
-            {/* Agregar botones para agregar y restar cantidad */}
-            <button className='button_save' onClick={() => agregarCantidad(index)}>Agregar</button>
-            <button className='button_save' onClick={() => restarCantidad(index)}>Restar</button>
-          </li>
-        ))}
-      </ul>
+    <>
+      <h2 className='titulo_carrito'>Carrito de Compras</h2>
+      <div className='carrito container'>
 
-      <h4>Informacion Adicional</h4>
+
+        <div className='ladoizq_carrito'>
+          <ul>
+            {carrito.map((item, index) => (
+              <li key={index}>
+                <div className='tajeta_producCarrito'>
+                  <div className='ladoizq_producto'>
+                    <img className='imgCarrito' src={`http://127.0.0.1:8000${item.imagen}`} alt="" />
+                  </div>
+                  <div className='ladoder_producto'>
+                    <p>Producto: {item.nombre}</p>
+                    <p>Precio: $ {item.precio}</p>
+                    <p>Cantidad: {item.cantidad || 1}</p>
+                    <div>
+                      <button className='button_save' onClick={() => agregarCantidad(index)}>+</button>
+                      <button className='button_save' onClick={() => restarCantidad(index)}>-</button>
+                      <button className='' onClick={() => eliminarProducto(index)}>🗑️</button>
+                    </div>
+                    
+                  </div>
+                   {/* Iniciar en 1 si es undefined */}
+                  
+                  {/* Agregar botones para agregar y restar cantidad */}
+                  
+                </div>
+                
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className='ladoder_carrito'>
+          <h4>Informacion Adicional</h4>
           <h6>Tipo de domicilio</h6>
-      <select value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
-        <option value="Domicilo">Domicilio</option>
-        <option value="Recoger en tienda">Recoger en tienda</option>
-      </select>
-
-
-      
-
-      <button className='button_save' onClick={handlePagar}>Pagar</button>
-    </div>
+          <select value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
+            <option value="Domicilo">Domicilio</option>
+            <option value="Recoger en tienda">Recoger en tienda</option>
+          </select>
+          <button className='button_save' onClick={handlePagar}>Pagar</button>
+        </div>
+      </div>
+    </>
   );
 }

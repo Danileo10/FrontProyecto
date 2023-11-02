@@ -1,5 +1,6 @@
 import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
+import axios from 'axios';
 import './PerfilUsuario.scss'
 
 export const PerfilUsuario = () => {
@@ -11,6 +12,7 @@ export const PerfilUsuario = () => {
     email: auth.me.email,
     telefono: auth.me.telefono,
     direccion: auth.me.direccion,
+    imagen: auth.me.imagen
   });
 
   const habilitarEdicion = () => {
@@ -25,32 +27,55 @@ export const PerfilUsuario = () => {
       email: auth.me.email,
       telefono: auth.me.telefono,
       direccion: auth.me.direccion,
+      imagen: auth.me.imagen,
     });
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setDatosEditados((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      setDatosEditados((prevData) => ({
+        ...prevData,
+        [name]: files[0], // Almacena el archivo de imagen en el estado
+      }));
+    } else {
+      setDatosEditados((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const guardarCambios = async () => {
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/modificar_cliente/?id_cliente=${auth.me.idcliente}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(datosEditados),
-        }
-      );
 
-      if (response.ok) {
+      const formData = new FormData();
+
+      // Agregar campos de texto
+      formData.append("nombre", datosEditados.nombre);
+      formData.append("apellido", datosEditados.apellido);
+      formData.append("email", datosEditados.email);
+      formData.append("telefono", datosEditados.telefono);
+      formData.append("direccion", datosEditados.direccion);
+
+      // Agregar archivo de imagen (si existe)
+      if (datosEditados.imagen) {
+        formData.append("imagen", datosEditados.imagen);
+      }
+
+      const response = await axios.patch(`http://127.0.0.1:8000/api/modificar_cliente/?id_cliente=${auth.me.idcliente}`, formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Configura el tipo de contenido como multipart/form-data
+          },
+        }
+
+
+      );
+      console.log(response.data)
+      if (response.status == 200) {
         console.log('Datos actualizados con éxito');
+        window.location.reload();
         setModoEdicion(false);
         // Actualizar el estado global del usuario si es necesario
       } else {
@@ -66,78 +91,102 @@ export const PerfilUsuario = () => {
       <div className="profile-header">
         <h1>PERFIL</h1>
       </div>
-
-      <div className="contact-info">  
-        <div className="section">
-          <p className="section-title">Nombre</p>
-          {modoEdicion ? (
-            <input
-              type="text"
-              name="nombre"
-              value={datosEditados.nombre}
-              onChange={handleInputChange}
-            />
-          ) : (
-            <p>{datosEditados.nombre}</p>
-          )}
+      <div className='contact-infoizquierda'>
+        <div className='lado_izquierdoPerfil'>
+          <div className="section foto_perfil">
+            {modoEdicion ? (
+              <input
+                type="file"
+                name="imagen"
+                onChange={handleInputChange}
+                accept="image/*" // Permite solo archivos de imagen
+              />
+            ) : (
+              <img className='foto_perfil' src={`http://127.0.0.1:8000${datosEditados.imagen}`} alt="imagen de perfil" />
+            )}
+          </div>
         </div>
+        <div className='lado_derechoPerfil'>
+          <div className="contact-infoderecha">
+            <div className="section">
+              <p className="section-title">Nombre</p>
+              {modoEdicion ? (
+                <input
+                  type="text"
+                  name="nombre"
+                  value={datosEditados.nombre}
+                  onChange={handleInputChange}
+                />
+              ) : (
+                <p>{datosEditados.nombre}</p>
+              )}
 
-        <div className="section">
-          <p className="section-title">Apellido</p>
-          {modoEdicion ? (
-            <input
-              type="text"
-              name="apellido"
-              value={datosEditados.apellido}
-              onChange={handleInputChange}
-            />
-          ) : (
-            <p>{datosEditados.apellido}</p>
-          )}
-        </div>
+            </div>
 
-        <div className="section">
-          <p className="section-title">Email</p>
-          {modoEdicion ? (
-            <input
-              type="text"
-              name="email"
-              value={datosEditados.email}
-              onChange={handleInputChange}
-            />
-          ) : (
-            <p>{datosEditados.email}</p>
-          )}
-        </div>
 
-        <div className="section">
-          <p className="section-title">Teléfono</p>
-          {modoEdicion ? (
-            <input
-              type="text"
-              name="telefono"
-              value={datosEditados.telefono}
-              onChange={handleInputChange}
-            />
-          ) : (
-            <p>{datosEditados.telefono}</p>
-          )}
-        </div>
 
-        <div className="section">
-          <p className="section-title">Dirección</p>
-          {modoEdicion ? (
-            <input
-              type="text"
-              name="direccion"
-              value={datosEditados.direccion}
-              onChange={handleInputChange}
-            />
-          ) : (
-            <p>{datosEditados.direccion}</p>
-          )}
+            <div className="section">
+              <p className="section-title">Apellido</p>
+              {modoEdicion ? (
+                <input
+                  type="text"
+                  name="apellido"
+                  value={datosEditados.apellido}
+                  onChange={handleInputChange}
+                />
+              ) : (
+                <p>{datosEditados.apellido}</p>
+              )}
+            </div>
+
+            <div className="section">
+              <p className="section-title">Email</p>
+              {modoEdicion ? (
+                <input
+                  type="text"
+                  name="email"
+                  value={datosEditados.email}
+                  onChange={handleInputChange}
+                />
+              ) : (
+                <p>{datosEditados.email}</p>
+              )}
+            </div>
+
+            <div className="section">
+              <p className="section-title">Teléfono</p>
+              {modoEdicion ? (
+                <input
+                  type="text"
+                  name="telefono"
+                  value={datosEditados.telefono}
+                  onChange={handleInputChange}
+                />
+              ) : (
+                <p>{datosEditados.telefono}</p>
+              )}
+            </div>
+
+            <div className="section">
+              <p className="section-title">Dirección</p>
+              {modoEdicion ? (
+                <input
+                  type="text"
+                  name="direccion"
+                  value={datosEditados.direccion}
+                  onChange={handleInputChange}
+                />
+
+              ) : (
+                <p>{datosEditados.direccion}</p>
+
+              )}
+            </div>
+          </div>
         </div>
       </div>
+      
+      
 
       {modoEdicion ? (
         <div className="button-group">

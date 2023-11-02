@@ -89,8 +89,7 @@ export const CitasListado = () => {
                         <p>Servicio a atender: {cita.Servicio}</p>
                         <p>Mascota a atender: {cita.Nombre_mascota} - {cita.Raza_mascota}</p>
                         <p>Descripcion: {cita.Descripcion}</p>
-                        <button onClick={() => handleEliminar(cita.idcita)}>Cancelar</button>
-                        <button className="eliminar-button_pet" onClick={() => handleEliminar(cita.idcita)}>Cancelar</button>
+                        <button className="custom-btn btn-16" onClick={() => handleEliminar(cita.idcita)}>🗑️</button>
                         {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}
                     </li>
                 ))}
