@@ -31,7 +31,7 @@ const agregarAlCarrito = (producto) => {
   if (!productoExistente) {
       // Si el producto no está en el carrito, agrégalo
       setCarrito((carritoActual) => {
-          const nuevoCarrito = [...carritoActual, { ...producto, cantidad: 1 }];
+          const nuevoCarrito = [... carritoActual, { ...producto, cantidad: 1 }];
           localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
           console.log(nuevoCarrito);
           return nuevoCarrito;
@@ -41,30 +41,23 @@ const agregarAlCarrito = (producto) => {
 
 
     return (
-        <div className='content2'>
-
+        <div className='content5'>
+            <h1 className="titulo-mascotas">Tienda</h1>
             <CarritoProvider>
-                <h1>Tienda</h1>
-
-                <div className='container'>
-                    <ul>
-                        {productos.map((producto) => (
-                            <li key={producto.idproducto} className='c'>
-                                <img src={`http://127.0.0.1:8000${producto.imagen}`} alt="" />
-                                <p>{producto.nombre}</p>
-                                <p>{producto.precio}</p>
-                                <p>{producto.descripcion}</p>
-                                
-                                <button className='button_save' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                
-
+                <ul className="productos">
+                    {productos.map((producto) => (
+                        <li key={producto.idproducto} className='producto'>
+                            <div className="product-info">
+                                <h2 className="product-title">{producto.nombre}</h2>
+                                <p className="product-price">{producto.precio}</p>
+                                <p className="product-description">{producto.descripcion}</p>
+                            </div>
+                            <img className="product-image" src={`http://127.0.0.1:8000${producto.imagen}`} alt="producto" />
+                            <button className='product-button' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                        </li>
+                    ))}
+                </ul>
             </CarritoProvider>
-
-
         </div>
     );
 };
