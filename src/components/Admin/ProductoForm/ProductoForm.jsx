@@ -32,9 +32,10 @@ export const ProductoForm = () => {
 
 
     return (
-        <>  <div className='contentFrom'>
+        <div className='contentFrom'>
             
-                <Form className='productosFrom' onSubmit={formik.handleSubmit}>
+            <Form className='productosFrom' onSubmit={formik.handleSubmit}>
+                <label htmlFor="">Nombre</label>
                 <Form.Input
                     name="nombre"
                     placeholder="Nombre del producto"
@@ -42,6 +43,7 @@ export const ProductoForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("nombre", value)}
                     error={formik.errors.string}
                 />
+                <label htmlFor="">Precio</label>
                 <Form.Input
                     name="precio"
                     placeholder="precio del producto"
@@ -49,6 +51,7 @@ export const ProductoForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("precio", value)}
                     error={formik.errors.string}
                 />
+                <label htmlFor="">Descripcion </label>
                 <Form.Input
                     name="descripcion"
                     placeholder="descripcion del producto"
@@ -56,6 +59,7 @@ export const ProductoForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("descripcion", value)}
                     error={formik.errors.string}
                 />
+                <label htmlFor="">Stock</label>
                 <Form.Input
                     name="stock"
                     placeholder="stock del producto"
@@ -63,6 +67,7 @@ export const ProductoForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("stock", value)}
                     error={formik.errors.string}
                 />
+                <label htmlFor="">Imagen</label>
                 <Form.Input
                     name="imagen"
                     placeholder="imagen del producto"
@@ -71,13 +76,12 @@ export const ProductoForm = () => {
                     error={formik.errors.string}
                 />
                 <div className='contenedorBtn'>
-                    <Button type='submit' content="Crear" primary fluid />
+                    <Button type='submit' content="Crear" className='btn-crear' />
 
                 </div>
 
             </Form>
-            </div>
-        </>
+        </div>
     )
 }
 

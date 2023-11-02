@@ -151,23 +151,24 @@ const handleEliminar = async (idProducto) => {
 
     return (
         <>
-            <h1 className='title'>Listado de Productos</h1>
-            <ul className='ul-productos'>
-                {data.map((item) => (
-                    <li key={item.idproducto} className='c' >
-                        <p>{item.nombre}</p>
-                        <p>{item.precio}</p>
-                        <p>{item.descripcion}</p>
-                        <img src={item.imagen} alt="producto" />
-                        
-                        <div className='containerBtn_pl'>
-                        <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
-                        <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-
+            <div className='content6'>
+                <h1 className='title'>Listado de Productos</h1>
+                <ul className='ul-productos'>
+                    {data.map((item) => (
+                        <li key={item.idproducto} className='c' >
+                            <p>{item.nombre}</p>
+                            <p>{item.precio}</p>
+                            <p>{item.descripcion}</p>
+                            <img src={item.imagen} alt="producto" />
+                            
+                            <div className='containerBtn_pl'>
+                            <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
+                            <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>  
             {mostrarModal && productoAEditar && (
                 <div className='modal-pro'>
                     <form className='form-dos'>

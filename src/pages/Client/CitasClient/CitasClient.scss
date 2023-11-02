@@ -45,3 +45,27 @@ font-family: 'Poppins', sans-serif;
 h5 {
   color: white;
 }
+/* Personalización de los estilos de los tooltips */
+/* Cambiar el fondo del tooltip */
+.tooltip {
+  background-color: #333;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+/* Cambiar el ancho del tooltip */
+.tooltip.place-top,
+.tooltip.place-topLeft,
+.tooltip.place-topRight {
+  width: 200px; /* Ancho personalizado */
+}
+
+/* Cambiar la flecha del tooltip */
+.tooltip .arrow {
+  border-bottom-color: #333;
+}
+
+/* Cambiar el color del texto del tooltip */
+.tooltip .tooltip-content {
+  color: #fff;
+}
