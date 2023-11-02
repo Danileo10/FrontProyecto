@@ -10,14 +10,14 @@ import { crearProductoApi } from '../../../api/user'
 
 export const ProductoForm = () => {
     //console.log(useAuth())
-    const {auth} = useAuth();
+    const { auth } = useAuth();
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: async (formValue) => {
             try {
-                console.log(formValue)
+                console.log(formValue.imagen)
                 const response = await crearProductoApi(formValue, auth.me.idcliente);
                 console.log(response)
                 navigate('/admin/productos');
@@ -33,8 +33,8 @@ export const ProductoForm = () => {
 
     return (
         <>  <div className='contentFrom'>
-            
-                <Form className='productosFrom' onSubmit={formik.handleSubmit}>
+
+            <Form className='productosFrom' onSubmit={formik.handleSubmit}>
                 <Form.Input
                     name="nombre"
                     placeholder="Nombre del producto"
@@ -63,13 +63,16 @@ export const ProductoForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("stock", value)}
                     error={formik.errors.string}
                 />
-                <Form.Input
-                    name="imagen"
-                    placeholder="imagen del producto"
-                    value={formik.values.string}
-                    onChange={(e, { value }) => formik.setFieldValue("imagen", value)}
-                    error={formik.errors.string}
-                />
+                <Form.Field>
+                    <label>Imagen del producto</label>
+                    <input
+                        type="file"
+                        name="imagen"
+                        onChange={(e) => {
+                            formik.setFieldValue("imagen", e.target.files[0]);
+                        }}
+                    />
+                </Form.Field>
                 <div className='contenedorBtn'>
                     <Button type='submit' content="Crear" primary fluid />
 
@@ -77,7 +80,7 @@ export const ProductoForm = () => {
 
             </Form>
             <h1>hola</h1>
-            </div>
+        </div>
         </>
     )
 }
@@ -90,7 +93,7 @@ const initialValues = (id) => {
         precio: "",
         descripcion: "",
         stock: "",
-        imagen: "",
+        imagen: null,
     };
 }
 

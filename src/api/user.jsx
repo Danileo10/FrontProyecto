@@ -164,6 +164,9 @@ export const crearCitaApi = async(formValue) => {
 export const crearProductoApi = async(formValue, id) => {
     //eslint-disable-next-line
     try{
+
+        console.log(formValue)
+        console.log(object)
         
         const url = `${BASE_API}/api-comercio/crear_producto/?empleado=${id}`;
         const params = {
