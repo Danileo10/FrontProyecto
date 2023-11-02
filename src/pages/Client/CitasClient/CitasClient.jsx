@@ -1,4 +1,3 @@
-
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import baños from "../../../../public/baños.png";
@@ -6,6 +5,7 @@ import medicina from "../../../../public/medicina.png";
 import cirugia from "../../../../public/cirugia.png";
 import tienda from "../../../../public/tienda.png";
 import './CitasClient.scss';
+import ReactTooltip from 'react-tooltip';
 
 export const CitasClient = () => {
   const responsive = {
@@ -34,31 +34,33 @@ export const CitasClient = () => {
           <div className="col-12">
             <div className="skill-bx wow zoomIn">
               <h2>Nuestros Servicios</h2>
+              
               <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={2000} className="owl-carousel owl-theme skill-slider">
-                <div className="item">
+                <div className="item" data-tip="Tooltip para Medicina General">
                   <img src={medicina} alt="Image" />
-                  <h5>Medicina General</h5>
+                  <h5 >Medicina General</h5>
                 </div>
-                <div className="item">
-                  <img src={baños} alt="Image" />
-                  <h5>Baños</h5>
+                <div className="item" >
+                  <img src={baños} alt="Image" data-tip="Tooltip para Baños" />
+                  <h5 >Baños</h5>
                 </div>
                 <div className="item">
                   <img src={cirugia} alt="Image" />
-                  <h5>Cirugía</h5>
+                  <h5 data-tip="Tooltip para Cirugía">Cirugía</h5>
                 </div>
                 <div className="item">
                   <img src={tienda} alt="Image" />
-                  <h5>Tienda</h5>
+                  <h5 data-tip="Tooltip para Tienda">Tienda</h5>
                 </div>
               </Carousel>
             </div>
           </div>
         </div>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Quicksand:wght@500&display=swap" rel="stylesheet"></link>
       </div>
+      <ReactTooltip className="custom-tooltip" />
     </section>
-  )
+  );
 };
