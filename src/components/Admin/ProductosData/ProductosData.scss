@@ -1,12 +1,80 @@
-.tienda_add{
-    width: 500px;
-    border: 1px solid #ccc;
-    padding: 40px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.content5 {
+    padding: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 100px minmax(100px,auto);
+    
+}
+
+.titulo-mascotas {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    display: grid;
+    grid-column: 1 / -1;
+    
+}
+
+.productos {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border-radius: 10px !important;
-    margin: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 1200px;
+
+    .producto {
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+
+        .product-info {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .product-title {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product-description {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-button {
+            background-color: rgb(74, 113, 241);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: rgb(26, 155, 0);
+            }
+        }
+    }
 }
