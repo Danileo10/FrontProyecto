@@ -78,8 +78,7 @@ export const ProductoForm = () => {
                 </div>
 
             </Form>
-            <h1>hola</h1>
-        </div>
+            </div>
         </>
     )
 }

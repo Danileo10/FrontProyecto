@@ -79,7 +79,7 @@ export const CitasListado = () => {
         }
     };
     return (
-        <>
+        <div className="content3">
             <h1>Citas Agendadas</h1>
             <ul className="ul-mascotas">
                 {citas.map((cita) => (
@@ -95,7 +95,7 @@ export const CitasListado = () => {
                 ))}
             </ul>
 
-        </>
+        </div>
     )
 }
 

@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
-
-
 import { Form, Button } from 'semantic-ui-react';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks'
-
 import { crearCitaApi } from '../../../api/user'
-
+import './CitaForm.scss';
 
 export const CitasForm = () => {
     //console.log(useAuth())
-    const [mascotas, setMascotas] = useState([]);
+    const [mascotas, setMascotas] = useState([] );
     const { auth } = useAuth();
     useEffect(() => {
         const fetchData = async () => {
@@ -81,9 +77,10 @@ export const CitasForm = () => {
 
 
     return (
-        <>
-        <h2 className="titulo-mascotas">Agenda Citas</h2>
+        <div className='content2'>
+        <h2 className="titulo-mascotas">Agenda tu cita</h2>
             <Form className='login-form-admin_mascotas' onSubmit={formik.handleSubmit}>
+            <label htmlFor="" className='label1'>Fecha de la cita</label>
                 <Form.Input
                     name="fecha"
                     type='date'
@@ -92,7 +89,8 @@ export const CitasForm = () => {
                     onChange={formik.handleChange}
                     error={formik.errors.string}
                 />
-                <Form.Select
+                <label htmlFor="" className='label1'>Hora</label>
+                <Form.Select    
                     name="id_bloque"
                     options={bloquesOptions}
                     placeholder="Bloque de horas"
@@ -100,6 +98,7 @@ export const CitasForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("id_bloque", value)}
                     error={formik.errors.id_bloque}
                 />
+                <label htmlFor="" className='label1'>Servicio</label>
                 <Form.Select
                     name="id_servicio"
                     options={serviciosOptions}
@@ -108,6 +107,7 @@ export const CitasForm = () => {
                     onChange={(e, { value }) => formik.setFieldValue("id_servicio", value)}
                     error={formik.errors.id_servicio}
                 />
+                <label htmlFor="" className='label1'>Mascota</label>
                 <Form.Select
                     name="id_mascota"
                     options={mascotasOptions}
@@ -117,12 +117,12 @@ export const CitasForm = () => {
                     error={formik.errors.id_servicio}
                 />
                 <div className='contenedorBtn'>
-                    <Button type='submit' content="Crear" primary fluid className="btn-crear" />
+                    <Button type='submit' content="Crear" className="btn-crea" />
 
                 </div>
 
             </Form>
-        </>
+        </div>
     )
 }
 

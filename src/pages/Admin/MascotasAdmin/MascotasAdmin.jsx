@@ -1,10 +1,11 @@
 import { MascotasForm } from "../../../components/Admin"
 import { PerfilMascota } from "../../../components/Admin/PerfilAdmin"
+import './MascotasAdmin.scss'
 
 
 export const MascotasAdmin = () => {
   return (
-    <div>
+    <div className="div">
       <MascotasForm>
       </MascotasForm>
       <PerfilMascota>

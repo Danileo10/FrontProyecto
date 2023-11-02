@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CarritoProvider } from '../../../context';
+import '../ProductosData/ProductosData.scss';
 
 export const ProductosData = () => {
     const [productos, setProductos] = useState([]);
@@ -40,7 +41,7 @@ const agregarAlCarrito = (producto) => {
 
 
     return (
-        <>
+        <div className='content2'>
 
             <CarritoProvider>
                 <h1>Tienda</h1>
@@ -64,6 +65,6 @@ const agregarAlCarrito = (producto) => {
             </CarritoProvider>
 
 
-        </>
+        </div>
     );
 };

@@ -36,10 +36,10 @@ export const MascotasForm = () => {
     });
 
     return (
-        <>
-            <h2 className="titulo-mascotas">Añade Mascotas</h2>
+        <div className='content2'> 
+            <h2 className="titulo-mascotas">Registra tus mascotas </h2>
             <Form className="login-form-admin_mascotas" onSubmit={formik.handleSubmit}>
-                <h3>Nombre</h3>
+                <label htmlFor="" className='label1'>Nombre</label>
                 <Form.Input
                     name="nombre"
                     placeholder="Nombre de la mascota"
@@ -47,7 +47,7 @@ export const MascotasForm = () => {
                     onChange={formik.handleChange}
                     error={formik.errors.string}
                 />
-                <h3>Fecha de Nacimiento</h3>
+                <label htmlFor="" className='label1'>Fecha de nacimiento</label>
                 <Form.Input
                     name="fecha_nacim"
                     type='date'
@@ -56,7 +56,7 @@ export const MascotasForm = () => {
                     onChange={formik.handleChange}
                     error={formik.errors.date}
                 />
-                <h3>Especie de la Mascota</h3>
+                <label htmlFor="" className='label1'>Especie</label>
                 <Form.Input
                     name="especie"
                     placeholder="Especie de la mascota"
@@ -64,7 +64,7 @@ export const MascotasForm = () => {
                     onChange={formik.handleChange}
                     error={formik.errors.string}
                 />
-                <h3>Raza de la Moscota</h3>
+                <label htmlFor="" className='label1'>Raza</label>
                 <Form.Input
                     name="raza"
                     placeholder="Raza de la mascota"
@@ -83,10 +83,10 @@ export const MascotasForm = () => {
                     error={formik.errors.imagen}
                 />
                 <div className="contenedorBtn_mascotas">
-                    <Button type='submit' content="Añadir" primary fluid className="btn-crear" />
+                    <Button type='submit' content="Crear"className="btn-crear" />
                 </div>
             </Form>
-        </>
+        </div>
     );
 }
 

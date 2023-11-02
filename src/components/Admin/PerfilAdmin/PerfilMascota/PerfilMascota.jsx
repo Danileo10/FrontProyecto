@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { useAuth } from "../../../../hooks";
+import { useEffect, useState } from "react"
+import { useAuth } from "../../../../hooks"
 import './PerfilMascota.scss';
+
 
 export const PerfilMascota = () => {
     const [mascotas, setMascotas] = useState([]);
@@ -79,9 +80,9 @@ export const PerfilMascota = () => {
         }
     };
     return (
-        <>
-           <h1 className="title2">Mascotas</h1>
-            <ul className="ul-mascotas ">
+        <div className="content3">
+           <h1 className="title2">Tus mascotas</h1>
+            <ul className="ul-mascotas">
                 {mascotas.map((mascota) => (
                     <li className="li-mascotas c" key={mascota.idmascota}>
                         <img className="foto_mascota" src={`http://127.0.0.1:8000${mascota.imagen}`} alt="mascota" />
@@ -96,7 +97,7 @@ export const PerfilMascota = () => {
                 ))}
             </ul>
 
-        </>
+        </div>
     )
 }
 
