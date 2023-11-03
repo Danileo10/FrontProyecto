@@ -49,7 +49,7 @@ export const ListadoPedidos = () => {
     return (
         <>
             <h1 className="tituloPedidos">Pedidos</h1>
-            <div className="container">
+            <div className="">
                 <div className="contenedorPedidos">
                     <div className="lista-pedidos">
                         <ul>
@@ -71,36 +71,34 @@ export const ListadoPedidos = () => {
                             ))}
                         </ul>
                     </div>
-
-                    <div className="contenedorDetalles">
-                        <div className="detalles-pedido">
-                            <h2 className="tituloDetalle">Detalles del Pedido</h2>
-                            {detallesVisible && pedidoDetallado.map((detalle, index) => (
-                                <div key={index}>
-                                    <div className="tarjetaDetalle">
-                                        <h2>Producto</h2>
-                                        <p>{detalle.producto_idProducto.nombre}</p>
-                                        <h3>Precio</h3>
-                                        <p>{detalle.producto_idProducto.precio}</p>
-                                        <h3>Cantidad</h3>
-                                        <p>{detalle.cantidad}</p>
-                                        <h3>ID del Pedido</h3>
-                                        <p>{detalle.pedido_idPedido}</p>
-                                        <button className="custom-btn btn-16" onClick={() => setDetallesVisible(false)}>Cerrar</button>
-                                    </div>
-
+                </div>
+                <div className="contenedorDetalles">
+                    <div className="detalles-pedido">
+                        <h2 className="tituloDetalle">Detalles del Pedido</h2>
+                        {detallesVisible && pedidoDetallado.map((detalle, index) => (
+                            <div key={index}>
+                                <div className="tarjetaDetalle">
+                                    <h2>Producto</h2>
+                                    <p>{detalle.producto_idProducto.nombre}</p>
+                                    <h3>Precio</h3>
+                                    <p>{detalle.producto_idProducto.precio}</p>
+                                    <h3>Cantidad</h3>
+                                    <p>{detalle.cantidad}</p>
+                                    <h3>ID del Pedido</h3>
+                                    <p>{detalle.pedido_idPedido}</p>
+                                    <button className="custom-btn btn-16" onClick={() => setDetallesVisible(false)}>Cerrar</button>
                                 </div>
-                            ))}
-                        </div>
+
+                            </div>
+                        ))}
                     </div>
                 </div>
-
 
             </div>
 
 
 
-            <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
         </>
     )
 }

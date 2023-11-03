@@ -40,26 +40,26 @@ export const TopMenu = () => {
   <>
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/clientes"}>
-        <button>Gestionar Clientes</button>
+        <button className="botonNavbar">Gestionar Clientes</button>
         
       </Link>
     </Menu.Item>
 
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/productos"}>
-        <button>Gestionar Productos</button>
+        <button className="botonNavbar">Gestionar Productos</button>
       </Link>
     </Menu.Item>
 
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/pedidos"}>
-        <button>Gestionar Pedidos</button>
+        <button className="botonNavbar">Gestionar Pedidos</button>
       </Link>
     </Menu.Item>
 
     <Menu.Item className='top-menu-admin__item'>
       <Link to={"/admin/citas"}>
-       <button>Gestionar Citas</button>
+       <button className="botonNavbar">Gestionar Citas</button>
       </Link>
     </Menu.Item>
   </>
@@ -69,25 +69,25 @@ export const TopMenu = () => {
           <>
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/mascotas"}>
-                <button>Mascotas</button>
+                <button className="botonNavbar">Mascotas</button>
               </Link>
             </Menu.Item>
 
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/productos"}>
-                <button>Tienda</button>
+                <button className="botonNavbar">Tienda</button>
               </Link>
             </Menu.Item>
 
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/citas"}>
-               <button>Citas</button>
+               <button className="botonNavbar">Citas</button>
               </Link>
             </Menu.Item>
 
             <Menu.Item className='top-menu-admin__item'>
               <Link to={"/client/pedidos"}>
-                <button>Pedidos</button>
+                <button className="botonNavbar">Pedidos</button>
               </Link>
             </Menu.Item>
           </>
@@ -106,12 +106,12 @@ export const TopMenu = () => {
 
           <Menu.Item className='top-menu-admin__item'>
             <Link to={"/perfil"}>
-              <button>Perfil</button>
+              <button className="botonNavbar">Perfil</button>
             </Link>
           </Menu.Item>
           {auth.me.is_staff && 
           <Menu.Item className='top-menu-admin__item'>
-            <button onClick={() => {
+            <button className="botonNavbar" onClick={() => {
                 toggleAdminOptions();
                 setModoCliente(!modoCliente);
               }}>

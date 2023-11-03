@@ -5,7 +5,7 @@ import medicina from "../../../../public/medicina.png";
 import cirugia from "../../../../public/cirugia.png";
 import tienda from "../../../../public/tienda.png";
 import './CitasClient.scss';
-import ReactTooltip from 'react-tooltip';
+
 
 export const CitasClient = () => {
   const responsive = {
@@ -60,7 +60,7 @@ export const CitasClient = () => {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Quicksand:wght@500&display=swap" rel="stylesheet"></link>
       </div>
-      <ReactTooltip className="custom-tooltip" />
+      
     </section>
   );
 };

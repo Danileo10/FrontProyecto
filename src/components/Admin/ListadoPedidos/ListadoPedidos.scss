@@ -1,5 +1,7 @@
 .contenedorPedidos{
   display: flex;
+  flex-wrap:wrap;
+  justify-content: space-evenly;
 }
 
 h2, h3 {
@@ -17,8 +19,9 @@ p{
 }
   
   .lista-pedidos {
+    display: flex;
     width: 70%;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
    /* Ocupa el espacio disponible en el contenedor */
     
 
