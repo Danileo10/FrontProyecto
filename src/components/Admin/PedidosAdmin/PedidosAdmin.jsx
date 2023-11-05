@@ -226,15 +226,7 @@ const handlePaginaSiguiente = () => {
           <div className='modal-content'>
             <h2 className='titulo2'>Editar Cliente</h2>
             <form>
-              <div className='input-group'>
-                <input
-                  type="text"
-                  name="fecha"
-                  value={nuevosDatos.fecha !== undefined ? nuevosDatos.fecha : pedidoAEditar.fecha}
-                  onChange={handleInputChange}
-                  placeholder="Fecha"
-                />
-              </div>
+              
               <div className='input-group'>
                 <label>Estado:</label>
                 <select
@@ -248,24 +240,8 @@ const handlePaginaSiguiente = () => {
                 </select>
               </div>
 
-              <div className='input-group'>
-                <input
-                  type="text"
-                  name="tipo_entrega"
-                  value={nuevosDatos.tipo_entrega !== undefined ? nuevosDatos.tipo_entrega : pedidoAEditar.tipo_entrega}
-                  onChange={handleInputChange}
-                  placeholder="Tipo de entrega"
-                />
-              </div>
-              <div className='input-group'>
-                <input
-                  type="text"
-                  name="total"
-                  value={nuevosDatos.total !== undefined ? nuevosDatos.total : pedidoAEditar.total}
-                  onChange={handleInputChange}
-                  placeholder="Total"
-                />
-              </div>
+              
+              
               <button className='button_save' type="button_save" onClick={handleGuardarCambios}>
                 Guardar Cambios
               </button>

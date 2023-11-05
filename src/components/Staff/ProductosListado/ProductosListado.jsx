@@ -44,7 +44,7 @@ export const ProductosListado = () => {
             nombre: producto.nombre || '',
             precio: producto.precio || '',
             descripcion: producto.descripcion || '',
-            imagen: producto.imagen || '',
+            imagen:null,
         });
         setMostrarModal(true);
     };
@@ -52,6 +52,8 @@ export const ProductosListado = () => {
 
     // Función para manejar los cambios en los campos de edición
     const handleInputChange = (e) => {
+
+        
         const { name, value } = e.target;
         setNuevosDatos({ ...nuevosDatos, [name]: value });
     };
@@ -60,6 +62,13 @@ export const ProductosListado = () => {
     // Función para enviar la solicitud PATCH al servidor
     const handleGuardarCambios = async (e) => {
         e.preventDefault();
+        const { nombre, precio, descripcion, imagen } = nuevosDatos;
+
+    // Validar los datos
+    if (!validarNombre(nombre) || !validarPrecio(precio) || !validarDescripcion(descripcion)|| !validarImagen(imagen)) {
+        // La validación falló, no envíes los datos al servidor
+        return;
+    }
         try {
 
             const empleado = auth.me.idcliente;
@@ -103,6 +112,40 @@ export const ProductosListado = () => {
             console.error(error);
         }
     };
+    const validarNombre = (nombre) => {
+        if (!nombre || nombre.trim() === '') {
+            alert('El nombre es obligatorio.');
+            return false;
+        }
+        return true;
+    };
+    
+    const validarImagen = (imagen) => {
+        if (!imagen) {
+            alert('Debes seleccionar una imagen.');
+            return false;
+        }
+    
+        return true;
+    };
+    
+    const validarPrecio = (precio) => {
+        const numeroPrecio = parseFloat(precio);
+        if (isNaN(numeroPrecio) || numeroPrecio <= 0) {
+            alert('El precio debe ser un número positivo.');
+            return false;
+        }
+        return true;
+    };
+    
+    const validarDescripcion = (descripcion) => {
+        if (!descripcion || descripcion.trim() === '') {
+            alert('La descripción es obligatoria.');
+            return false;
+        }
+        return true;
+    };
+    
 
     const handleImageChange = (event) => {
         const imagen = event.target.files[0];

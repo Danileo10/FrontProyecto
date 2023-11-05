@@ -3,6 +3,7 @@ import cerrar from "../../../../public/x.svg"
 import { useEffect, useState } from 'react';
 
 
+
 export const ClientesListado = () => {
   const [clientes, setClientes] = useState([]);
   const [clienteAEditar, setClienteAEditar] = useState(null);
@@ -46,6 +47,13 @@ export const ClientesListado = () => {
   
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    
+    // Validar solo letras en nombre y apellido
+    if ((name === 'nombre' || name === 'apellido') && !/^[a-zA-Z]+$/.test(value)) {
+      alert(`El campo ${name} solo puede contener letras.`);
+      return;
+    }
+  
     const inputValue = type === 'checkbox' ? checked : value;
     setNuevosDatos((prevState) => ({
       ...prevState,
@@ -57,6 +65,14 @@ export const ClientesListado = () => {
     e.preventDefault();
     if (!nuevosDatos.nombre || !nuevosDatos.apellido || !nuevosDatos.email || !nuevosDatos.direccion) {
       console.error('Todos los campos son obligatorios');
+      return;
+    }
+   
+  
+    // Validación de dirección de correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(nuevosDatos.email)) {
+      console.error('El correo electrónico no es válido');
       return;
     }
     try {
