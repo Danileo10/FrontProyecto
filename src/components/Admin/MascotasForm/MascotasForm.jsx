@@ -11,11 +11,28 @@ export const MascotasForm = () => {
     //console.log(useAuth())
 
     const { auth } = useAuth();
+    const especiesOptions = [
+        { key: 'perro', text: 'Perro', value: 'Perro' },
+        { key: 'gato', text: 'Gato', value: 'Gato' },
+        { key: 'ave', text: 'Ave', value: 'Ave' },
+    ];
+
 
     const formik = useFormik({
         initialValues: initialValues(auth.me.idusuario),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: async (formValue) => {
+            if (
+                !formValue.nombre ||
+                !formValue.fecha_nacim ||
+                !formValue.especie ||
+                !formValue.raza ||
+                !formValue.descripcion ||
+                !formValue.imagen
+              ) {
+                toast.error('Todos los campos son obligatorios.');
+                return;
+              }
             try {
                 console.log(formValue)
                 const response = await crearMascotaApi(formValue, auth.me.idcliente);
@@ -54,16 +71,18 @@ export const MascotasForm = () => {
                     placeholder="Fecha de nacimiento"
                     value={formik.values.date}
                     onChange={formik.handleChange}
-                    error={formik.errors.date}
+                    error={formik.errors.fecha_nacim}
                 />
                 <label htmlFor="" className='label1'>Especie</label>
-                <Form.Input
+                <Form.Select
                     name="especie"
-                    placeholder="Especie de la mascota"
-                    value={formik.values.string}
-                    onChange={formik.handleChange}
-                    error={formik.errors.string}
+                    options={especiesOptions}
+                    placeholder="Selecciona la especie"
+                    value={formik.values.especie}
+                    onChange={(e, { value }) => formik.setFieldValue("especie", value)}
+                    error={formik.errors.especie}
                 />
+
                 <label htmlFor="" className='label1'>Raza</label>
                 <Form.Input
                     name="raza"
@@ -114,12 +133,10 @@ const initialValues = (id) => {
 
 
 const validationSchema = () => {
-    return Yup.object({
-        nombre: Yup.string().required("El nombre es requerido"),
-        fecha_nacim: Yup.date().required("La fecha de nacimiento es requerida"),
-        especie: Yup.string().required("La especie es requerida"),
-        raza: Yup.string().required("La raza es requerida"),
-        descripcion: Yup.string().max(200, "La descripción debe tener como máximo 200 caracteres"), // Validación para la descripción
-        imagen: Yup.mixed().required("La imagen es requerida"),
-    })
-}
+    return {
+      fecha_nacim: Yup.date()
+      .max(new Date(), 'La fecha de nacimiento no puede ser posterior a hoy')
+      .required('La fecha de nacimiento es obligatoria'),
+      
+    };
+  }

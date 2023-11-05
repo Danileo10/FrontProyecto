@@ -1,6 +1,7 @@
 import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './PerfilUsuario.scss'
 
@@ -40,9 +41,8 @@ export const PerfilUsuario = () => {
       });
   
       if (response.status === 200) {
-        console.log(response)
-        console.log('Usuario verificado con éxito');
-        // Realiza cualquier acción adicional necesaria después de la verificación
+        console.log(auth.me.tokenVerification)
+        navigate(`/client/verification/${auth.me.tokenVerification}`)// Realiza cualquier acción adicional necesaria después de la verificación
       } else {
         // La solicitud POST no fue exitosa
         console.error('Error al verificar el usuario');
@@ -231,6 +231,8 @@ export const PerfilUsuario = () => {
        <button className="button" onClick={verificarUsuario}>
           Verificarse
         </button>
+        <Link to="/client/mascotas"><button className="button">Mascotas</button></Link>
+        
     </div>
   );
 };

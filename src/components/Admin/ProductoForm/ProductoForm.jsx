@@ -32,40 +32,43 @@ export const ProductoForm = () => {
 
     return (
         <div className='contentFrom'>
-            
             <Form className='productosFrom' onSubmit={formik.handleSubmit}>
-                <label htmlFor="">Nombre</label>
+                <label htmlFor="nombre">Nombre</label>
                 <Form.Input
                     name="nombre"
                     placeholder="Nombre del producto"
-                    value={formik.values.string}
-                    onChange={(e, { value }) => formik.setFieldValue("nombre", value)}
-                    error={formik.errors.string}
+                    value={formik.values.nombre}
+                    onChange={formik.handleChange}
+                    error={formik.errors.nombre}
                 />
-                <label htmlFor="">Precio</label>
+
+                <label htmlFor="precio">Precio</label>
                 <Form.Input
                     name="precio"
-                    placeholder="precio del producto"
-                    value={formik.values.string}
-                    onChange={(e, { value }) => formik.setFieldValue("precio", value)}
-                    error={formik.errors.string}
+                    placeholder="Precio del producto"
+                    value={formik.values.precio}
+                    onChange={formik.handleChange}
+                    error={formik.errors.precio}
                 />
-                <label htmlFor="">Descripcion </label>
+
+                <label htmlFor="descripcion">Descripción</label>
                 <Form.Input
                     name="descripcion"
-                    placeholder="descripcion del producto"
-                    value={formik.values.string}
-                    onChange={(e, { value }) => formik.setFieldValue("descripcion", value)}
-                    error={formik.errors.string}
+                    placeholder="Descripción del producto"
+                    value={formik.values.descripcion}
+                    onChange={formik.handleChange}
+                    error={formik.errors.descripcion}
                 />
-                <label htmlFor="">Stock</label>
+
+                <label htmlFor="stock">Stock</label>
                 <Form.Input
                     name="stock"
-                    placeholder="stock del producto"
-                    value={formik.values.string}
-                    onChange={(e, { value }) => formik.setFieldValue("stock", value)}
-                    error={formik.errors.string}
+                    placeholder="Stock del producto"
+                    value={formik.values.stock}
+                    onChange={formik.handleChange}
+                    error={formik.errors.stock}
                 />
+
                 <Form.Field>
                     <label>Imagen del producto</label>
                     <input
@@ -76,11 +79,10 @@ export const ProductoForm = () => {
                         }}
                     />
                 </Form.Field>
+
                 <div className='contenedorBtn'>
                     <Button type='submit' content="Crear" className='btn-crear' />
-
                 </div>
-
             </Form>
         </div>
     )
@@ -100,6 +102,10 @@ const initialValues = (id) => {
 
 const validationSchema = () => {
     return {
-
-    }
-}
+        nombre: Yup.string().required("El nombre del producto es obligatorio"),
+        precio: Yup.number().required("El precio del producto es obligatorio").positive("El precio debe ser un número positivo"),
+        descripcion: Yup.string().required("La descripción del producto es obligatoria"),
+        stock: Yup.number().required("El stock del producto es obligatorio").integer("El stock debe ser un número entero").positive("El stock debe ser un número positivo"),
+        imagen: Yup.mixed().required("La imagen del producto es obligatoria"),
+    };
+};

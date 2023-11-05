@@ -61,6 +61,18 @@ export const CitasForm = () => {
         initialValues: initialValues(auth.me.idcliente),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: async (formValue) => {
+            if (!formValue.fecha || !formValue.id_bloque || !formValue.id_servicio || !formValue.id_mascota) {
+                alert('Por favor, complete todos los campos.');
+                return;
+            }
+            const selectedDate = new Date(formValue.fecha);
+            const currentDate = new Date();
+
+            if (selectedDate < currentDate) {
+                alert('La fecha seleccionada debe ser a partir de hoy.');
+                return;
+            }
+
             try {
                 console.log(formValue)
                 const response = await crearCitaApi(formValue);
@@ -88,6 +100,7 @@ export const CitasForm = () => {
                     value={formik.values.text}
                     onChange={formik.handleChange}
                     error={formik.errors.string}
+                    min={new Date().toISOString().split('T')[0]} // Establece el mínimo como la fecha actual
                 />
                 <label htmlFor="" className='label1'>Hora</label>
                 <Form.Select    
@@ -136,8 +149,8 @@ const initialValues = (id) => {
     };
 }
 
-const validationSchema = () => {
-    return {
+    const validationSchema = () => {
+        return {
 
+        }
     }
-}

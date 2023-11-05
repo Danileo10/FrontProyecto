@@ -16,6 +16,7 @@ export const PerfilMascota = () => {
         nombre: '',
         fecha_nacim: '',
         raza: '',
+        especie: '',
         descripcion: '',
         fecha_defun: '',
 
@@ -61,6 +62,7 @@ export const PerfilMascota = () => {
             nombre: mascota.nombre || '',
             fecha_nacim: mascota.fecha_nacim || '',
             raza: mascota.raza || '',
+            especie: mascota.especie || '',
             descripcion: mascota.descripcion || '',
             fecha_defun: mascota.fecha_defun || '',
 
@@ -68,8 +70,29 @@ export const PerfilMascota = () => {
         setMostrarModal(true);
     };
 
+    const fechaLimite = new Date(); // Obtener la fecha actual
+    fechaLimite.setFullYear(fechaLimite.getFullYear() - 20); // Restar 20 años a la fecha actual
+
+
     const handleGuardarCambios = async (e) => {
         e.preventDefault()
+        if (
+            !nuevosDatos.nombre ||
+            !nuevosDatos.fecha_nacim ||
+            !nuevosDatos.raza ||
+            !nuevosDatos.especie ||
+            !nuevosDatos.descripcion ||
+            !nuevosDatos.fecha_defun
+        ) {
+            alert('Todos los campos son obligatorios.');
+            return;
+        }
+
+        const fechaNacimiento = new Date(nuevosDatos.fecha_nacim);
+        if (fechaNacimiento > fechaLimite) {
+            alert('La fecha de nacimiento debe ser al menos 20 años atrás desde la fecha actual.');
+            return;
+        }
         try {
             const response = await fetch(
                 `http://127.0.0.1:8000/api/modificar_mascota/?id_mascota=${mascotaAEditar.idmascota}`,
@@ -188,6 +211,8 @@ export const PerfilMascota = () => {
                         <p>Raza: {mascota.raza}</p>
                         <p>Descripción</p>
                         <p>{mascota.descripcion}</p>
+                        <p>Especie</p>
+                        <p>{mascota.especie}</p>
                         <p>Fecha de defunción: {mascota.fecha_defun}</p>
                         <div className='contentBtn'>
                             <button className='button_edit' onClick={() => handleEditar(mascota)}>
