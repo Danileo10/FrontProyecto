@@ -7,12 +7,17 @@ import axios from 'axios';
 
 export const ProductosListado = () => {
 
-    const [data, setData] = useState([]);
+    const [productos, setProductos] = useState([]);
     const { auth } = useAuth();
 
     const [productoAEditar, setProductoAEditar] = useState(null); // Estado para el producto que se está editando
     const [nuevosDatos, setNuevosDatos] = useState({}); // Estado para los nuevos datos del producto
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const productosPorPagina = 6;
+    const indiceInicial = (currentPage - 1) * productosPorPagina;
+    const indiceFinal = currentPage * productosPorPagina;
+    const productosPaginaActual = productos.slice(indiceInicial, indiceFinal);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +27,7 @@ export const ProductosListado = () => {
                     throw new Error('No hay datos');
                 }
                 const jsonData = await response.json();
-                setData(jsonData);
+                setProductos(jsonData);
 
                 console.log(jsonData)
             } catch (error) {
@@ -85,7 +90,7 @@ export const ProductosListado = () => {
                 const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api-comercio/mostrar_producto');
                 if (nuevaRespuesta.ok) {
                     const nuevosDatos = await nuevaRespuesta.json();
-                    setData(nuevosDatos); // Actualizar el estado con los nuevos datos
+                    setProductos(nuevosDatos); // Actualizar el estado con los nuevos datos
                 } else {
                     throw new Error('Error al obtener los datos actualizados');
                 }
@@ -126,7 +131,7 @@ export const ProductosListado = () => {
                             const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api-comercio/mostrar_producto');
                             if (nuevaRespuesta.ok) {
                                 const nuevosDatos = await nuevaRespuesta.json();
-                                setData(nuevosDatos); // Actualizar el estado con los nuevos datos
+                                setProductos(nuevosDatos); // Actualizar el estado con los nuevos datos
                             } else {
                                 throw new Error('Error al obtener los datos actualizados');
                             }
@@ -160,12 +165,29 @@ export const ProductosListado = () => {
         }
     };
 
+    const handlePaginaAnterior = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            console.log(`Página actual: ${currentPage - 1}`);
+        }
+    };
+    
+
+    const handlePaginaSiguiente = () => {
+        const totalPages = Math.ceil(productos.length / productosPorPagina);
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            console.log(`Página actual: ${currentPage + 1}`);
+        }
+    };
+    
+
 
     return (
         <>
             <h1 className='title'>Listado de Productos</h1>
             <ul className='ul-productos'>
-                {data.map((item) => (
+                {productosPaginaActual.map((item) => (
                     <li key={item.idproducto} className='c' >
                         <p>{item.nombre}</p>
                         <p>{item.precio}</p>
@@ -179,7 +201,11 @@ export const ProductosListado = () => {
                     </li>
                 ))}
             </ul>
-
+            <div className="paginacion">
+                <span>Página {currentPage} de {Math.ceil(productos.length / productosPorPagina)}</span>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
+            </div>
             {mostrarModal && productoAEditar && (
                 <div className='modal-pro'>
                     <form className='form-dos'>

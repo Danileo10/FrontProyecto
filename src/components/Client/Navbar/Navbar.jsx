@@ -15,16 +15,16 @@ export const Navbar = () => {
 
         <Menu.Menu className='top-menu-client' position='left'>
             <Menu.Item className='top-menu-client__item'>
-                <Link to="/">Inicio</Link>
+                <Link to="/"><button className="botonNavbar">Inicio</button></Link>
             </Menu.Item>
-            <Menu.Item className='top-menu-client__item'><Link to="/citas">Servicios</Link></Menu.Item>
-            <Menu.Item className='top-menu-client__item'><Link to="/productos">Productos</Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/citas"><button className="botonNavbar">Servicios</button></Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/productos"><button className="botonNavbar">Productos</button></Link></Menu.Item>
             
         </Menu.Menu>
 
         <Menu.Menu position='right'>
-            <Menu.Item className='top-menu-client__item'><Link to="/home">Ingresar</Link></Menu.Item>
-            <Menu.Item className='top-menu-client__item'><Link to="/register">Regístrate</Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/home"><button className="botonNavbar">Ingresar</button></Link></Menu.Item>
+            <Menu.Item className='top-menu-client__item'><Link to="/register"><button className="botonNavbar">Regístrate</button></Link></Menu.Item>
         </Menu.Menu>  
 
         
