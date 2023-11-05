@@ -7,6 +7,11 @@ export const ListadoPedidos = () => {
     const [pedidos, setPedidos] = useState([])
     const [pedidoDetallado, setPedidoDetallado] = useState([]);
     const [detallesVisible, setDetallesVisible] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pedidosPorPagina = 6;
+    const indiceInicial = (currentPage - 1) * pedidosPorPagina;
+    const indiceFinal = currentPage * pedidosPorPagina;
+    const pedidosPaginaActual = pedidos.slice(indiceInicial, indiceFinal);
 
 
 
@@ -46,6 +51,21 @@ export const ListadoPedidos = () => {
             console.error("Error al obtener el pedido detallado: ", error);
         }
     }
+
+    const handlePaginaAnterior = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            console.log(`Página actual: ${currentPage - 1}`);
+        }
+    };
+
+    const handlePaginaSiguiente = () => {
+        const totalPages = Math.ceil(pedidos.length / pedidosPorPagina);
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            console.log(`Página actual: ${currentPage + 1}`);
+        }
+    };
     return (
         <>
             <h1 className="tituloPedidos">Pedidos</h1>
@@ -53,7 +73,7 @@ export const ListadoPedidos = () => {
                 <div className="contenedorPedidos">
                     <div className="lista-pedidos">
                         <ul>
-                            {pedidos.map((pedido) => (
+                            {pedidosPaginaActual.map((pedido) => (
                                 <li key={pedido.idpedido}>
                                     <div className="tarjetaPedido">
                                         <h2>Fecha</h2>
@@ -70,6 +90,11 @@ export const ListadoPedidos = () => {
                                 </li>
                             ))}
                         </ul>
+                        <div className="paginacion">
+                <span>Página {currentPage} de {Math.ceil(pedidos.length / pedidosPorPagina)}</span>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(pedidos.length / pedidos)}>Siguiente</button>
+            </div>
                     </div>
                 </div>
                 <div className="contenedorDetalles">

@@ -4,12 +4,17 @@ import { useEffect, useState } from 'react';
 
 
 export const ClientesListado = () => {
-  const [data, setData] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [clienteAEditar, setClienteAEditar] = useState(null);
   const [nuevosDatos, setNuevosDatos] = useState({
     is_staff: false,
   });
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+    const clientesPorPagina = 6;
+    const indiceInicial = (currentPage - 1) * clientesPorPagina;
+    const indiceFinal = currentPage * clientesPorPagina;
+    const clientesPaginaActual = clientes.slice(indiceInicial, indiceFinal);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +24,7 @@ export const ClientesListado = () => {
           throw new Error('No hay datos');
         }
         const jsonData = await response.json();
-        setData(jsonData);
+        setClientes(jsonData);
       } catch (error) {
         console.error('Error');
       }
@@ -71,7 +76,7 @@ export const ClientesListado = () => {
         const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api/ver_clientes/');
         if (nuevaRespuesta.ok) {
           const nuevosDatos = await nuevaRespuesta.json();
-          setData(nuevosDatos);
+          setClientes(nuevosDatos);
         } else {
           throw new Error('Error al obtener los datos actualizados');
         }
@@ -86,13 +91,29 @@ export const ClientesListado = () => {
       console.error(error);
     }
   };
+
+  const handlePaginaAnterior = () => {
+    if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+        console.log(`Página actual: ${currentPage - 1}`);
+    }
+};
+
+
+const handlePaginaSiguiente = () => {
+    const totalPages = Math.ceil(clientes.length / clientesPorPagina);
+    if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+        console.log(`Página actual: ${currentPage + 1}`);
+    }
+};
   
 
   return (
     <div className='content'>
       <h1 className='titulo'>Listado de Clientes</h1>
       <ul className='ulC'>
-        {data.map((item) => (
+        {clientesPaginaActual.map((item) => (
           <li key={item.idcliente} className='c'>
             <p>ID Cliente: {item.idcliente}</p>
             <p>Nombre: {item.persona_idusuario.nombre}</p>
@@ -104,6 +125,12 @@ export const ClientesListado = () => {
           </li>
         ))}
       </ul>
+
+      <div className="paginacion">
+                <span>Página {currentPage} de {Math.ceil(clientes.length / clientesPorPagina)}</span>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(clientes.length / clientes)}>Siguiente</button>
+            </div>
 
       {mostrarModal && clienteAEditar && (
         <div className='modal-background'>
