@@ -86,6 +86,7 @@ export const ClientesListado = () => {
       console.error(error);
     }
   };
+  
 
   return (
     <div className='content'>

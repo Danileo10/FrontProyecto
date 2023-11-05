@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CarritoProvider } from '../../../context';
+// import caradd from "../../../../public/car_add.png";
+import caradd from '../../../../public/car_add.svg'
 import '../ProductosData/ProductosData.scss';
 
 export const ProductosData = () => {
@@ -41,19 +43,27 @@ const agregarAlCarrito = (producto) => {
 
 
     return (
-        <div className='content5'>
+        <div className='content3'>
             <h1 className="titulo-mascotas">Tienda</h1>
             <CarritoProvider>
                 <ul className="productos">
                     {productos.map((producto) => (
-                        <li key={producto.idproducto} className='producto'>
+                        <li key={producto.idproducto} className='li-mascotas c'>
+                            <img className="foto_mascota" src={`http://127.0.0.1:8000${producto.imagen}`} alt="producto" />
                             <div className="product-info">
                                 <h2 className="product-title">{producto.nombre}</h2>
-                                <p className="product-price">{producto.precio}</p>
+                                <p className="product-price">
+                                    {new Intl.NumberFormat("es-CL", {
+                                    style: "currency",
+                                    currency: "CLP",
+                                    minimumFractionDigits: 0, // Esto eliminará los decimales
+                                    }).format(producto.precio)}
+                                </p>
                                 <p className="product-description">{producto.descripcion}</p>
                             </div>
-                            <img className="product-image" src={`http://127.0.0.1:8000${producto.imagen}`} alt="producto" />
-                            <button className='product-button' onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                            <button className='add_car' onClick={() => agregarAlCarrito(producto)}>
+                                <img src={caradd} alt="Agregar al carrito" />
+                            </button>
                         </li>
                     ))}
                 </ul>
