@@ -1,7 +1,7 @@
 import { CitasListado } from "../../../components/Staff"
 import { useAuth } from "../../../hooks"
+import { MensajeIsStaff } from "../../Client"
 
-import { Error404} from './../../Error404'
 
 export const CitasStaff = () => {
   const {auth} = useAuth()
@@ -10,7 +10,7 @@ export const CitasStaff = () => {
   if (!auth.me.is_staff) {
     console.log("entro")
     
-    return <Error404></Error404>
+    return <MensajeIsStaff/>
     
     
     

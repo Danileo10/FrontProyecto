@@ -36,7 +36,7 @@ export const MascotasForm = () => {
     });
 
     return (
-        <div className='content2'> 
+        <div className='content2'>
             <h2 className="titulo-mascotas">Registra tus mascotas </h2>
             <Form className="login-form-admin_mascotas" onSubmit={formik.handleSubmit}>
                 <label htmlFor="" className='label1'>Nombre</label>
@@ -72,6 +72,15 @@ export const MascotasForm = () => {
                     onChange={formik.handleChange}
                     error={formik.errors.string}
                 />
+                <label htmlFor="" className='label1'>Descripción</label>
+                <Form.TextArea
+                    name="descripcion"
+                    placeholder="Descripción de la mascota"
+                    value={formik.values.descripcion}
+                    onChange={formik.handleChange}
+                    error={formik.errors.descripcion}
+                />
+
                 <h3>Foto de la Mascota</h3>
                 <Form.Input
                     name="imagen"
@@ -83,7 +92,7 @@ export const MascotasForm = () => {
                     error={formik.errors.imagen}
                 />
                 <div className="contenedorBtn_mascotas">
-                    <Button type='submit' content="Crear"className="btn-crear" />
+                    <Button type='submit' content="Crear" className="btn-crear" />
                 </div>
             </Form>
         </div>
@@ -98,13 +107,19 @@ const initialValues = (id) => {
         fecha_nacim: "",
         especie: "",
         raza: "",
+        descripcion: "",
         imagen: null, // Agrega un campo para la imagen de la mascota
     };
 }
 
 
 const validationSchema = () => {
-    return {
-
-    }
+    return Yup.object({
+        nombre: Yup.string().required("El nombre es requerido"),
+        fecha_nacim: Yup.date().required("La fecha de nacimiento es requerida"),
+        especie: Yup.string().required("La especie es requerida"),
+        raza: Yup.string().required("La raza es requerida"),
+        descripcion: Yup.string().max(200, "La descripción debe tener como máximo 200 caracteres"), // Validación para la descripción
+        imagen: Yup.mixed().required("La imagen es requerida"),
+    })
 }
