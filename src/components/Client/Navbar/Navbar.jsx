@@ -9,8 +9,8 @@ export const Navbar = () => {
     <>
       <Menu fluid='top' className='top-menu-client'>
         <Menu.Item className='top-menu-client__logo'>
-            <img  src={logo} alt="logo" />
-          
+            
+            <Link to="/"><img className='logo_cliente' src={logo} alt="logo" /></Link>
         </Menu.Item>
 
         <Menu.Menu className='top-menu-client' position='left'>

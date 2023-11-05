@@ -34,6 +34,7 @@
     "semantic-ui-react": "^2.1.4",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.0.5",
+    "sweetalert2": "^11.9.0",
     "yup": "^1.1.1"
   },
   "devDependencies": {

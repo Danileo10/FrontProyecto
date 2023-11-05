@@ -47,7 +47,7 @@ export const ClientVerification = () => {
     <div>
       <div>
         {/* Elimina las llaves alrededor de "token" para pasar el valor directamente */}
-        <button onClick={() => verificarEmail(token)}>Verificar Email</button>
+        <button className="eliminar-button_pet" onClick={() => verificarEmail(token)}>Verificar Email</button>
         {responseMessage && <div>Mensaje de respuesta: {responseMessage}</div>}
       </div>
 
