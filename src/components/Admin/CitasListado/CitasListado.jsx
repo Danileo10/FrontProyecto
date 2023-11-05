@@ -5,6 +5,12 @@ import './Citaslistado.scss';
 export const CitasListado = () => {
     const [citas, setCitas] = useState([]);
     const { auth } = useAuth();
+    const [currentPage, setCurrentPage] = useState(1);
+    const citasPorPagina = 6;
+    const indiceInicial = (currentPage - 1) * citasPorPagina;
+    const indiceFinal = currentPage * citasPorPagina;
+    const citasPaginaActual = citas.slice(indiceInicial, indiceFinal);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -23,6 +29,19 @@ export const CitasListado = () => {
         };
         fetchData();
     }, []);
+    const handlePaginaAnterior = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            console.log(`Página actual: ${currentPage - 1}`);
+        }
+    };
+    const handlePaginaSiguiente = () => {
+      const totalPages = Math.ceil(citas.length / citasPorPagina);
+      if (currentPage < totalPages) {
+          setCurrentPage(currentPage + 1);
+          console.log(`Página actual: ${currentPage + 1}`);
+      }
+    };
 
     const handleEliminar = async (idcita) => {
         try {
@@ -82,7 +101,7 @@ export const CitasListado = () => {
         <div className="content3">
             <h1>Citas Agendadas</h1>
             <ul className="ul-mascotas">
-                {citas.map((cita) => (
+                {citasPaginaActual.map((cita) => (
                     <li key={cita.idcita}>
                         <p>Fecha de la Cita: {cita.Fecha}</p>
                         <p>Bloque de horas de la Cita: {cita.Bloque}</p>
@@ -94,6 +113,12 @@ export const CitasListado = () => {
                     </li>
                 ))}
             </ul>
+
+            <div className="paginacion">
+                <span>Página {currentPage} de {Math.ceil(citas.length / citasPorPagina)}</span>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(citas.length / citas)}>Siguiente</button>
+            </div>
 
         </div>
     )

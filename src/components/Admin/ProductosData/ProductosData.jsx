@@ -50,15 +50,19 @@ export const ProductosData = () => {
     const handlePaginaAnterior = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
+            console.log(`Página actual: ${currentPage - 1}`);
         }
     };
+    
 
     const handlePaginaSiguiente = () => {
         const totalPages = Math.ceil(productos.length / productosPorPagina);
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
+            console.log(`Página actual: ${currentPage + 1}`);
         }
     };
+    
 
 
     return (
@@ -87,6 +91,7 @@ export const ProductosData = () => {
                     ))}
                 </ul>
                 <div className="paginacion">
+                    <span>Página {currentPage} de {Math.ceil(productos.length / productosPorPagina)}</span>
                     <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
                     <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
                 </div>
