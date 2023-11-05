@@ -89,6 +89,8 @@ export const PerfilMascota = () => {
                         <p>Nombre: {mascota.nombre}</p>
                         <p>Fecha de nacimiento: {mascota.fecha_nacim}</p>
                         <p>Raza: {mascota.raza}</p>
+                        <p>Descripcion</p>
+                        <p>{mascota.descripcion}</p>
                         <p>Fecha de defunción: {mascota.fecha_defun}</p>
                         
                         <button className="eliminar-button_pet" onClick={() => handleEliminar(mascota.idmascota)}>Eliminar</button>

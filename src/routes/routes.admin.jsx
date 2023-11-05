@@ -1,10 +1,9 @@
 import { PasswordReset1 } from '../components/Admin';
 import { ClientVerification } from '../components/Admin/PerfilAdmin/ClientVerification';
-import { ClientesEditar } from '../components/Staff';
 import {AdminLayout, ClientLayout} from '../layouts';
 import {CarritodeCompras, HomeAdmin, Pedidos, Perfil, ProductosAdmin} from '../pages';
 import { RegisterAdmin, MascotasAdmin, CitasAdmin } from '../pages';
-import { CitasStaff, ClientesStaff, PedidosStaff, ProductosStaff, EditarProductosStaff } from '../pages/Staff';
+import { CitasStaff, ClientesStaff, PedidosStaff, ProductosStaff } from '../pages/Staff';
 import CrearProductosStaff from '../pages/Staff/ProductosStaff/CrearProductosStaff/CrearProductosStaff';
 
 
@@ -66,11 +65,6 @@ const routesAdmin = [
         component: ClientesStaff,
     },
     {
-        path: "/admin/clientes/editar/:id",
-        layout: AdminLayout,
-        component: ClientesEditar,
-    },
-    {
         path: "/admin/productos",
         layout: AdminLayout,
         component: ProductosStaff,
@@ -82,11 +76,6 @@ const routesAdmin = [
         path: "/admin/productos/crear",
         layout: AdminLayout,
         component: CrearProductosStaff
-    },
-    {
-        path: "/admin/productos/editar/:id",
-        layout: AdminLayout,
-        component: EditarProductosStaff
     },
     {
         path: "/admin/pedidos",
