@@ -1,6 +1,7 @@
 import { ClientesListado } from "../../../components/Staff"
 import { useAuth } from "../../../hooks"
-import { Error404 } from "../../Error404"
+import { MensajeIsStaff } from "../../Client"
+
 
 export const ClientesStaff = () => {
   const {auth} = useAuth()
@@ -9,7 +10,7 @@ export const ClientesStaff = () => {
   if (!auth.me.is_staff) {
     console.log("entro")
     
-    return <Error404></Error404>}
+    return <MensajeIsStaff/>}
   return (
     <div>
       <ClientesListado>
