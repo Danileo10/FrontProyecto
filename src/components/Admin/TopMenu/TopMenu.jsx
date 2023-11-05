@@ -115,7 +115,7 @@ export const TopMenu = () => {
                 toggleAdminOptions();
                 setModoCliente(!modoCliente);
               }}>
-                {modoCliente ? 'Modo Admin' : 'Modo Cliente'}
+                {modoCliente ? 'Activar Modo Admin' : 'Activar Modo Cliente'}
               </button>
           </Menu.Item>
         }
