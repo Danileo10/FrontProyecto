@@ -1,8 +1,6 @@
 import './LoginForm.scss';
 import {Form, Button} from 'semantic-ui-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useAuth} from '../../../hooks'

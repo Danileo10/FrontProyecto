@@ -66,8 +66,28 @@ export const PerfilMascota = () => {
         setMostrarModal(true);
     };
 
+    const fechaLimite = new Date(); // Obtener la fecha actual
+    fechaLimite.setFullYear(fechaLimite.getFullYear() - 20); // Restar 20 años a la fecha actual
+
+
     const handleGuardarCambios = async (e) => {
         e.preventDefault()
+        if (
+            !nuevosDatos.nombre ||
+            !nuevosDatos.fecha_nacim ||
+            !nuevosDatos.raza ||
+            !nuevosDatos.descripcion ||
+            !nuevosDatos.fecha_defun
+        ) {
+            alert('Todos los campos son obligatorios.');
+            return;
+        }
+
+        const fechaNacimiento = new Date(nuevosDatos.fecha_nacim);
+        if (fechaNacimiento > fechaLimite) {
+            alert('La fecha de nacimiento debe ser al menos 20 años atrás desde la fecha actual.');
+            return;
+        }
         try {
             const response = await fetch(
                 `http://127.0.0.1:8000/api/modificar_mascota/?id_mascota=${mascotaAEditar.idmascota}`,
