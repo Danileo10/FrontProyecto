@@ -81,7 +81,7 @@ export const MascotasForm = () => {
                     error={formik.errors.descripcion}
                 />
 
-                <h3>Foto de la Mascota</h3>
+                <h3>Foto de tu mascota</h3>
                 <Form.Input
                     name="imagen"
                     type="file"

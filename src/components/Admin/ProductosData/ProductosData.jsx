@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { CarritoProvider } from '../../../context';
-// import caradd from "../../../../public/car_add.png";
 import caradd from '../../../../public/car_add.svg'
 import '../ProductosData/ProductosData.scss';
 

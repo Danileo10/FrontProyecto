@@ -138,6 +138,7 @@
               <h2 className='titulo2'>Editar Cliente</h2>
               <form>
                 <div className='input-group'>
+                <label htmlFor="">Nombre</label>
                   <input
                     type="text"
                     name="nombre"
@@ -147,6 +148,7 @@
                   />
                 </div>
                 <div className='input-group'>
+                <label htmlFor="">Apellido</label>
                   <input
                     type="text"
                     name="apellido"
@@ -156,6 +158,7 @@
                   />
                 </div>
                 <div className='input-group'>
+                <label htmlFor="">Email</label>
                   <input
                     type="text"
                     name="email"
@@ -165,6 +168,7 @@
                   />
                 </div>
                 <div className='input-group'>
+                <label htmlFor="">Dirección</label>
                   <input
                     type="text"
                     name="direccion"
@@ -174,15 +178,14 @@
                   />
                 </div>
                 <div className='input-group_emp'>
-                  <label>
-                    Es empleado
+                  <label>Es empleado</label>
                     <input
                       type="checkbox"
                       name="is_staff"
                       checked={nuevosDatos.is_staff}
                       onChange={handleInputChange}
                     />
-                  </label>
+                  
                 </div>
                 <button className='button_save' type="button_save" onClick={handleGuardarCambios}>
                   Guardar Cambios
