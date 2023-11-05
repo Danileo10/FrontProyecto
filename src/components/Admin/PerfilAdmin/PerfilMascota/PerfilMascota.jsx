@@ -194,8 +194,8 @@ export const PerfilMascota = () => {
             </ul>
 
             <div className="paginacion">
-                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>⇤ Anterior</button>
-                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(mascotas.length / mascotasPorPagina)}>Siguiente ⇥ </button>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(mascotas.length / mascotasPorPagina)}>Siguiente </button>
             </div>
             {mostrarModal && mascotaAEditar && (    
                 <div className='modal-background'>
