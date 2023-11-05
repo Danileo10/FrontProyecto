@@ -3,7 +3,7 @@ import { ClientVerification } from '../components/Admin/PerfilAdmin/ClientVerifi
 import {AdminLayout, ClientLayout} from '../layouts';
 import {CarritodeCompras, HomeAdmin, Pedidos, Perfil, ProductosAdmin} from '../pages';
 import { RegisterAdmin, MascotasAdmin, CitasAdmin } from '../pages';
-import { CitasStaff, ClientesStaff, PedidosStaff, ProductosStaff, EditarProductosStaff } from '../pages/Staff';
+import { CitasStaff, ClientesStaff, PedidosStaff, ProductosStaff} from '../pages/Staff';
 import CrearProductosStaff from '../pages/Staff/ProductosStaff/CrearProductosStaff/CrearProductosStaff';
 
 
