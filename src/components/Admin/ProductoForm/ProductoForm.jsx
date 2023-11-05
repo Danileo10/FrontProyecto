@@ -101,11 +101,11 @@ const initialValues = (id) => {
 }
 
 const validationSchema = () => {
-    return Yup.object().shape({
+    return {
         nombre: Yup.string().required("El nombre del producto es obligatorio"),
         precio: Yup.number().required("El precio del producto es obligatorio").positive("El precio debe ser un número positivo"),
         descripcion: Yup.string().required("La descripción del producto es obligatoria"),
         stock: Yup.number().required("El stock del producto es obligatorio").integer("El stock debe ser un número entero").positive("El stock debe ser un número positivo"),
         imagen: Yup.mixed().required("La imagen del producto es obligatoria"),
-    });
+    };
 };

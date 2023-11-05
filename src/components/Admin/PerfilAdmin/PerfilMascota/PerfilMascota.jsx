@@ -14,6 +14,7 @@ export const PerfilMascota = () => {
         nombre: '',
         fecha_nacim: '',
         raza: '',
+        especie: '',
         descripcion: '',
         fecha_defun: '',
 
@@ -59,6 +60,7 @@ export const PerfilMascota = () => {
             nombre: mascota.nombre || '',
             fecha_nacim: mascota.fecha_nacim || '',
             raza: mascota.raza || '',
+            especie: mascota.especie || '',
             descripcion: mascota.descripcion || '',
             fecha_defun: mascota.fecha_defun || '',
 
@@ -76,6 +78,7 @@ export const PerfilMascota = () => {
             !nuevosDatos.nombre ||
             !nuevosDatos.fecha_nacim ||
             !nuevosDatos.raza ||
+            !nuevosDatos.especie ||
             !nuevosDatos.descripcion ||
             !nuevosDatos.fecha_defun
         ) {
@@ -206,6 +209,8 @@ export const PerfilMascota = () => {
                         <p>Raza: {mascota.raza}</p>
                         <p>Descripcion</p>
                         <p>{mascota.descripcion}</p>
+                        <p>Especie</p>
+                        <p>{mascota.especie}</p>
                         <p>Fecha de defunción: {mascota.fecha_defun}</p>
 
                         <button className="eliminar-button_pet" onClick={() => handleEliminar(mascota.idmascota)}>Eliminar</button>

@@ -33,15 +33,6 @@ export const MascotasForm = () => {
                 toast.error('Todos los campos son obligatorios.');
                 return;
               }
-
-              const fechaNacimiento = new Date(formValue.fecha_nacim);
-              const fechaActual = new Date();
-              const limiteFechaNacimiento = new Date();
-              limiteFechaNacimiento.setFullYear(limiteFechaNacimiento.getFullYear() - 20);
-              if (fechaNacimiento > fechaActual || fechaNacimiento < limiteFechaNacimiento) {
-                toast.error('La fecha de nacimiento debe estar en un rango de 20 años hacia atrás desde el día actual.');
-                return;
-              } // Restar 20 años a la fecha actual
             try {
                 console.log(formValue)
                 const response = await crearMascotaApi(formValue, auth.me.idcliente);
@@ -80,7 +71,7 @@ export const MascotasForm = () => {
                     placeholder="Fecha de nacimiento"
                     value={formik.values.date}
                     onChange={formik.handleChange}
-                    error={formik.errors.date}
+                    error={formik.errors.fecha_nacim}
                 />
                 <label htmlFor="" className='label1'>Especie</label>
                 <Form.Select
@@ -142,5 +133,10 @@ const initialValues = (id) => {
 
 
 const validationSchema = () => {
-    return {}
-}
+    return {
+      fecha_nacim: Yup.date()
+      .max(new Date(), 'La fecha de nacimiento no puede ser posterior a hoy')
+      .required('La fecha de nacimiento es obligatoria'),
+      
+    };
+  }
