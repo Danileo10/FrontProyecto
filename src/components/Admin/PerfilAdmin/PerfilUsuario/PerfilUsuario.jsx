@@ -1,10 +1,12 @@
 import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './PerfilUsuario.scss'
 
 export const PerfilUsuario = () => {
   const { auth } = useAuth();
+  const navigate = useNavigate();
   const [modoEdicion, setModoEdicion] = useState(false);
   const [datosEditados, setDatosEditados] = useState({
     nombre: auth.me.nombre,
@@ -30,6 +32,27 @@ export const PerfilUsuario = () => {
       imagen: auth.me.imagen,
     });
   };
+
+  const verificarUsuario = async () => {
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/verificar_correo/?email=${auth.me.email}`, {
+        // Puedes enviar cualquier dato adicional necesario en el cuerpo de la solicitud
+      });
+  
+      if (response.status === 200) {
+        console.log(response)
+        console.log('Usuario verificado con éxito');
+        // Realiza cualquier acción adicional necesaria después de la verificación
+      } else {
+        // La solicitud POST no fue exitosa
+        console.error('Error al verificar el usuario');
+      }
+    } catch (error) {
+      // Captura errores en la solicitud POST
+      console.error('Error en la solicitud POST:', error);
+    }
+  };
+  
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -201,7 +224,13 @@ export const PerfilUsuario = () => {
         <button className="button" onClick={habilitarEdicion}>
           Editar
         </button>
+        
+        
+        
       )}
+       <button className="button" onClick={verificarUsuario}>
+          Verificarse
+        </button>
     </div>
   );
 };

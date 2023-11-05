@@ -106,6 +106,7 @@ export const PerfilMascota = () => {
     const handlePaginaAnterior = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
+            console.log(`Página actual: ${currentPage - 1}`);
         }
     };
 
@@ -113,6 +114,7 @@ export const PerfilMascota = () => {
         const totalPages = Math.ceil(mascotas.length / mascotasPorPagina);
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
+            console.log(`Página actual: ${currentPage + 1}`);
         }
     };
 
@@ -194,8 +196,9 @@ export const PerfilMascota = () => {
             </ul>
 
             <div className="paginacion">
-                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>⇤ Anterior</button>
-                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(mascotas.length / mascotasPorPagina)}>Siguiente ⇥ </button>
+                <span>Página {currentPage} de {Math.ceil(mascotas.length / mascotasPorPagina)}</span>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(mascotas.length / mascotas)}>Siguiente</button>
             </div>
             {mostrarModal && mascotaAEditar && (    
                 <div className='modal-background'>
