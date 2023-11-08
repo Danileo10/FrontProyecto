@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
-import { useAuth } from "../../../../hooks"
-import cerrar from "../../../../../public/x.svg"
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../../../hooks';
+import cerrar from '../../../../../public/x.svg'
+import edit_but from '../../../../../public/edit.svg'
+import trash_but from '../../../../../public/trashb.svg'
 import './PerfilMascota.scss';
 
 
@@ -199,7 +201,7 @@ export const PerfilMascota = () => {
     };
     return (
         <div className="content3">
-            <h1 className="title2">Tus mascotas</h1>
+            <h2 className="titulo-mascotas">Tus mascotas</h2>
             <ul className="ul-mascotas">
                 {mascotasPaginaActual.map((mascota) => (
                     <li className="li-mascotas c" key={mascota.idmascota}>
@@ -207,15 +209,20 @@ export const PerfilMascota = () => {
                         <p>Nombre: {mascota.nombre}</p>
                         <p>Fecha de nacimiento: {mascota.fecha_nacim}</p>
                         <p>Raza: {mascota.raza}</p>
-                        <p>Descripcion</p>
+                        <p>Descripción</p>
                         <p>{mascota.descripcion}</p>
                         <p>Especie</p>
                         <p>{mascota.especie}</p>
                         <p>Fecha de defunción: {mascota.fecha_defun}</p>
-
-                        <button className="eliminar-button_pet" onClick={() => handleEliminar(mascota.idmascota)}>Eliminar</button>
-                        <button className='button1' onClick={() => handleEditar(mascota)}>Editar Mascota</button>
-                        {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}
+                        <div className='contentBtn'>
+                            <button className='button_edit' onClick={() => handleEditar(mascota)}>
+                                <img src={edit_but} alt="Editar Mascota" />
+                            </button>
+                            <button className="eliminar-button_mas" onClick={() => handleEliminar(mascota.idmascota)}>
+                                <img src={trash_but} alt="Eliminar" />
+                            </button>
+                        </div>
+                        
                     </li>
                 ))}
             </ul>
@@ -231,6 +238,7 @@ export const PerfilMascota = () => {
                         <h2 className='titulo2'>Editar Mascota</h2>
                         <form>
                             <div className='input-group'>
+                                <label htmlFor="">Nombre</label>
                                 <input
                                     type="text"
                                     name="nombre"
@@ -238,13 +246,15 @@ export const PerfilMascota = () => {
                                     onChange={handleInputChange}
                                     placeholder="Nombre de la mascota"
                                 />
+                                <label htmlFor="">Fecha de nacimiento</label>
                                 <input
-                                    type="text"
+                                    type="date"
                                     name="fecha_nacim"
                                     value={nuevosDatos.fecha_nacim !== undefined ? nuevosDatos.fecha_nacim : mascotaAEditar.fecha_nacim}
                                     onChange={handleInputChange}
                                     placeholder="Fecha de nacimiento"
                                 />
+                                <label htmlFor="">Raza</label>
                                 <input
                                     type="text"
                                     name="raza"
@@ -252,19 +262,22 @@ export const PerfilMascota = () => {
                                     onChange={handleInputChange}
                                     placeholder="raza"
                                 />
-                                <input
+                                <label htmlFor="">Descripción</label>
+                                <textarea
                                     type="text"
                                     name="descripcion"
                                     value={nuevosDatos.descripcion !== undefined ? nuevosDatos.descripcion : mascotaAEditar.descripcion}
                                     onChange={handleInputChange}
+                                    className='textTarea'
                                     placeholder="Descripcion"
                                 />
+                                <label htmlFor="">Fecha de defución</label>
                                 <input
-                                    type="text"
+                                    type="date"
                                     name="fecha_defun"
                                     value={nuevosDatos.fecha_defun !== undefined ? nuevosDatos.fecha_defun : mascotaAEditar.fecha_defun}
                                     onChange={handleInputChange}
-                                    placeholder="fecha_defun"
+                                    placeholder="fecha de defucion"
                                 />
 
                             </div>
