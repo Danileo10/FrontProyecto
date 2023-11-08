@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
+import './CitasListato.scss';
 
 export const CitasListado = () => {
   const [citas, setCitas] = useState([]);
@@ -105,9 +106,9 @@ const handlePaginaSiguiente = () => {
 
 
   return (
-    <>
-      <h1>listado citas</h1>
-      <ul>
+    <div className='content'> 
+      <h2 className="titulo-mascotas">Listado de citas</h2>
+      <ul className='ulC'>
         {citasPaginaActual.map((item) => (
           <li key={item.id} className='c'>
             <p>fecha: {item.Fecha}</p>
@@ -134,7 +135,8 @@ const handlePaginaSiguiente = () => {
             <h2 className='titulo2'>Agregar Descripción</h2>
             <form>
               <div className='input-group'>
-                <input
+                <textarea
+                  className='textTarea-2'
                   type="text"
                   name="descripcion"
                   value={nuevosDatos.descripcion !== undefined ? nuevosDatos.descripcion : citaAEditar.descripcion}
@@ -152,7 +154,7 @@ const handlePaginaSiguiente = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

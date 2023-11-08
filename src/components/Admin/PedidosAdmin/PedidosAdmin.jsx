@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
+import './PedidosAdmin.scss'
 
 export const PedidosAdmin = () => {
   const { auth } = useAuth()
@@ -162,10 +163,10 @@ const handlePaginaSiguiente = () => {
   return (
     <>
       <h1 className='tituloPedidos'>Lista de Pedidos</h1>
-      <div className='container'>
+      <div className='container2'>
         <div className="contenedorPedidos">
           <div className="lista-pedidos">
-            <ul>
+            <ul className='ulti'>
               {pedidosPaginaActual.map((pedido) => (
                 <li key={pedido.idpedido}>
                   <div className="tarjetaPedido">

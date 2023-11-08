@@ -67,23 +67,29 @@ export const ListadoPedidos = () => {
         }
     };
     return (
-        <>
-            <h1 className="tituloPedidos">Pedidos</h1>
-            <div className="">
+        <div>
+            <h2 className="titulo-mascotas">Pedidos</h2>
+            <div className="d">
                 <div className="contenedorPedidos">
                     <div className="lista-pedidos">
-                        <ul>
+                        <ul className="ulti">
                             {pedidosPaginaActual.map((pedido) => (
                                 <li key={pedido.idpedido}>
                                     <div className="tarjetaPedido">
-                                        <h2>Fecha</h2>
+                                        <h3>Fecha</h3>
                                         <p>{pedido.fecha}</p>
-                                        <h2>Estado</h2>
+                                        <h3>Estado</h3>
                                         <p>{pedido.estado}</p>
-                                        <h2>Tipo de entrega</h2>
+                                        <h3>Tipo de entrega</h3>
                                         <p>{pedido.tipo_entrega}</p>
-                                        <h2>Total</h2>
-                                        <p>{pedido.total}</p>
+                                        <h3>Total</h3>
+                                        <p className="product-price">
+                                        {new Intl.NumberFormat("es-CL", {
+                                        style: "currency",
+                                        currency: "CLP",
+                                        minimumFractionDigits: 0,
+                                        }).format(pedido.total)}
+                                </p>
                                         <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
                                     </div>
 
@@ -103,7 +109,7 @@ export const ListadoPedidos = () => {
                         {detallesVisible && pedidoDetallado.map((detalle, index) => (
                             <div key={index}>
                                 <div className="tarjetaDetalle">
-                                    <h2>Producto</h2>
+                                    <h3>Producto</h3>
                                     <p>{detalle.producto_idProducto.nombre}</p>
                                     <h3>Precio</h3>
                                     <p>{detalle.producto_idProducto.precio}</p>
@@ -124,7 +130,7 @@ export const ListadoPedidos = () => {
 
 
             <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
-        </>
+        </div>
     )
 }
 

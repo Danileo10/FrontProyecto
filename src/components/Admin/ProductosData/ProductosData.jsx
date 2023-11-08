@@ -66,7 +66,7 @@ export const ProductosData = () => {
 
     return (
         <div className='content3'>
-            <h1 className="titulo-mascotas">Tienda</h1>
+            <h2 className="titulo-mascotas">Tienda</h2>
             <CarritoProvider>
                 <ul className="productos">
                     {productosPaginaActual.map((producto) => (
@@ -78,7 +78,7 @@ export const ProductosData = () => {
                                     {new Intl.NumberFormat("es-CL", {
                                         style: "currency",
                                         currency: "CLP",
-                                        minimumFractionDigits: 0, // Esto eliminará los decimales
+                                        minimumFractionDigits: 0,
                                     }).format(producto.precio)}
                                 </p>
                                 <p className="product-description">{producto.descripcion}</p>
