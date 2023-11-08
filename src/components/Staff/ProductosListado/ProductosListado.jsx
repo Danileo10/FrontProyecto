@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './ProductosListado.scss'
 import close from "../../../../public/x.svg"
+import edit_but from '../../../../public/edit.svg'
+import trash_but from '../../../../public/trashb.svg'
 import { useAuth } from '../../../hooks';
 import axios from 'axios';
 
@@ -184,19 +186,30 @@ export const ProductosListado = () => {
 
 
     return (
-        <>
-            <h1 className='title'>Listado de Productos</h1>
-            <ul className='ul-productos'>
+        <div className='content3'>
+            <h2 className="titulo-mascotas">Listado de Productos</h2>
+            <ul className='productos'>
                 {productosPaginaActual.map((item) => (
                     <li key={item.idproducto} className='c' >
-                        <p>{item.nombre}</p>
-                        <p>{item.precio}</p>
-                        <p>{item.descripcion}</p>
-                        <img src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
-
-                        <div className='containerBtn_pl'>
-                            <button className='editar' onClick={() => handleEditar(item)}>Editar</button>
-                            <button className='eliminar' onClick={() => handleEliminar(item.idproducto)}>Eliminar</button>
+                        <img className="foto_mascota" src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
+                        <div className="product-info">
+                        <h2 className="product-title">{item.nombre}</h2>
+                        <p className="product-price">
+                                    {new Intl.NumberFormat("es-CL", {
+                                        style: "currency",
+                                        currency: "CLP",
+                                        minimumFractionDigits: 0,
+                                    }).format(item.precio)}
+                        </p>
+                        <p className="product-description">{item.descripcion}</p>
+                        </div>               
+                        <div className='contentBtn'>
+                            <button className='button_edit' onClick={() => handleEditar(item)}>
+                                <img src={edit_but} alt="Editar" />
+                            </button>
+                            <button className='eliminar-button_mas' onClick={() => handleEliminar(item.idproducto)}>
+                                <img src={trash_but} alt="Eliminar" />
+                            </button>
                         </div>
                     </li>
                 ))}
@@ -206,6 +219,7 @@ export const ProductosListado = () => {
                 <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
                 <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
             </div>
+
             {mostrarModal && productoAEditar && (
                 <div className='modal-pro'>
                     <form className='form-dos'>
@@ -248,6 +262,6 @@ export const ProductosListado = () => {
                     </form>
                 </div>
             )}
-        </>
+        </div>
     );
 };

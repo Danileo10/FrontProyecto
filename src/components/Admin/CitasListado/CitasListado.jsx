@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks";
+import trash_but from '../../../../public/trashb.svg'
 import './Citaslistado.scss';
 
 export const CitasListado = () => {
@@ -99,17 +100,20 @@ export const CitasListado = () => {
     };
     return (
         <div className="content3">
-            <h1>Citas Agendadas</h1>
+            <h2 className="titulo-mascotas">Citas Agendadas</h2>
             <ul className="ul-mascotas">
                 {citasPaginaActual.map((cita) => (
-                    <li key={cita.idcita}>
+                    <li className="li-mascotas c" key={cita.idcita}>
                         <p>Fecha de la Cita: {cita.Fecha}</p>
                         <p>Bloque de horas de la Cita: {cita.Bloque}</p>
                         <p>Servicio a atender: {cita.Servicio}</p>
                         <p>Mascota a atender: {cita.Nombre_mascota} - {cita.Raza_mascota}</p>
                         <p>Descripcion: {cita.Descripcion}</p>
-                        <button className="custom-btn btn-16" onClick={() => handleEliminar(cita.idcita)}>🗑️</button>
-                        {/* Agrega aquí otras propiedades de la mascota que desees mostrar */}
+                        <div className='contentBtn'>
+                        <button className="eliminar-button_cita" onClick={() => handleEliminar(cita.idcita)}>
+                            <img src={trash_but} alt="Eliminar" />
+                        </button>
+                        </div>
                     </li>
                 ))}
             </ul>

@@ -1,5 +1,6 @@
   import './ClientesListado.scss';
   import cerrar from "../../../../public/x.svg"
+  import edit_but from '../../../../public/edit.svg'
   import { useEffect, useState } from 'react';
 
 
@@ -111,7 +112,7 @@
 
     return (
       <div className='content'>
-        <h1 className='titulo'>Listado de Clientes</h1>
+        <h2 className="titulo-mascotas">Listado de Clientes</h2 >
         <ul className='ulC'>
           {clientesPaginaActual.map((item) => (
             <li key={item.idcliente} className='c'>
@@ -121,7 +122,11 @@
               <p>Email: {item.persona_idusuario.email}</p>
               <p>Dirección: {item.direccion}</p>
               <p>Es empleado: {item.persona_idusuario.is_staff ? 'Sí' : 'No'}</p>
-              <button className= 'button1' onClick={() => handleEditar(item)}>Editar</button>
+              <div className='contentBtn'>
+              <button className= 'button_edit' onClick={() => handleEditar(item)}>
+                <img src={edit_but} alt="Editar Mascota" />
+              </button>
+              </div>  
             </li>
           ))}
         </ul>
