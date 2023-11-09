@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../../hooks';
 import 'bootstrap/dist/css/bootstrap.css';
+import trash_but from '../../../../public/trashb.svg'
 import './Carrito.scss'
 
 export const Carrito = () => {
@@ -89,9 +90,8 @@ export const Carrito = () => {
 
   return (
     <>
-      <h2 className='titulo_carrito'>Carrito de Compras</h2>
+      <h2 className='titulo-mascotas'>Carrito de Compras</h2>
       <div className='carrito container'>
-
 
         <div className='ladoizq_carrito'>
           <ul>
@@ -103,12 +103,20 @@ export const Carrito = () => {
                   </div>
                   <div className='ladoder_producto'>
                     <p>Producto: {item.nombre}</p>
-                    <p>Precio: $ {item.precio}</p>
+                    <p className="product-price">
+                          {new Intl.NumberFormat("es-CL", {
+                              style: "currency",
+                              currency: "CLP",
+                              minimumFractionDigits: 0,
+                          }).format(item.precio)}
+                    </p>
                     <p>Cantidad: {item.cantidad || 1}</p>
-                    <div>
+                    <div className='contentBtn'>
                       <button className='button_save' onClick={() => agregarCantidad(index)}>+</button>
                       <button className='button_save' onClick={() => restarCantidad(index)}>-</button>
-                      <button className='' onClick={() => eliminarProducto(index)}>🗑️</button>
+                      <button className='eliminar-button_mas' onClick={() => eliminarProducto(index)}>
+                        <img src={trash_but} alt="Eliminar" />
+                      </button>
                     </div>
                     
                   </div>
@@ -124,9 +132,9 @@ export const Carrito = () => {
         </div>
 
         <div className='ladoder_carrito'>
-          <h4>Informacion Adicional</h4>
-          <h6>Tipo de domicilio</h6>
-          <select value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
+          <h4 className='h4'>Informacion Adicional</h4>
+          <h6 className='h6'>Tipo de domicilio</h6>
+          <select className='tipoDomi' value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
             <option value="Domicilo">Domicilio</option>
             <option value="Recoger en tienda">Recoger en tienda</option>
           </select>

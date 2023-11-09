@@ -3,6 +3,8 @@ import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import edit_but from '../../../../public/edit.svg'
+import trash_but from '../../../../public/trashb.svg'
 import './PedidosAdmin.scss'
 
 export const PedidosAdmin = () => {
@@ -257,11 +259,19 @@ export const PedidosAdmin = () => {
                     <h2>Tipo de entrega</h2>
                     <p>{pedido.tipo_entrega}</p>
                     <h2>Total</h2>
-                    <p>${pedido.total}</p>
+                    <p className="product-price">
+                          {new Intl.NumberFormat("es-CL", {
+                              style: "currency",
+                              currency: "CLP",
+                              minimumFractionDigits: 0,
+                          }).format(pedido.total)}
+                    </p>
                     <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-                    <button className='custom-btn btn-16' onClick={() => handleEliminar(pedido.idpedido)}>Eliminar</button>
-                    <button className='custom-btn btn-16' onClick={() => handleEditar(pedido)}>Editar</button>
+                    <button className='button_edit' onClick={() => handleEliminar(pedido.idpedido)}><img src={edit_but} alt="Editar" /></button>
+                    <button className='eliminar-button_mas' onClick={() => handleEditar(pedido)}><img src={trash_but} alt="Eliminar" /></button>
                   </div>
+
+                  
 
                 </li>
               ))}
