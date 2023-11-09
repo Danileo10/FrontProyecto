@@ -45,6 +45,8 @@ export const ListadoPedidos = () => {
                 },
             });
             const data = await response.json();
+            console.log(response.data)
+            console.log(data)
             setPedidoDetallado(data);
             setDetallesVisible(true);
         } catch (error) {
@@ -67,70 +69,70 @@ export const ListadoPedidos = () => {
         }
     };
     return (
-        <div>
+        <>
             <h2 className="titulo-mascotas">Pedidos</h2>
-            <div className="d">
-                <div className="contenedorPedidos">
-                    <div className="lista-pedidos">
-                        <ul className="ulti">
-                            {pedidosPaginaActual.map((pedido) => (
-                                <li key={pedido.idpedido}>
-                                    <div className="tarjetaPedido">
-                                        <h3>Fecha</h3>
-                                        <p>{pedido.fecha}</p>
-                                        <h3>Estado</h3>
-                                        <p>{pedido.estado}</p>
-                                        <h3>Tipo de entrega</h3>
-                                        <p>{pedido.tipo_entrega}</p>
-                                        <h3>Total</h3>
-                                        <p className="product-price">
-                                        {new Intl.NumberFormat("es-CL", {
-                                        style: "currency",
-                                        currency: "CLP",
-                                        minimumFractionDigits: 0,
-                                        }).format(pedido.total)}
-                                </p>
-                                        <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-                                    </div>
+            <div className='container2'>
+        <div className="contenedorPedidos">
+          <div className="lista-pedidos">
 
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="paginacion">
-                <span>Página {currentPage} de {Math.ceil(pedidos.length / pedidosPorPagina)}</span>
-                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
-                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(pedidos.length / pedidos)}>Siguiente</button>
+            <ul className='ulti container'>
+              {pedidosPaginaActual.map((pedido) => (
+                <li key={pedido.idpedido}>
+                  <div className="tarjetaPedido">
+                    <h2>Fecha</h2>
+                    <p>{pedido.fecha}</p>
+                    <h2>Estado</h2>
+                    <p>{pedido.estado}</p>
+                    <h2>Tipo de entrega</h2>
+                    <p>{pedido.tipo_entrega}</p>
+                    <h2>Total</h2>
+                    <p>${pedido.total}</p>
+                    <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
+                  </div>
+
+                </li>
+              ))}
+            </ul>
+
+            <div className="paginacion">
+              <span>Página {currentPage} de {Math.ceil(pedidos.length / pedidosPorPagina)}</span>
+              <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+              <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(pedidos.length / pedidos)}>Siguiente</button>
             </div>
-                    </div>
-                </div>
-                <div className="contenedorDetalles">
-                    <div className="detalles-pedido">
-                        <h2 className="tituloDetalle">Detalles del Pedido</h2>
-                        {detallesVisible && pedidoDetallado.map((detalle, index) => (
-                            <div key={index}>
-                                <div className="tarjetaDetalle">
-                                    <h3>Producto</h3>
-                                    <p>{detalle.producto_idProducto.nombre}</p>
-                                    <h3>Precio</h3>
-                                    <p>{detalle.producto_idProducto.precio}</p>
-                                    <h3>Cantidad</h3>
-                                    <p>{detalle.cantidad}</p>
-                                    <h3>ID del Pedido</h3>
-                                    <p>{detalle.pedido_idPedido}</p>
-                                    <button className="custom-btn btn-16" onClick={() => setDetallesVisible(false)}>Cerrar</button>
-                                </div>
+          </div>
 
-                            </div>
-                        ))}
-                    </div>
+          <div className="contenedorDetalles">
+            <div className="detalles-pedido">
+              <h2 className="tituloDetalle">Detalles del Pedido</h2>
+              {detallesVisible && pedidoDetallado.map((detalle, index) => (
+                <div key={index}>
+                  <div className="tarjetaDetalle">
+                    <h2>Producto</h2>
+                    <p>{detalle.producto_idProducto.nombre}</p>
+                    <h3>Precio</h3>
+                    <p>${detalle.producto_idProducto.precio}</p>
+                    <h3>Cantidad</h3>
+                    <p>{detalle.cantidad}</p>
+                    <h3>ID del Pedido</h3>
+                    <p>{detalle.pedido_idPedido}</p>
+
+                  </div>
+
                 </div>
+              ))}
+              {detallesVisible &&
+                <button className="custom-btn btn-16" onClick={() => setDetallesVisible(false)}>Cerrar</button>
+              }
 
             </div>
+          </div>
+        </div>
+      </div>
 
 
 
             <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
-        </div>
+        </>
     )
 }
 

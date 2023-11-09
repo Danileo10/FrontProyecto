@@ -1,66 +1,65 @@
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import baños from "../../../../public/baños.png";
 import medicina from "../../../../public/medicina.png";
 import cirugia from "../../../../public/cirugia.png";
 import tienda from "../../../../public/tienda.png";
 import './CitasClient.scss';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/splide.min.css';
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
 
 export const CitasClient = () => {
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
+
+  const sliderOptions = {
+    type: 'fade', // Puedes cambiar el tipo de transición (slide, fade, etc.)
+    heightRatio: 0.5,   // Altura del slider respecto al ancho del contenedor
+    pagination: false, // Muestra la paginación
+    arrows: true,  // Muestra las flechas de navegación
+    height: '400px', // Establece la altura del slider
+    width: '800px',
   };
 
+
+
   return (
-    <section className="skill" id="skills">
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <div className="skill-bx wow zoomIn">
-              <h2>Nuestros Servicios</h2>
-              
-              <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={2000} className="owl-carousel owl-theme skill-slider">
-                <div className="item" data-tip="Tooltip para Medicina General">
-                  <img src={medicina} alt="Image" />
-                  <h5 >Medicina General</h5>
-                </div>
-                <div className="item" >
-                  <img src={baños} alt="Image" data-tip="Tooltip para Baños" />
-                  <h5 >Baños</h5>
-                </div>
-                <div className="item">
-                  <img src={cirugia} alt="Image" />
-                  <h5 data-tip="Tooltip para Cirugía">Cirugía</h5>
-                </div>
-                <div className="item">
-                  <img src={tienda} alt="Image" />
-                  <h5 data-tip="Tooltip para Tienda">Tienda</h5>
-                </div>
-              </Carousel>
-            </div>
-          </div>
-        </div>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Quicksand:wght@500&display=swap" rel="stylesheet"></link>
+    <>
+    <h1 className='tituloServicios'>Nuestros Servicios</h1>
+      <div className='splide-container'>
+        <Splide options={sliderOptions}>
+          
+          <SplideSlide>
+            <img src={baños} alt="Slide 1" />
+            <Link to={'/client/citas'} className='linkButton' style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h2>Baños</h2>
+            </Link>
+            
+          </SplideSlide>
+          <SplideSlide>
+            <img src={medicina} alt="Slide 2" />
+            <Link to={'/client/citas'} className='linkButton' style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h2>Medicina</h2>
+            </Link>
+          </SplideSlide>
+          <SplideSlide>
+            <img src={cirugia} alt="Slide 2" />
+            <Link to={'/client/citas'} className='linkButton' style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h2>Cirugía</h2>
+            </Link>
+          </SplideSlide>
+          <SplideSlide>
+            <img src={tienda} alt="Slide 2" />
+            <Link to={'/client/productos'} className='linkButton' style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h2>Tienda</h2>
+            </Link>
+          </SplideSlide>
+          {/* Agrega más SplideSlides según sea necesario */}
+        </Splide>
       </div>
-      
-    </section>
+
+    </>
   );
 };

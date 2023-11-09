@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks'
 import { crearCitaApi } from '../../../api/user'
+import Swal from 'sweetalert2'
 import './CitaForm.scss';
 
 export const CitasForm = () => {
@@ -69,15 +70,33 @@ export const CitasForm = () => {
             const currentDate = new Date();
 
             if (selectedDate < currentDate) {
-                alert('La fecha seleccionada debe ser a partir de hoy.');
-                return;
+                Swal.fire({
+                    position: "center ",
+                    icon: "error",
+                    title: "Todos los campos son obligatorios",
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
             }
 
             try {
                 console.log(formValue)
                 const response = await crearCitaApi(formValue);
                 console.log(response)
-                window.location.reload();
+                Swal.fire({
+                    position: "center ",
+                    icon: "success",
+                    title: "Cita creada con éxito!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                      console.log("I was closed by the timer");
+                      window.location.reload();
+                    }
+                  });
+                
 
             } catch (e) {
                 console.log("Error");

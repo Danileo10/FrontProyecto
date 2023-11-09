@@ -60,7 +60,7 @@ const routesAdmin = [
         component: CarritodeCompras
     },
     {
-        path: "/admin/clientes",
+        path: "/admin/usuarios",
         layout: AdminLayout,
         component: ClientesStaff,
     },

@@ -1,11 +1,9 @@
-.d{
-  display: flex;
-  justify-content: space-around;
-}
+
 
 .contenedorPedidos{
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 h2, h3 {
@@ -17,6 +15,7 @@ p{
 }
 .ulti{
   display: flex;
+  flex-wrap: wrap;
 }
 .tituloPedidos{
   display: flex;
@@ -128,4 +127,11 @@ p{
 }
 .btn-16:active {
   top: 2px;
+}
+
+.buscador{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }

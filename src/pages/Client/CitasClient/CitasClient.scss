@@ -1,71 +1,106 @@
-.react-multiple-carousel__arrow { 
-  margin-left: -30px;
-  margin-right: -30px;
+/* Estilo del contenedor del slider */
 
-}
-.skill {
-  background-color: #ffffff;
-  margin-top: 100px;
-  padding: 0 0 50px 0;
-  position: relative;
-}
-.skill-bx {
-  background: #ffc1c1;
-  border-radius: 64px;
-  text-align: center;
-  padding: 70px 50px;
-  margin-top: center;  
-}
-.skill h2 {
-font-family: 'Poppins', sans-serif;
-  color: white;
-  margin-bottom: 50px;
-    font-size: 45px;
-    font-weight: 700;
-}
-.skill p {
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.8px;
-    line-height: 1.5em;
-    margin: 14px 0 75px 0;
-}
-.skill-slider {
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-}
-.skill-slider .item img {
-  height: 150px;
-  width: 50%;
-  margin: 0 auto 15px auto;
+.tituloServicios{
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
-h5 {
-  color: white;
-}
-/* Personalización de los estilos de los tooltips */
-/* Cambiar el fondo del tooltip */
-.tooltip {
-  background-color: #333;
-  border: 1px solid #555;
-  color: #fff;
-}
-
-/* Cambiar el ancho del tooltip */
-.tooltip.place-top,
-.tooltip.place-topLeft,
-.tooltip.place-topRight {
-  width: 200px; /* Ancho personalizado */
-}
-
-/* Cambiar la flecha del tooltip */
-.tooltip .arrow {
-  border-bottom-color: #333;
+.splide-container {
+  width: 800px; /* Define el ancho máximo del slider */
+  height: 400px;
+  margin: 0 auto; /* Centra el slider en el contenedor */
+  background-color: #D7E5CA;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  padding: 2rem;
+  margin-top: 70px;
+  margin-bottom: 110px;
+  border-radius: 21px 21px 21px 21px;
+-webkit-border-radius: 21px 21px 21px 21px;
+-moz-border-radius: 21px 21px 21px 21px;
+box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
-/* Cambiar el color del texto del tooltip */
-.tooltip .tooltip-content {
-  color: #fff;
+/* Estilo de las diapositivas */
+.splide__slide img{
+  margin-top: 60px;
+  width: 200px;
+  height: 210px;/* Hace que las imágenes ocupen el 100% del ancho del contenedor */
+  border-radius: 10px; /* Agrega esquinas redondeadas a las imágenes */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.233); /* Agrega una sombra a las imágenes */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; 
+}
+
+.splide__slide .linkButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F5F5F5 ;
+  width: 150px;
+  margin: 0 auto; 
+  margin-top: 1rem;
+  border-radius: 21px 21px 21px 21px;
+  -webkit-border-radius: 21px 21px 21px 21px;
+  -moz-border-radius: 21px 21px 21px 21px;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+
+}
+
+.splide__slide .linkButton:hover{
+  background-color: rgba(70, 70, 70, 0.63);
+  animation: moveUpDown 0.5s infinite;
+}
+
+@keyframes moveUpDown {
+  0%, 100% {
+    transform: translateY(0); /* El botón no se mueve en la posición inicial y final del ciclo de animación */
+  }
+  50% {
+    transform: translateY(-2px); /* Mueve el botón 2 píxeles hacia arriba en la mitad de la animación */
+  }
+}
+
+.splide__slide h2{
+  padding: 1rem;
+  display: flex;
+ 
+}
+
+/* Estilo de las flechas de navegación */
+.splide__arrow {
+  background-color: #007bff; /* Color de fondo de las flechas */
+  border-radius: 50%; /* Hace que las flechas sean redondas */
+  color: white; /* Color del icono de flecha */
+}
+
+/* Estilo de la paginación */
+.splide__pagination__page {
+  background-color: #007bff; /* Color de fondo de las páginas de la paginación */
+  border: 2px solid white; /* Borde de las páginas de la paginación */
+}
+
+
+.custom-slider-container .splide__slide {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.splide-container .splide__slide img {
+  width: 200px; /* Asegura que las imágenes ocupen todo el ancho del contenedor */
+  height: 200px; /* Asegura que las imágenes ocupen todo el alto del contenedor */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Ajusta la imagen para cubrir completamente el contenedor */
+  margin-left: 300px;
 }

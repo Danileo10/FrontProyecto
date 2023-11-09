@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks';
+import axios from 'axios';
+import Swal from 'sweetalert2'
 import cerrar from "../../../../public/x.svg"
 import './CitasListato.scss';
 
@@ -16,7 +18,7 @@ export const CitasListado = () => {
   const indiceInicial = (currentPage - 1) * citasPorPagina;
   const indiceFinal = currentPage * citasPorPagina;
   const citasPaginaActual = citas.slice(indiceInicial, indiceFinal);
-
+  const [busqueda, setBusqueda] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
 
   const handleInputChange = (e) => {
@@ -27,19 +29,59 @@ export const CitasListado = () => {
     });
   };
 
+
+
+  const handleReiniciar = async () => {
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api-citas/citas/');
+      if (!response.ok) {
+        throw new Error('No hay datos');
+      }
+      const jsonData = await response.json();
+      setCitas(jsonData);
+    } catch (error) {
+      console.error('Error');
+    }
+
+
+  }
+
+  const handleBuscar = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api-citas/cita_filter/?fecha=${busqueda}`)
+
+      setCitas(response.data)
+    } catch (error) {
+      console.log("error")
+      Swal.fire({
+        position: "center ",
+        icon: "error",
+        title: "El email no existe",
+        showConfirmButton: true,
+      })
+      throw new Error(error);
+    }
+
+
+
+
+
+  }
+
   const handlePaginaAnterior = () => {
     if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-        console.log(`Página actual: ${currentPage - 1}`);
+      setCurrentPage(currentPage - 1);
+      console.log(`Página actual: ${currentPage - 1}`);
     }
-};
-const handlePaginaSiguiente = () => {
-  const totalPages = Math.ceil(citas.length / citasPorPagina);
-  if (currentPage < totalPages) {
+  };
+  const handlePaginaSiguiente = () => {
+    const totalPages = Math.ceil(citas.length / citasPorPagina);
+    if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
       console.log(`Página actual: ${currentPage + 1}`);
-  }
-};
+    }
+  };
 
 
   useEffect(() => {
@@ -83,7 +125,13 @@ const handlePaginaSiguiente = () => {
       );
 
       if (response.ok) {
-        console.log('Pedido editado con éxito');
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Descripción agregada",
+          showConfirmButton: false,
+          timer: 3000
+        })
 
         const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api-citas/citas/');
         if (nuevaRespuesta.ok) {
@@ -106,8 +154,22 @@ const handlePaginaSiguiente = () => {
 
 
   return (
-    <div className='content'> 
+    <div className=''>
       <h2 className="titulo-mascotas">Listado de citas</h2>
+
+      <div className='buscador'>
+        <input
+          type="date"
+          placeholder="Buscar cita"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+
+        />
+
+        <button className='btn-16' onClick={handleBuscar}>Buscar</button>
+        <button className='btn-16' onClick={handleReiniciar}>✖️</button>
+      </div>
+
       <ul className='ulC'>
         {citasPaginaActual.map((item) => (
           <li key={item.id} className='c'>
@@ -124,10 +186,10 @@ const handlePaginaSiguiente = () => {
       </ul>
 
       <div className="paginacion">
-                <span>Página {currentPage} de {Math.ceil(citas.length / citasPorPagina)}</span>
-                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
-                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(citas.length / citas)}>Siguiente</button>
-            </div>
+        <span>Página {currentPage} de {Math.ceil(citas.length / citasPorPagina)}</span>
+        <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+        <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(citas.length / citas)}>Siguiente</button>
+      </div>
 
       {mostrarModal && citaAEditar && (
         <div className='modal-background'>
