@@ -2,6 +2,8 @@ import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import edit_but from '../../../../../public/edit.svg' 
+import dog_but from '../../../../../public/dog.svg' 
 import axios from 'axios';
 import './PerfilUsuario.scss'
 
@@ -129,6 +131,29 @@ export const PerfilUsuario = () => {
             )}
           </div>
         </div>
+        <div className='botones-perfil'>
+          <button className="button" onClick={verificarUsuario}>
+              Verificarse
+          </button>
+            {modoEdicion ? (
+            <div className="button-group">
+              <button className="button" onClick={guardarCambios}>
+                Guardar Cambios
+              </button>
+              <button className="button" onClick={cancelarEdicion}>
+                Cancelar
+              </button>
+            </div>
+          ) : (
+            <button className="button_edit_prof" onClick={habilitarEdicion}>
+              <img src={edit_but} alt="Editar Mascota" />
+            </button>
+          )}
+          
+            <Link to="/client/mascotas"><button className="button_edit_prof">
+             <img src={dog_but} alt="Editar Mascota" />
+            </button></Link>
+        </div>
         <div className='lado_derechoPerfil'>
           <div className="contact-infoderecha">
             <div className="section">
@@ -141,14 +166,9 @@ export const PerfilUsuario = () => {
                   onChange={handleInputChange}
                 />
               ) : (
-                <p>{datosEditados.nombre}</p>
+                <p className='p'>{datosEditados.nombre}</p>
               )}
 
-            </div>
-
-
-
-            <div className="section">
               <p className="section-title">Apellido</p>
               {modoEdicion ? (
                 <input
@@ -158,11 +178,9 @@ export const PerfilUsuario = () => {
                   onChange={handleInputChange}
                 />
               ) : (
-                <p>{datosEditados.apellido}</p>
+                <p className='p'>{datosEditados.apellido}</p>
               )}
-            </div>
 
-            <div className="section">
               <p className="section-title">Email</p>
               {modoEdicion ? (
                 <input
@@ -172,11 +190,9 @@ export const PerfilUsuario = () => {
                   onChange={handleInputChange}
                 />
               ) : (
-                <p>{datosEditados.email}</p>
+                <p className='p'>{datosEditados.email}</p>
               )}
-            </div>
-
-            <div className="section">
+              
               <p className="section-title">Teléfono</p>
               {modoEdicion ? (
                 <input
@@ -186,11 +202,8 @@ export const PerfilUsuario = () => {
                   onChange={handleInputChange}
                 />
               ) : (
-                <p>{datosEditados.telefono}</p>
+                <p className='p'>{datosEditados.telefono}</p>
               )}
-            </div>
-
-            <div className="section">
               <p className="section-title">Dirección</p>
               {modoEdicion ? (
                 <input
@@ -201,38 +214,14 @@ export const PerfilUsuario = () => {
                 />
 
               ) : (
-                <p>{datosEditados.direccion}</p>
+                <p className='p'>{datosEditados.direccion}</p>
 
               )}
-            </div>
+            </div>        
           </div>
         </div>
-      </div>
-      
-      
-
-      {modoEdicion ? (
-        <div className="button-group">
-          <button className="button" onClick={guardarCambios}>
-            Guardar Cambios
-          </button>
-          <button className="button" onClick={cancelarEdicion}>
-            Cancelar
-          </button>
-        </div>
-      ) : (
-        <button className="button" onClick={habilitarEdicion}>
-          Editar
-        </button>
         
-        
-        
-      )}
-       <button className="button" onClick={verificarUsuario}>
-          Verificarse
-        </button>
-        <Link to="/client/mascotas"><button className="button">Mascotas</button></Link>
-        
+      </div>    
     </div>
   );
 };

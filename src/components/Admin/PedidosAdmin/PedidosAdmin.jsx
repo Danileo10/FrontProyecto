@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
+import edit_but from '../../../../public/edit.svg'
+import trash_but from '../../../../public/trashb.svg'
 import './PedidosAdmin.scss'
 
 export const PedidosAdmin = () => {
@@ -162,7 +164,7 @@ const handlePaginaSiguiente = () => {
 
   return (
     <>
-      <h1 className='tituloPedidos'>Lista de Pedidos</h1>
+      <h2 className='titulo-mascotas'>Lista de Pedidos</h2>
       <div className='container2'>
         <div className="contenedorPedidos">
           <div className="lista-pedidos">
@@ -177,10 +179,22 @@ const handlePaginaSiguiente = () => {
                     <h2>Tipo de entrega</h2>
                     <p>{pedido.tipo_entrega}</p>
                     <h2>Total</h2>
-                    <p>${pedido.total}</p>
+                    <p className="product-price">
+                          {new Intl.NumberFormat("es-CL", {
+                              style: "currency",
+                              currency: "CLP",
+                              minimumFractionDigits: 0,
+                          }).format(pedido.total)}
+                    </p>
                     <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-                    <button className='custom-btn btn-16' onClick={() => confirmarEliminarPedido(pedido.idpedido)}>Eliminar</button>
-                    <button className='custom-btn btn-16' onClick={() => handleEditar(pedido)}>Editar</button>
+                    <div className='contentBtn'>
+                    <button className='button_edit' onClick={() => handleEditar(pedido)}>
+                      <img src={edit_but} alt="Editar" />
+                    </button>
+                    <button className='eliminar-button_mas' onClick={() => confirmarEliminarPedido(pedido.idpedido)}>
+                      <img src={trash_but} alt="Eliminar" />
+                    </button>
+                    </div>
                   </div>
 
                 </li>
