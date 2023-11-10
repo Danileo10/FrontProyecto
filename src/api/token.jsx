@@ -1,6 +1,8 @@
 import {TOKEN} from '../utils/constants'
 
 export const setToken = (token) => {
+    // Incrementa la marca de tiempo para notificar a otras pestañas
+    localStorage.setItem('tokenSetAt', Date.now().toString());
     localStorage.setItem(TOKEN, token);
 }
 
@@ -9,5 +11,9 @@ export const getToken = () => {
 }
 
 export const removeToken = () => {
-    return localStorage.removeItem(TOKEN);
+    // Incrementa la marca de tiempo para notificar a otras pestañas
+    localStorage.setItem('tokenRemovedAt', Date.now().toString());
+
+    // Elimina el token
+    localStorage.removeItem(TOKEN);
 }

@@ -36,7 +36,7 @@ const routesAdmin = [
     },
     {
         path: "/client/verification/:token",
-        layout: ClientLayout,
+        layout: AdminLayout,
         component: ClientVerification
     },
     {

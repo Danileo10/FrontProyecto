@@ -1,4 +1,4 @@
-.content5 {
+.content3 {
     display: flex;
     padding: 20px;
     width: 100%;
@@ -58,16 +58,17 @@ color: #ffffff;
     
 }
 
-.productos {
+.productosT {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 20px auto;
-    max-width: 2000px;
+    margin: 7rem;
+   
+   
+    
 
     .producto {
         width: 40%;
-        height: 500px;
+        height: 500px !important;
         margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 10px;

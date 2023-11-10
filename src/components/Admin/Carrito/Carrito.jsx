@@ -6,7 +6,7 @@ import './Carrito.scss'
 
 export const Carrito = () => {
   const { auth } = useAuth();
- 
+
   const [tipoDomicilio, setTipoDomicilio] = useState("opcion1"); // valor inicial
   const [carrito, setCarrito] = useState(JSON.parse(localStorage.getItem('carrito')) || []);
 
@@ -104,35 +104,37 @@ export const Carrito = () => {
                   <div className='ladoder_producto'>
                     <p>Producto: {item.nombre}</p>
                     <p className="product-price">
-                          {new Intl.NumberFormat("es-CL", {
-                              style: "currency",
-                              currency: "CLP",
-                              minimumFractionDigits: 0,
-                          }).format(item.precio)}
+                      {new Intl.NumberFormat("es-CL", {
+                        style: "currency",
+                        currency: "CLP",
+                        minimumFractionDigits: 0,
+                      }).format(item.precio)}
                     </p>
                     <p>Cantidad: {item.cantidad || 1}</p>
                     <div className='contentBtn'>
                       <button className='button_save' onClick={() => agregarCantidad(index)}>+</button>
-                      <button className='button_save' onClick={() => restarCantidad(index)}>-</button>
+                      {item.cantidad > 1 && (
+                        <button className='button_save' onClick={() => restarCantidad(index)}>-</button>
+                      )}
                       <button className='eliminar-button_mas' onClick={() => eliminarProducto(index)}>
                         <img src={trash_but} alt="Eliminar" />
                       </button>
                     </div>
-                    
+
                   </div>
-                   {/* Iniciar en 1 si es undefined */}
-                  
+                  {/* Iniciar en 1 si es undefined */}
+
                   {/* Agregar botones para agregar y restar cantidad */}
-                  
+
                 </div>
-                
+
               </li>
             ))}
           </ul>
         </div>
 
         <div className='ladoder_carrito'>
-          <h4 className='h4'>Informacion Adicional</h4>
+          <h4 className='h4'>Información Adicional</h4>
           <h6 className='h6'>Tipo de domicilio</h6>
           <select className='tipoDomi' value={tipoDomicilio} onChange={(e) => setTipoDomicilio(e.target.value)}>
             <option value="Domicilo">Domicilio</option>

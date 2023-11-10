@@ -1,9 +1,25 @@
 import { Navbar } from '../../components/Client'
 import { FooterAdmin } from '../../components/Admin/FooterAdmin/FooterAdmin';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks';
+import { useEffect } from 'react';
 import './ClientLayout.scss';
 
 export const ClientLayout = (props) => {
     const {children} = props;
+    const {auth} = useAuth()
+    const navigate = useNavigate('')
+
+    useEffect(() => {
+      if (auth) {
+        navigate('/home');
+      }
+    }, [auth, navigate]);
+  
+    if (auth) {
+      return null;
+    }
+
   return (
     <>
       <div>

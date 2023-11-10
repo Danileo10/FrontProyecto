@@ -1,9 +1,11 @@
 import { useParams } from "react-router"
 import { useState } from "react";
-
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
 
 export const ClientVerification = () => {
   const {token} = useParams()
+  const navigate = useNavigate('')
   const [responseMessage, setResponseMessage] = useState('');
 
 
@@ -26,7 +28,20 @@ export const ClientVerification = () => {
       // Verificar si la solicitud fue exitosa o si hubo errores
       if (response.ok) {
         // Mostrar mensaje de éxito
-        alert(data.message);
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Correo verificado con éxito!",
+          showConfirmButton: false,
+          timer: 1000
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log("I was closed by the timer");
+            navigate('/perfil')
+            window.location.reload();
+          }
+        });
       } else {
         // Mostrar mensaje de error
         alert(data.error);

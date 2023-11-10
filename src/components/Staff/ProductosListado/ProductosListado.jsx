@@ -251,7 +251,7 @@ export const ProductosListado = () => {
                     value={busqueda}
                     onChange={handleBusqueda}
                 />
-            <ul className='productos'>
+            <ul className='productosT container'>
                 {productosPaginaActual.map((item) => (
                     <li key={item.idproducto} className='c' >
                         <img className="foto_mascota" src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
