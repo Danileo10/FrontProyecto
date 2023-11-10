@@ -165,7 +165,7 @@ export const ClientesListado = () => {
 
   return (
     <div className=''>
-      <h2 className="titulo-usuarios">Listado de Usarios</h2 >
+      <h2 className="titulo-usuarios">Listado de Usuarios</h2 >
       <div className='buscador'>
          <input
         type="text"

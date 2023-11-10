@@ -13,6 +13,7 @@ export const AdminLayout = (props) => {
       return (
         <>
           <LoginAdmin/>
+          
         </>
       );
     }

@@ -9,6 +9,7 @@ import './PerfilMascota.scss';
 
 export const PerfilMascota = () => {
     const [mascotas, setMascotas] = useState([]);
+    const [modoEdicion, setModoEdicion] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const mascotasPorPagina = 6;
     const { auth } = useAuth();
@@ -19,7 +20,7 @@ export const PerfilMascota = () => {
         raza: '',
         especie: '',
         descripcion: '',
-        fecha_defun: '',
+        fecha_defun: null,
 
     });
     const fechaActual = new Date();
@@ -36,6 +37,22 @@ export const PerfilMascota = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        const regex = /^[A-Za-z\s]+$/;
+
+        // Validar que el campo de "raza" solo contiene letras y espacios
+        if (name === "raza" && value !== "" && !regex.test(value)) {
+            // Mostrar una alerta si el valor no cumple con la expresión regular
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "La raza solo puede contener letras y espacios",
+                showConfirmButton: false,
+                timer: 3000
+            });
+            return;
+        }
+
         setNuevosDatos({
             ...nuevosDatos,
             [name]: value,
@@ -62,6 +79,7 @@ export const PerfilMascota = () => {
     }, []);
 
     const handleEditar = (mascota) => {
+        setModoEdicion(true);
         setMascotaAEditar(mascota);
         setNuevosDatos({
             nombre: mascota.nombre || '',
@@ -86,7 +104,7 @@ export const PerfilMascota = () => {
             !nuevosDatos.fecha_nacim ||
             !nuevosDatos.raza ||
             !nuevosDatos.especie ||
-            !nuevosDatos.descripcion 
+            !nuevosDatos.descripcion
         ) {
             Swal.fire({
                 position: "center ",
@@ -94,7 +112,7 @@ export const PerfilMascota = () => {
                 title: "Todos los campos son obligatorios",
                 showConfirmButton: false,
                 timer: 3000
-              })
+            })
         }
 
         console.log(nuevosDatos)
@@ -108,7 +126,7 @@ export const PerfilMascota = () => {
                 title: "La fecha de defunción tiene como rango la fecha actual hasta 20 años atras",
                 showConfirmButton: false,
                 timer: 3000
-              })
+            })
         }
 
         try {
@@ -131,13 +149,13 @@ export const PerfilMascota = () => {
                     title: "Mascota editada con éxito!",
                     showConfirmButton: false,
                     timer: 3000
-                  }).then((result) => {
+                }).then((result) => {
                     /* Read more about handling dismissals below */
                     if (result.dismiss === Swal.DismissReason.timer) {
-                      console.log("I was closed by the timer");
-                      
+                        console.log("I was closed by the timer");
+
                     }
-                  });
+                });
 
                 const nuevaRespuesta = await fetch(`http://127.0.0.1:8000/api/mascota_esp/?id_cliente=${auth.me.idcliente}`);
                 if (nuevaRespuesta.ok) {
@@ -191,10 +209,10 @@ export const PerfilMascota = () => {
                     const response = await fetch(`http://127.0.0.1:8000/api/eliminar_mascota/?id_mascota=${idmascota}`, {
                         method: 'DELETE',
                     });
-    
+
                     if (response.ok) {
                         // Producto eliminado con éxito, puedes actualizar el estado o recargar la lista de productos
-    
+
                         // Realizar una nueva solicitud para obtener los datos actualizados
                         const nuevaRespuesta = await fetch(`http://127.0.0.1:8000/api/mascota_esp/?id_cliente=${auth.me.idcliente}`);
                         if (nuevaRespuesta.ok) {
@@ -232,7 +250,7 @@ export const PerfilMascota = () => {
                         <p>{mascota.descripcion}</p>
                         <p>Especie</p>
                         <p>{mascota.especie}</p>
-                        <p>Fecha de defunción: {mascota.fecha_defun}</p>
+                        <p>Fecha de fallecimiento: {mascota.fecha_defun}</p>
                         <div className='contentBtn'>
                             <button className='button_edit' onClick={() => handleEditar(mascota)}>
                                 <img src={edit_but} alt="Editar Mascota" />
@@ -272,6 +290,7 @@ export const PerfilMascota = () => {
                                     value={nuevosDatos.fecha_nacim !== undefined ? nuevosDatos.fecha_nacim : mascotaAEditar.fecha_nacim}
                                     onChange={handleInputChange}
                                     placeholder="Fecha de nacimiento"
+                                    disabled={modoEdicion}
                                 />
                                 <label htmlFor="">Raza</label>
                                 <input

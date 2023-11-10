@@ -1,10 +1,11 @@
 import './LoginForm.scss';
 import {Form, Button} from 'semantic-ui-react';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useAuth} from '../../../hooks'
-
+import logoHome from '../../../../public/house.svg'
 import {loginApi} from '../../../api/user'
 
 
@@ -28,8 +29,13 @@ export const LoginForm = () => {
         //console.log(access);
   
       }catch(e){
-        console.log("Error");
-        console.log(e);
+        Swal.fire({
+          position: "center ",
+          icon: "error",
+          title: "Correo o contraseña incorrecta",
+          showConfirmButton: false,
+          timer: 1000
+        })
       }
     }
   });
@@ -60,6 +66,10 @@ export const LoginForm = () => {
             </div>
             <Link className='rescatar' to={"/client/resetpassword/correo"}>¿Olvidaste la contraseña?</Link>
         </Form>
+
+        <Link to="/" className='link'>
+            <button className='volver'><img src={logoHome} alt="" className="src" /></button>
+        </Link>
     </>
   )
 }

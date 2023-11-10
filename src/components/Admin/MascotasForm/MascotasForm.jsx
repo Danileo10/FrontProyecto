@@ -36,7 +36,7 @@ export const MascotasForm = () => {
                     icon: "error",
                     title: "Todos los campos son obligatorios",
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 1000
                   })
               }
             try {
@@ -49,7 +49,7 @@ export const MascotasForm = () => {
                         icon: "success",
                         title: "Mascota creada con éxito!",
                         showConfirmButton: false,
-                        timer: 3000
+                        timer: 1000
                       }).then((result) => {
                         /* Read more about handling dismissals below */
                         if (result.dismiss === Swal.DismissReason.timer) {
@@ -108,7 +108,7 @@ export const MascotasForm = () => {
                     placeholder="Raza de la mascota"
                     value={formik.values.string}
                     onChange={formik.handleChange}
-                    error={formik.errors.string}
+                    error={formik.errors.raza}
                 />
                 <label htmlFor="" className='label1'>Descripción</label>
                 <Form.TextArea
@@ -156,6 +156,17 @@ const validationSchema = () => {
       fecha_nacim: Yup.date()
       .max(new Date(), 'La fecha de nacimiento no puede ser posterior a hoy')
       .required('La fecha de nacimiento es obligatoria'),
+      imagen: Yup.mixed().required('Imagen obligatoria')
+      .test('fileFormat', 'Formato de imagen no válido', (value) => {
+        if (value) {
+          const supportedFormats = ['image/jpeg', 'image/png', 'image/gif']; // Lista de formatos de imagen admitidos
+          return supportedFormats.includes(value.type);
+        }
+        return true; // Si no se proporciona ninguna imagen, la validación pasa
+      }),
+      raza: Yup.string()
+      .matches(/^[a-zA-Z]+$/, 'La raza solo puede contener letras')
+      .required('La raza es obligatoria'),
       
     };
   }

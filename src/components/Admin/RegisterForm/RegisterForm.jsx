@@ -32,7 +32,13 @@ export const RegisterForm = () => {
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formValue) => {
       if (!formValue.nombre || !formValue.apellido || !formValue.email || !formValue.telefono || !formValue.password || !formValue.confirmPassword || !formValue.direccion) {
-        alert("Todos los campos son obligatorios.");
+        Swal.fire({
+          position: "center ",
+          icon: "error",
+          title: "Todos los campos son obligatorios",
+          showConfirmButton: false,
+          timer: 3000
+        })
         return;
       }
       try {
@@ -153,8 +159,8 @@ const initialValues = () => {
 
 const validationSchema = () => {
   return {
-    nombre: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el nombre').required('Campo obligatorio'),
-    apellido: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el apellido').required('Campo obligatorio'),
+    nombre: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el nombre'),
+    apellido: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el apellido'),
     password: Yup.string().required("inserte una contraseña"),
     confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Las Contraseñas deben coincidir')
   };

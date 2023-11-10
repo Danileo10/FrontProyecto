@@ -267,8 +267,8 @@ export const PedidosAdmin = () => {
                           }).format(pedido.total)}
                     </p>
                     <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-                    <button className='button_edit' onClick={() => handleEliminar(pedido.idpedido)}><img src={edit_but} alt="Editar" /></button>
-                    <button className='eliminar-button_mas' onClick={() => handleEditar(pedido)}><img src={trash_but} alt="Eliminar" /></button>
+                    <button className='eliminar-button_mas' onClick={() => handleEliminar(pedido.idpedido)}><img src={trash_but} alt="Editar" /></button>
+                    <button className=' button_edit' onClick={() => handleEditar(pedido)}><img src={edit_but} alt="Eliminar" /></button>
                   </div>
 
                   
