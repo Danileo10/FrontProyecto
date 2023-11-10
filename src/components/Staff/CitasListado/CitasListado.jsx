@@ -3,6 +3,7 @@ import { useAuth } from '../../../hooks';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import cerrar from "../../../../public/x.svg"
+import busc_but from '../../../../public/busc.svg'
 import './CitasListato.scss';
 
 export const CitasListado = () => {
@@ -166,7 +167,9 @@ export const CitasListado = () => {
 
         />
 
-        <button className='btn-16' onClick={handleBuscar}>Buscar</button>
+        <button className='btn-16' onClick={handleBuscar}>
+          <img src={busc_but} alt="cerrar" className='cerrar' />
+        </button>
         <button className='btn-16' onClick={handleReiniciar}>✖️</button>
       </div>
 

@@ -6,6 +6,7 @@ import trash_but from '../../../../public/trashb.svg'
 import Swal from 'sweetalert2'
 import { useAuth } from '../../../hooks';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 export const ProductosListado = () => {
@@ -196,10 +197,10 @@ export const ProductosListado = () => {
                     const response = await fetch(`http://127.0.0.1:8000/api-comercio/eliminar_producto/?id_producto=${idProducto}&empleado=${empleado}`, {
                         method: 'DELETE',
                     });
-    
+
                     if (response.ok) {
                         // Producto eliminado con éxito, puedes actualizar el estado o recargar la lista de productos
-    
+
                         // Realizar una nueva solicitud para obtener los datos actualizados
                         const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api-comercio/mostrar_producto');
                         if (nuevaRespuesta.ok) {
@@ -222,8 +223,8 @@ export const ProductosListado = () => {
             }
         });
     };
-        
-     
+
+
     const handlePaginaAnterior = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -245,86 +246,96 @@ export const ProductosListado = () => {
     return (
         <div className='content3'>
             <h2 className="titulo-mascotas">Listado de Productos</h2>
-            <input
+            <div className='ajustar'>
+                <Link className="botonCrearProducto" to={"/admin/productos/crear"}>
+                    <button className="editar ">
+                        Crear Producto
+                    </button>
+                </Link>
+                <input
                     type="text"
                     placeholder="Buscar productos..."
                     value={busqueda}
                     onChange={handleBusqueda}
                 />
-            <ul className='productosT container'>
-                {productosPaginaActual.map((item) => (
-                    <li key={item.idproducto} className='c' >
-                        <img className="foto_mascota" src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
-                        <div className="product-info">
-                            <h2 className="product-title">{item.nombre}</h2>
-                            <p className="product-price">
-                                {new Intl.NumberFormat("es-CL", {
-                                    style: "currency",
-                                    currency: "CLP",
-                                    minimumFractionDigits: 0,
-                                }).format(item.precio)}
-                            </p>
-                            <p className="product-description">{item.descripcion}</p>
-                        </div>
-                        <div className='contentBtn'>
-                            <button className='button_edit' onClick={() => handleEditar(item)}>
-                                <img src={edit_but} alt="Editar" />
-                            </button>
-                            <button className='eliminar-button_mas' onClick={() => handleEliminar(item.idproducto)}>
-                                <img src={trash_but} alt="Eliminar" />
-                            </button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            <div className="paginacion">
-                <span>Página {currentPage} de {Math.ceil(productos.length / productosPorPagina)}</span>
-                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
-                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
-            </div>
-
-            {mostrarModal && productoAEditar && (
-                <div className='modal-pro'>
-                    <form className='form-dos'>
-                        <h2 className='title'>Editar Producto</h2>
-                        <input
-                            className='input-1'
-                            type="text"
-                            name="nombre"
-                            value={(productoAEditar && nuevosDatos.nombre) || ''}
-                            onChange={handleInputChange}
-                            placeholder="Nombre"
-                        />
-                        <input
-                            className='input-1'
-                            type="text"
-                            name="precio"
-                            value={(productoAEditar && nuevosDatos.precio) || ''}
-                            onChange={handleInputChange}
-                            placeholder="Precio"
-                        />
-                        <input
-                            className='input-1'
-                            type="text"
-                            name="descripcion"
-                            value={(productoAEditar && nuevosDatos.descripcion) || ''}
-                            onChange={handleInputChange}
-                            placeholder="Descripción"
-                        />
-                        <input
-                            className='input-1'
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            placeholder="Imagen"
-                        />
-                        <button className='button-guardar' type="button-g" onClick={handleGuardarCambios}>Guardar Cambios</button>
-                        <button className='button-close' type="button-close" onClick={() => setMostrarModal(false)}>
-                            <img src={close} alt="close" className='close' />
-                        </button>
-                    </form>
+                <ul className='productosT container'>
+                    {productosPaginaActual.map((item) => (
+                        <li key={item.idproducto} className='c' >
+                            <img className="foto_mascota" src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
+                            <div className="product-info">
+                                <h2 className="product-title">{item.nombre}</h2>
+                                <p className="product-price">
+                                    {new Intl.NumberFormat("es-CL", {
+                                        style: "currency",
+                                        currency: "CLP",
+                                        minimumFractionDigits: 0,
+                                    }).format(item.precio)}
+                                </p>
+                                <p className="product-description">{item.descripcion}</p>
+                            </div>
+                            <div className='contentBtn'>
+                                <button className='button_edit' onClick={() => handleEditar(item)}>
+                                    <img src={edit_but} alt="Editar" />
+                                </button>
+                                <button className='eliminar-button_mas' onClick={() => handleEliminar(item.idproducto)}>
+                                    <img src={trash_but} alt="Eliminar" />
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                <div className="paginacion">
+                    <span>Página {currentPage} de {Math.ceil(productos.length / productosPorPagina)}</span>
+                    <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                    <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
                 </div>
-            )}
+
+                {mostrarModal && productoAEditar && (
+                    <div className='modal-pro'>
+                        <form className='form-dos'>
+                            <h2 className='title'>Editar Producto</h2>
+                            <label htmlFor="">Nombre</label>
+                            <input
+                                className='input-1'
+                                type="text"
+                                name="nombre"
+                                value={(productoAEditar && nuevosDatos.nombre) || ''}
+                                onChange={handleInputChange}
+                                placeholder="Nombre"
+                            />
+                            <label htmlFor="">Precio</label>
+                            <input
+                                className='input-1'
+                                type="text"
+                                name="precio"
+                                value={(productoAEditar && nuevosDatos.precio) || ''}
+                                onChange={handleInputChange}
+                                placeholder="Precio"
+                            />
+                            <label htmlFor="">Descripción</label>
+                            <input
+                                className='input-1'
+                                type="text"
+                                name="descripcion"
+                                value={(productoAEditar && nuevosDatos.descripcion) || ''}
+                                onChange={handleInputChange}
+                                placeholder="Descripción"
+                            />
+                            <input
+                                className='input-1'
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                placeholder="Imagen"
+                            />
+                            <button className='button-guardar' type="button-g" onClick={handleGuardarCambios}>Guardar Cambios</button>
+                            <button className='button-close' type="button-close" onClick={() => setMostrarModal(false)}>
+                                <img src={close} alt="close" className='close' />
+                            </button>
+                        </form>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

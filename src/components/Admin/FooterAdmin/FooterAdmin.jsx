@@ -14,7 +14,7 @@ export const FooterAdmin = () => {
               <a href=""><img src={navIcon3} alt="Icon" /></a>
             </div>
             <div className="copy">
-              <p>Copyright 2023. All Rights Reserved</p>
+              <h1 className="footer-copy">Copyright 2023. All Rights Reserved</h1>
             </div>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

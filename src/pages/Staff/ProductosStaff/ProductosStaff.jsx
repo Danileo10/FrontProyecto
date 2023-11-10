@@ -14,11 +14,7 @@ export const ProductosStaff = () => {
     return <MensajeIsStaff></MensajeIsStaff>}
   return (
     <div>
-      <Link className="botonCrearProducto" to={"/admin/productos/crear"}>
-          <button className="editar ">
-            Crear Producto
-          </button>
-      </Link>
+      
       <ProductosListado>
         
       </ProductosListado>

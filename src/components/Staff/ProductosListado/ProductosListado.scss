@@ -3,6 +3,21 @@
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 100px minmax(200px,auto);
 }
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px ;
+    width: 100%;
+    max-width: 400px; /* Ajusta el ancho máximo según tus preferencias */
+}
+.ajustar{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+}
 .title{
     display: flex;
     justify-content: center;
@@ -24,6 +39,7 @@
 .editar{
   background-color: rgb(74, 113, 241);
   border-radius: 5px;
+  margin-left: 100px;
 }
 .editar:hover{
     background-color: rgb(38, 86, 241);
@@ -97,4 +113,10 @@
     width: 13px;
     display: flex;
 
+}
+
+.botonCrearProducto{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }

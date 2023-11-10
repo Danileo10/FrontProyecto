@@ -274,7 +274,7 @@ export const PerfilMascota = () => {
                     <div className='modal-content'>
                         <h2 className='titulo2'>Editar Mascota</h2>
                         <form>
-                            <div className='input-group'>
+                            <div className='input-group_'>
                                 <label htmlFor="">Nombre</label>
                                 <input
                                     type="text"
