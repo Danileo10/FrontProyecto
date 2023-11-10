@@ -6,6 +6,7 @@ import trash_but from '../../../../public/trashb.svg'
 import Swal from 'sweetalert2'
 import { useAuth } from '../../../hooks';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 export const ProductosListado = () => {
@@ -245,12 +246,19 @@ export const ProductosListado = () => {
     return (
         <div className='content3'>
             <h2 className="titulo-mascotas">Listado de Productos</h2>
-            <input
-                    type="text"
-                    placeholder="Buscar productos..."
-                    value={busqueda}
-                    onChange={handleBusqueda}
+            <div className='ajustar'>
+                <Link className="botonCrearProducto" to={"/admin/productos/crear"}>
+                <button className="editar ">
+                    Crear Producto
+                </button>
+                </Link>
+                <input
+                        type="text"
+                        placeholder="Buscar productos..."
+                        value={busqueda}
+                        onChange={handleBusqueda}
                 />
+            </div>
             <ul className='productos'>
                 {productosPaginaActual.map((item) => (
                     <li key={item.idproducto} className='c' >
@@ -287,6 +295,7 @@ export const ProductosListado = () => {
                 <div className='modal-pro'>
                     <form className='form-dos'>
                         <h2 className='title'>Editar Producto</h2>
+                        <label htmlFor="">Nombre</label>
                         <input
                             className='input-1'
                             type="text"
@@ -295,6 +304,7 @@ export const ProductosListado = () => {
                             onChange={handleInputChange}
                             placeholder="Nombre"
                         />
+                        <label htmlFor="">Precio</label>
                         <input
                             className='input-1'
                             type="text"
@@ -303,6 +313,7 @@ export const ProductosListado = () => {
                             onChange={handleInputChange}
                             placeholder="Precio"
                         />
+                        <label htmlFor="">Descripción</label>
                         <input
                             className='input-1'
                             type="text"

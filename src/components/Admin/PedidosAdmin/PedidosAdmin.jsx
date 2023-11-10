@@ -3,12 +3,10 @@ import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
 import edit_but from '../../../../public/edit.svg'
 import trash_but from '../../../../public/trashb.svg'
+import busc_but from '../../../../public/busc.svg'
 import axios from 'axios';
 import Swal from 'sweetalert2'
-import axios from 'axios';
-import Swal from 'sweetalert2'
-import edit_but from '../../../../public/edit.svg'
-import trash_but from '../../../../public/trashb.svg'
+
 import './PedidosAdmin.scss'
 
 export const PedidosAdmin = () => {
@@ -234,16 +232,17 @@ export const PedidosAdmin = () => {
 
   return (
     <>
-      <h1 className='tituloPedidos'>Lista de Pedidos</h1>
+      <h2 className='titulo-mascotas'>Lista de Pedidos</h2>
       <div className='buscador'>
         <input
           type="date"
           placeholder="Buscar pedido"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
-
         />
-        <button className=' btn-16' onClick={handleBuscar}>Buscar</button>
+        <button className=' btn-16' onClick={handleBuscar}>
+          <img src={busc_but} alt="cerrar" className='cerrar' />
+        </button>
         <button className=' btn-16' onClick={handleReiniciar}>✖️</button>
       </div>
 
@@ -270,9 +269,12 @@ export const PedidosAdmin = () => {
                               minimumFractionDigits: 0,
                           }).format(pedido.total)}
                     </p>
+                    
                     <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-                    <button className='eliminar-button_mas' onClick={() => handleEliminar(pedido.idpedido)}><img src={trash_but} alt="Editar" /></button>
+                    <div className='contentBtn'>
                     <button className=' button_edit' onClick={() => handleEditar(pedido)}><img src={edit_but} alt="Eliminar" /></button>
+                    <button className='eliminar-button_mas' onClick={() => handleEliminar(pedido.idpedido)}><img src={trash_but} alt="Editar" /></button>          
+                    </div>
                   </div>
 
                   
@@ -297,7 +299,13 @@ export const PedidosAdmin = () => {
                     <h2>Producto</h2>
                     <p>{detalle.producto_idProducto.nombre}</p>
                     <h3>Precio</h3>
-                    <p>${detalle.producto_idProducto.precio}</p>
+                    <p className="product-price">
+                          {new Intl.NumberFormat("es-CL", {
+                              style: "currency",
+                              currency: "CLP",
+                              minimumFractionDigits: 0,
+                          }).format(detalle.producto_idProducto.precio)}
+                    </p>
                     <h3>Cantidad</h3>
                     <p>{detalle.cantidad}</p>
                     <h3>ID del Pedido</h3>
@@ -322,11 +330,11 @@ export const PedidosAdmin = () => {
       {mostrarModal && pedidoAEditar && (
         <div className='modal-background'>
           <div className='modal-content'>
-            <h2 className='titulo2'>Editar Pedido</h2>
+            <h2 className='titulo2_'>Editar Pedido</h2>
             <form>
 
-              <div className='input-group'>
-                <label>Estado:</label>
+              <div className='input-group_'>
+                <label className='est'>Estado:</label>
                 <select
                   name="estado"
                   value={nuevosDatos.estado !== undefined ? nuevosDatos.estado : pedidoAEditar.estado}

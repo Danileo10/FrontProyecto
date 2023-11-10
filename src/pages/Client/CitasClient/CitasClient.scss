@@ -12,7 +12,7 @@
   width: 800px; /* Define el ancho máximo del slider */
   height: 400px;
   margin: 0 auto; /* Centra el slider en el contenedor */
-  background-color: #D7E5CA;
+  background-color: #f7c9c9 ;
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
@@ -33,7 +33,6 @@ box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   width: 200px;
   height: 210px;/* Hace que las imágenes ocupen el 100% del ancho del contenedor */
   border-radius: 10px; /* Agrega esquinas redondeadas a las imágenes */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.233); /* Agrega una sombra a las imágenes */
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center; 

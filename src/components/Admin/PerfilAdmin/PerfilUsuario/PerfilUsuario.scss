@@ -50,8 +50,8 @@
 
 .contact-infoizquierda {
   display: flex;
-  height: 450px;
-  align-items: flex-start; /* Alinear al inicio para que no esté centrado verticalmente */
+  height: fit-content;
+  align-items: center; /* Alinear al inicio para que no esté centrado verticalmente */
   background-color: #f2f2f2;
   padding: 20px;
   border-radius: 10px;
@@ -72,7 +72,8 @@
 
 .button-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   margin-top: 20px;
 }
 
@@ -101,20 +102,21 @@
 .section-title {
   font-size: 1.188rem;
   color: #333;
-  margin: 0;
-  text-align: center;
+  margin-bottom: 5px;
+  text-align: start ;
 }
 
 .p {
+  background-color: #ffffff;
+  border-radius: 10px;
   font-size: 1rem;
+  padding: 10px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .botones-perfil {
-  position: absolute;
-  bottom: 160px;
-  left: 480px ;
-  margin: 0 auto;
-  width: 600px;
+  display: flex;
+  align-items: center;
 }
 
 .button_edit_prof {

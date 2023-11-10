@@ -1,9 +1,6 @@
 import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import edit_but from '../../../../../public/edit.svg' 
-import dog_but from '../../../../../public/dog.svg' 
-import Swal from 'sweetalert2'
 import Swal from 'sweetalert2'
 import edit_but from '../../../../../public/edit.svg'
 import dog_but from '../../../../../public/dog.svg'
@@ -181,11 +178,7 @@ export const PerfilUsuario = () => {
             )}
           </div>
         </div>
-        <div className='botones-perfil'>
-
-
-
-        </div>
+       
         <div className='lado_derechoPerfil'>
           <div className="contact-infoderecha">
             <div className="section">
@@ -265,31 +258,26 @@ export const PerfilUsuario = () => {
             Cancelar
           </button>
         </div>
-      ) : (
-        <button className="button " onClick={habilitarEdicion}>
-          Editar
+      ) : 
+
+      <div className='botones-perfil'>
+  
+        <button className="button_edit  " onClick={habilitarEdicion}>
+          <img src={edit_but} alt="Editar Mascota" />
         </button>
+      
+      <Link to="/client/mascotas"><button className="button_edit_prof">
+        <img src={dog_but} alt="Editar Mascota" />
+        </button></Link>
 
-
-
-
-      )}
-
-
-
-
-  {!auth.me.is_verified &&
+        {!auth.me.is_verified &&
     <button className="button" onClick={verificarUsuario}>
           Verificarse
         </button>
   }
-        
 
-<Link to="/client/mascotas"><button className="button_edit_prof">
-  <img src={dog_but} alt="Editar Mascota" />
-</button></Link>
-
-
+      </div>
+}
 
     </div >
 

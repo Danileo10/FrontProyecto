@@ -1,6 +1,7 @@
 import './ClientesListado.scss';
 import cerrar from "../../../../public/x.svg"
 import edit_but from '../../../../public/edit.svg'
+import busc_but from '../../../../public/busc.svg'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
@@ -165,7 +166,7 @@ export const ClientesListado = () => {
 
   return (
     <div className=''>
-      <h2 className="titulo-usuarios">Listado de Usuarios</h2 >
+      <h2 className="titulo-mascotas">Listado de Usuarios</h2 >
       <div className='buscador'>
          <input
         type="text"
@@ -173,7 +174,9 @@ export const ClientesListado = () => {
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       />
-      <button className='btn-16' onClick={handleBuscar}>Buscar</button>
+      <button className='btn-16' onClick={handleBuscar}>
+        <img src={busc_but} alt="cerrar" className='cerrar' />
+      </button>
       <button className='btn-16' onClick={handleReiniciar}>✖️</button>
       </div>
      
