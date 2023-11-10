@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
-<<<<<<< HEAD
 import edit_but from '../../../../public/edit.svg'
 import trash_but from '../../../../public/trashb.svg'
-=======
 import axios from 'axios';
 import Swal from 'sweetalert2'
->>>>>>> main
 import './PedidosAdmin.scss'
 
 export const PedidosAdmin = () => {

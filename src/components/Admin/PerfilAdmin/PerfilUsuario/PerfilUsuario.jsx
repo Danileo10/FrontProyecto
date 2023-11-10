@@ -1,12 +1,9 @@
 import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import edit_but from '../../../../../public/edit.svg' 
 import dog_but from '../../../../../public/dog.svg' 
-=======
 import Swal from 'sweetalert2'
->>>>>>> main
 import axios from 'axios';
 import './PerfilUsuario.scss'
 
