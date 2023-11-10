@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 const ProductoCard = ({ product }) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productosPorPagina = 6;
+  const productosPorPagina = 8;
 
   const indiceInicial = (currentPage - 1) * productosPorPagina;
   const indiceFinal = currentPage * productosPorPagina;
@@ -82,7 +82,7 @@ const ProductoCard = ({ product }) => {
 export const Productos = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productosPorPagina = 6;
+  const productosPorPagina = 8;
 
   const indiceInicial = (currentPage - 1) * productosPorPagina;
   const indiceFinal = currentPage * productosPorPagina;
