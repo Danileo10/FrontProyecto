@@ -3,7 +3,47 @@ import '../Productos/Productos.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const ProductoCard = ({ product }) => {
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productosPorPagina = 6;
+
+  const indiceInicial = (currentPage - 1) * productosPorPagina;
+  const indiceFinal = currentPage * productosPorPagina;
+  const productosPaginaActual = data.slice(indiceInicial, indiceFinal);
+
+  const handlePaginaAnterior = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      console.log(`Página actual: ${currentPage - 1}`);
+    }
+  };
+
+
+  const handlePaginaSiguiente = () => {
+    const totalPages = Math.ceil(data.length / productosPorPagina);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      console.log(`Página actual: ${currentPage + 1}`);
+    }
+  };
+
   const [showDescription, setShowDescription] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api-comercio/mostrar_producto');
+        if (!response.ok) {
+          throw new Error('No hay datos');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error');
+      }
+    };
+    fetchData();
+  }, []);
+
 
   const handleMostrarMasClick = () => {
     setShowDescription(!showDescription);
@@ -16,9 +56,10 @@ const ProductoCard = ({ product }) => {
   // Modificación: Obtén el precio formateado
   const formattedPrecio = formatNumber(product.precio);
 
+
   return (
     <div className="card" key={product.idproducto}>
-      <img className="card-img-top" src={product.imagen} alt="" />
+      <img className="card-img-top" src={`http://127.0.0.1:8000${product.imagen}`} alt="producto" />
       <div className="card-body">
         <h5 className="card-title">{product.nombre}</h5>
         <p className="card-text">{formattedPrecio}</p>
@@ -32,25 +73,47 @@ const ProductoCard = ({ product }) => {
             {showDescription ? 'Ocultar' : 'Ver más'}
           </button>
         </div>
-        
+
       </div>
     </div>
-  );  
+  );
 };
 
 export const Productos = () => {
   const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productosPorPagina = 6;
+
+  const indiceInicial = (currentPage - 1) * productosPorPagina;
+  const indiceFinal = currentPage * productosPorPagina;
+  const productosPaginaActual = data.slice(indiceInicial, indiceFinal);
+
+  const handlePaginaAnterior = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      console.log(`Página actual: ${currentPage - 1}`);
+    }
+  };
+
+
+  const handlePaginaSiguiente = () => {
+    const totalPages = Math.ceil(data.length / productosPorPagina);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      console.log(`Página actual: ${currentPage + 1}`);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api-comercio/mostrar_producto');
-        if (!response.ok){
+        if (!response.ok) {
           throw new Error('No hay datos');
         }
         const jsonData = await response.json();
         setData(jsonData);
-      } catch (error){
+      } catch (error) {
         console.error('Error');
       }
     };
@@ -60,9 +123,14 @@ export const Productos = () => {
   return (
     <>
       <div className="productos">
-        {data.map((product) => (
+        {productosPaginaActual.map((product) => (
           <ProductoCard key={product.idproducto} product={product} />
         ))}
+      </div>
+      <div className="paginacion">
+        <span>Página {currentPage} de {Math.ceil(data.length / productosPorPagina)}</span>
+        <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+        <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(data.length / data)}>Siguiente</button>
       </div>
     </>
   );

@@ -39,8 +39,8 @@ export const TopMenu = () => {
         {auth.me.is_staff && showAdminOptions && (
   <>
     <Menu.Item className='top-menu-admin__item'>
-      <Link to={"/admin/clientes"}>
-        <button className="botonNavbar">Gestionar Clientes</button>
+      <Link to={"/admin/usuarios"}>
+        <button className="botonNavbar">Gestionar Usuario</button>
         
       </Link>
     </Menu.Item>
@@ -98,11 +98,13 @@ export const TopMenu = () => {
             Hola, {renderName()}
           </Menu.Item>
 
-          <Menu.Item className='top-menu-admin__item_'>
+          {modoCliente &&
+            <Menu.Item className='top-menu-admin__item_'>
             <Link to={"/client/carrito "}>
               <a href=""><img src={nav} alt="Icon" className='carrito' /></a>
             </Link>
-          </Menu.Item>
+          </Menu.Item>}
+          
 
           <Menu.Item className='top-menu-admin__item'>
             <Link to={"/perfil"}>

@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { registerApi } from '../../../api/user';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
@@ -38,13 +38,33 @@ export const RegisterForm = () => {
       try {
         const response = await registerApi(formValue);
         const { access } = response;
+        console.log(access)
         registerApi(access);
-        console.log(access);
-        navigate('/');
+
+        console.log(response.data);
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Te has registrado exitosamente!",
+          showConfirmButton: false,
+          timer: 3000
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log("I was closed by the timer");
+            navigate('/')
+          }
+        });
+        
 
       } catch (e) {
-        console.log("Error");
-        console.log(e);
+        Swal.fire({
+          position: "center ",
+          icon: "error",
+          title: "Correo ya existe",
+          showConfirmButton: false,
+          timer: 3000
+        })
       }
     }
   });

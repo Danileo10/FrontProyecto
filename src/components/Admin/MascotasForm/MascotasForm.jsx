@@ -6,6 +6,7 @@ import { useAuth } from '../../../hooks'
 import { crearMascotaApi } from '../../../api/user'
 import { toast } from 'react-toastify';
 import './MascotasForm.scss'
+import Swal from 'sweetalert2'
 
 export const MascotasForm = () => {
     //console.log(useAuth())
@@ -30,16 +31,34 @@ export const MascotasForm = () => {
                 !formValue.descripcion ||
                 !formValue.imagen
               ) {
-                toast.error('Todos los campos son obligatorios.');
-                return;
+                Swal.fire({
+                    position: "center ",
+                    icon: "error",
+                    title: "Todos los campos son obligatorios",
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
               }
             try {
                 console.log(formValue)
                 const response = await crearMascotaApi(formValue, auth.me.idcliente);
                 console.log(response)
                 if (response.status == 200) {
-                    toast.success('Mascota creada con éxito');
-                    window.location.reload(); // Recarga la página después de mostrar la notificación
+                    Swal.fire({
+                        position: "center ",
+                        icon: "success",
+                        title: "Mascota creada con éxito!",
+                        showConfirmButton: false,
+                        timer: 3000
+                      }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                          console.log("I was closed by the timer");
+                          
+                        }
+                      });
+    
+                     // Recarga la página después de mostrar la notificación
                 } else {
                     // Si hay un error en la creación de la mascota, muestra una notificación de error
                     toast.error('Error al crear la mascota');
@@ -95,9 +114,9 @@ export const MascotasForm = () => {
                 <Form.TextArea
                     name="descripcion"
                     placeholder="Descripción de la mascota"
-                    value={formik.values.descripcion}
+                    value={formik.values.string}
                     onChange={formik.handleChange}
-                    error={formik.errors.descripcion}
+                    error={formik.errors.string}
                 />
 
                 <h3>Foto de tu mascota</h3>

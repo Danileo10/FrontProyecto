@@ -1,15 +1,18 @@
 import { useAuth } from '../../../../hooks';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import edit_but from '../../../../../public/edit.svg' 
 import dog_but from '../../../../../public/dog.svg' 
+=======
+import Swal from 'sweetalert2'
+>>>>>>> main
 import axios from 'axios';
 import './PerfilUsuario.scss'
 
 export const PerfilUsuario = () => {
   const { auth } = useAuth();
-  const navigate = useNavigate();
+  const [newFoto, setNewfoto] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [datosEditados, setDatosEditados] = useState({
     nombre: auth.me.nombre,
@@ -43,8 +46,19 @@ export const PerfilUsuario = () => {
       });
   
       if (response.status === 200) {
-        console.log(auth.me.tokenVerification)
-        navigate(`/client/verification/${auth.me.tokenVerification}`)// Realiza cualquier acción adicional necesaria después de la verificación
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Revisa tu correo el correo de verificación.",
+          showConfirmButton: false,
+          timer: 1000
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log("I was closed by the timer");
+            
+          }
+        });// Realiza cualquier acción adicional necesaria después de la verificación
       } else {
         // La solicitud POST no fue exitosa
         console.error('Error al verificar el usuario');
@@ -54,6 +68,10 @@ export const PerfilUsuario = () => {
       console.error('Error en la solicitud POST:', error);
     }
   };
+
+  const handleFoto = (e) => {
+      setNewfoto(e.target.files[0]);
+  }
   
 
   const handleInputChange = (e) => {
@@ -71,7 +89,24 @@ export const PerfilUsuario = () => {
     }
   };
 
+  const validarCampos = () => {
+    if (!datosEditados.nombre || !datosEditados.apellido || !datosEditados.email || !datosEditados.telefono || !datosEditados.direccion ) {
+      // Muestra un mensaje de error o realiza alguna acción para indicar que los campos son obligatorios
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Todos los campos son obligatorios',
+      });
+      return false;
+    }
+    return true;
+  };
+  
+
   const guardarCambios = async () => {
+    if (!validarCampos()) {
+      return;
+    }
     try {
 
       const formData = new FormData();
@@ -82,11 +117,12 @@ export const PerfilUsuario = () => {
       formData.append("email", datosEditados.email);
       formData.append("telefono", datosEditados.telefono);
       formData.append("direccion", datosEditados.direccion);
-
+      console.log(datosEditados.imagen)
       // Agregar archivo de imagen (si existe)
-      if (datosEditados.imagen) {
-        formData.append("imagen", datosEditados.imagen);
+      if (newFoto !== null) {
+        formData.append("imagen", newFoto);
       }
+      console.log(formData)
 
       const response = await axios.patch(`http://127.0.0.1:8000/api/modificar_cliente/?id_cliente=${auth.me.idcliente}`, formData,
         {
@@ -100,8 +136,22 @@ export const PerfilUsuario = () => {
       console.log(response.data)
       if (response.status == 200) {
         console.log('Datos actualizados con éxito');
-        window.location.reload();
-        setModoEdicion(false);
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Perfil editado con exito.",
+          showConfirmButton: false,
+          timer: 1000
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log("I was closed by the timer");
+            window.location.reload();
+            setModoEdicion(false);
+          }
+        });
+        
+        
         // Actualizar el estado global del usuario si es necesario
       } else {
         throw new Error('Error al guardar los cambios');
@@ -123,7 +173,7 @@ export const PerfilUsuario = () => {
               <input
                 type="file"
                 name="imagen"
-                onChange={handleInputChange}
+                onChange={handleFoto}
                 accept="image/*" // Permite solo archivos de imagen
               />
             ) : (
@@ -220,8 +270,35 @@ export const PerfilUsuario = () => {
             </div>        
           </div>
         </div>
+      </div>
+      
+      
+
+      {modoEdicion ? (
+        <div className="button-group">
+          <button className="button" onClick={guardarCambios}>
+            Guardar Cambios
+          </button>
+          <button className="button" onClick={cancelarEdicion}>
+            Cancelar
+          </button>
+        </div>
+      ) : (
+        <button className="button" onClick={habilitarEdicion}>
+          Editar
+        </button>
+        
+        
+        
+      )}
+      {!auth.me.is_verified &&
+        <button className="button" onClick={verificarUsuario}>
+          Verificarse
+        </button>
+        }
+       
+        <Link to="/client/mascotas"><button className="button">Mascotas</button></Link>
         
       </div>    
-    </div>
   );
 };

@@ -3,6 +3,7 @@ import { useAuth } from '../../../../hooks';
 import cerrar from '../../../../../public/x.svg'
 import edit_but from '../../../../../public/edit.svg'
 import trash_but from '../../../../../public/trashb.svg'
+import Swal from 'sweetalert2'
 import './PerfilMascota.scss';
 
 
@@ -21,6 +22,10 @@ export const PerfilMascota = () => {
         fecha_defun: '',
 
     });
+    const fechaActual = new Date();
+    fechaActual.setFullYear(fechaActual.getFullYear() - 20);
+
+
 
     const indiceInicial = (currentPage - 1) * mascotasPorPagina;
     const indiceFinal = currentPage * mascotasPorPagina;
@@ -64,7 +69,7 @@ export const PerfilMascota = () => {
             raza: mascota.raza || '',
             especie: mascota.especie || '',
             descripcion: mascota.descripcion || '',
-            fecha_defun: mascota.fecha_defun || '',
+            fecha_defun: mascota.fecha_defun || null,
 
         });
         setMostrarModal(true);
@@ -81,18 +86,31 @@ export const PerfilMascota = () => {
             !nuevosDatos.fecha_nacim ||
             !nuevosDatos.raza ||
             !nuevosDatos.especie ||
-            !nuevosDatos.descripcion ||
-            !nuevosDatos.fecha_defun
+            !nuevosDatos.descripcion 
         ) {
-            alert('Todos los campos son obligatorios.');
-            return;
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "Todos los campos son obligatorios",
+                showConfirmButton: false,
+                timer: 3000
+              })
         }
 
-        const fechaNacimiento = new Date(nuevosDatos.fecha_nacim);
-        if (fechaNacimiento > fechaLimite) {
-            alert('La fecha de nacimiento debe ser al menos 20 años atrás desde la fecha actual.');
-            return;
+        console.log(nuevosDatos)
+
+        const fechaDefuncion = new Date(nuevosDatos.fecha_defun); // Convertir la fecha de defunción a un objeto Date
+
+        if (fechaDefuncion < fechaActual) {
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "La fecha de defunción tiene como rango la fecha actual hasta 20 años atras",
+                showConfirmButton: false,
+                timer: 3000
+              })
         }
+
         try {
             const response = await fetch(
                 `http://127.0.0.1:8000/api/modificar_mascota/?id_mascota=${mascotaAEditar.idmascota}`,
@@ -107,7 +125,19 @@ export const PerfilMascota = () => {
             );
 
             if (response.ok) {
-                console.log('mascota editada con éxito');
+                Swal.fire({
+                    position: "center ",
+                    icon: "success",
+                    title: "Mascota editada con éxito!",
+                    showConfirmButton: false,
+                    timer: 3000
+                  }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                      console.log("I was closed by the timer");
+                      
+                    }
+                  });
 
                 const nuevaRespuesta = await fetch(`http://127.0.0.1:8000/api/mascota_esp/?id_cliente=${auth.me.idcliente}`);
                 if (nuevaRespuesta.ok) {
@@ -144,61 +174,50 @@ export const PerfilMascota = () => {
     };
 
 
-
     const handleEliminar = async (idmascota) => {
-        try {
-            // Preguntar al usuario si realmente desea eliminar el producto
-            const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar esta mascota?');
-
-            if (confirmacion) {
-                // Esperar 5 segundos antes de eliminar el producto definitivamente
-                const timer = setTimeout(async () => {
-                    try {
-                        // Realizar la solicitud DELETE al servidor
-                        const response = await fetch(`http://127.0.0.1:8000/api/eliminar_mascota/?id_mascota=${idmascota}`, {
-                            method: 'DELETE',
-                        });
-
-                        if (response.ok) {
-                            // Producto eliminado con éxito, puedes actualizar el estado o recargar la lista de productos
-
-                            // Realizar una nueva solicitud para obtener los datos actualizados
-                            const nuevaRespuesta = await fetch(`http://127.0.0.1:8000/api/mascota_esp/?id_cliente=${auth.me.idcliente}`);
-                            if (nuevaRespuesta.ok) {
-                                const nuevosDatos = await nuevaRespuesta.json();
-                                setMascotas(nuevosDatos); // Actualizar el estado con los nuevos datos
-                            } else {
-                                throw new Error('Error al obtener los datos actualizados');
-                            }
+        // Preguntar al usuario si realmente desea eliminar el producto
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertirlo",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, Borrar"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    // Realizar la solicitud DELETE al servidor
+                    const response = await fetch(`http://127.0.0.1:8000/api/eliminar_mascota/?id_mascota=${idmascota}`, {
+                        method: 'DELETE',
+                    });
+    
+                    if (response.ok) {
+                        // Producto eliminado con éxito, puedes actualizar el estado o recargar la lista de productos
+    
+                        // Realizar una nueva solicitud para obtener los datos actualizados
+                        const nuevaRespuesta = await fetch(`http://127.0.0.1:8000/api/mascota_esp/?id_cliente=${auth.me.idcliente}`);
+                        if (nuevaRespuesta.ok) {
+                            const nuevosDatos = await nuevaRespuesta.json();
+                            setMascotas(nuevosDatos);
+                            Swal.fire({
+                                title: "Eliminado",
+                                text: "Mascota eliminada",
+                                icon: "success"
+                            }); // Actualizar el estado con los nuevos datos
                         } else {
-                            throw new Error('Error al eliminar el cliente');
+                            throw new Error('Error al obtener los datos actualizados');
                         }
-                    } catch (error) {
-                        console.error(error);
+                    } else {
+                        throw new Error('Error al eliminar el cliente');
                     }
-                }, 5000); // Esperar 5 segundos (5000 milisegundos) antes de eliminar el producto
-
-                // Función para cancelar la eliminación si el usuario desea deshacer la acción
-                const cancelarEliminacion = () => {
-                    clearTimeout(timer); // Cancelar el temporizador
-                    alert('Eliminación cancelada'); // Mostrar un mensaje al usuario
-                };
-
-                // Mostrar un mensaje con la opción de deshacer
-                alert('Cliente eliminado. Tienes 5 segundos para deshacer la acción.');
-
-                // Esperar a que el usuario haga clic en el botón de deshacer
-                const deshacer = window.confirm('¿Deshacer eliminación?');
-
-                // Si el usuario desea deshacer la eliminación, cancelar la acción
-                if (deshacer) {
-                    cancelarEliminacion();
+                } catch (error) {
+                    console.error(error);
                 }
             }
-        } catch (error) {
-            console.error(error);
-        }
+        });
     };
+
     return (
         <div className="content3">
             <h2 className="titulo-mascotas">Tus mascotas</h2>
@@ -222,7 +241,7 @@ export const PerfilMascota = () => {
                                 <img src={trash_but} alt="Eliminar" />
                             </button>
                         </div>
-                        
+
                     </li>
                 ))}
             </ul>
@@ -232,7 +251,7 @@ export const PerfilMascota = () => {
                 <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
                 <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(mascotas.length / mascotas)}>Siguiente</button>
             </div>
-            {mostrarModal && mascotaAEditar && (    
+            {mostrarModal && mascotaAEditar && (
                 <div className='modal-background'>
                     <div className='modal-content'>
                         <h2 className='titulo2'>Editar Mascota</h2>

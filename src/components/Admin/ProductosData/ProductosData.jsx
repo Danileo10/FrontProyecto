@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CarritoProvider } from '../../../context';
 import caradd from '../../../../public/car_add.svg'
+import Swal from 'sweetalert2'
 import '../ProductosData/ProductosData.scss';
 
 export const ProductosData = () => {
@@ -8,10 +9,20 @@ export const ProductosData = () => {
     const [carrito, setCarrito] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const productosPorPagina = 6;
-
     const indiceInicial = (currentPage - 1) * productosPorPagina;
     const indiceFinal = currentPage * productosPorPagina;
-    const productosPaginaActual = productos.slice(indiceInicial, indiceFinal);
+
+    const [busqueda, setBusqueda] = useState('')
+    const productosFiltrados = productos.filter((producto) => {
+        return producto.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    });
+    const productosPaginaActual = productosFiltrados.slice(indiceInicial, indiceFinal);
+
+    const handleBusqueda = (event) => {
+        const searchTerm = event.target.value;
+        setBusqueda(searchTerm);
+        setCurrentPage(1); // Reiniciar la página a la primera cuando se cambia la búsqueda.
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,6 +52,19 @@ export const ProductosData = () => {
                 const nuevoCarrito = [...carritoActual, { ...producto, cantidad: 1 }];
                 localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
                 console.log(nuevoCarrito);
+                Swal.fire({
+                    position: "center ",
+                    icon: "success",
+                    title: "Producto agregado al carrito",
+                    showConfirmButton: false,
+                    timer: 1000
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log("I was closed by the timer");
+
+                    }
+                });
                 return nuevoCarrito;
             });
         }
@@ -52,7 +76,7 @@ export const ProductosData = () => {
             console.log(`Página actual: ${currentPage - 1}`);
         }
     };
-    
+
 
     const handlePaginaSiguiente = () => {
         const totalPages = Math.ceil(productos.length / productosPorPagina);
@@ -61,13 +85,19 @@ export const ProductosData = () => {
             console.log(`Página actual: ${currentPage + 1}`);
         }
     };
-    
+
 
 
     return (
         <div className='content3'>
             <h2 className="titulo-mascotas">Tienda</h2>
             <CarritoProvider>
+                <input
+                    type="text"
+                    placeholder="Buscar productos..."
+                    value={busqueda}
+                    onChange={handleBusqueda}
+                />
                 <ul className="productos">
                     {productosPaginaActual.map((producto) => (
                         <li key={producto.idproducto} className='li-mascotas c'>

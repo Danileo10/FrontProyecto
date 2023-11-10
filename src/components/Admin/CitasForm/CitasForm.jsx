@@ -4,11 +4,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks'
 import { crearCitaApi } from '../../../api/user'
+import Swal from 'sweetalert2'
 import './CitaForm.scss';
 
 export const CitasForm = () => {
     //console.log(useAuth())
-    const [mascotas, setMascotas] = useState([] );
+    const [mascotas, setMascotas] = useState([]);
     const { auth } = useAuth();
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +23,7 @@ export const CitasForm = () => {
                 const jsonData = await response.json();
                 setMascotas(jsonData);
                 console.log(jsonData)
-                
+
             } catch (error) {
                 console.error('Error');
             }
@@ -50,8 +51,8 @@ export const CitasForm = () => {
         { key: '4', text: 'Vacunación', value: 4 },
     ]
 
-    const mascotasOptions = mascotas.map((mascota, index) =>{
-        return{
+    const mascotasOptions = mascotas.map((mascota, index) => {
+        return {
             key: index, text: `${mascota.nombre} - ${mascota.raza}`, value: mascota.idmascota
         }
     })
@@ -69,15 +70,33 @@ export const CitasForm = () => {
             const currentDate = new Date();
 
             if (selectedDate < currentDate) {
-                alert('La fecha seleccionada debe ser a partir de hoy.');
-                return;
+                Swal.fire({
+                    position: "center ",
+                    icon: "error",
+                    title: "Todos los campos son obligatorios",
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
             }
 
             try {
                 console.log(formValue)
                 const response = await crearCitaApi(formValue);
                 console.log(response)
-                window.location.reload();
+                Swal.fire({
+                    position: "center ",
+                    icon: "success",
+                    title: "Cita creada con éxito!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                      console.log("I was closed by the timer");
+                      window.location.reload();
+                    }
+                  });
+                
 
             } catch (e) {
                 console.log("Error");
@@ -90,9 +109,9 @@ export const CitasForm = () => {
 
     return (
         <div className='content2'>
-        <h2 className="titulo-mascotas">Agenda tu cita</h2>
+            <h2 className="titulo-mascotas">Agenda tu cita</h2>
             <Form className='login-form-admin_mascotas' onSubmit={formik.handleSubmit}>
-            <label htmlFor="" className='label1'>Fecha de la cita</label>
+                <label htmlFor="" className='label1'>Fecha de la cita</label>
                 <Form.Input
                     name="fecha"
                     type='date'
@@ -103,7 +122,7 @@ export const CitasForm = () => {
                     min={new Date().toISOString().split('T')[0]} // Establece el mínimo como la fecha actual
                 />
                 <label htmlFor="" className='label1'>Hora</label>
-                <Form.Select    
+                <Form.Select
                     name="id_bloque"
                     options={bloquesOptions}
                     placeholder="Bloque de horas"
@@ -149,8 +168,13 @@ const initialValues = (id) => {
     };
 }
 
-    const validationSchema = () => {
-        return {
-
-        }
+const validationSchema = () => {
+    return {
+        fecha: Yup.date()
+            .required('La fecha de la cita es obligatoria')
+            .min(new Date(), 'La cita debe ser programada a partir de hoy'),
+        id_bloque: Yup.number().required('El bloque de horas es obligatorio'),
+        id_servicio: Yup.number().required('El servicio es obligatorio'),
+        id_mascota: Yup.number().required('La mascota seleccionada es obligatoria'),
     }
+}

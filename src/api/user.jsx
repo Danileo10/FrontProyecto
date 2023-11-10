@@ -118,6 +118,7 @@ export const crearMascotaApi = async (formValue, id) => {
         form.append("especie", formValue.especie);
         form.append("raza", formValue.raza);
         form.append("imagen", formValue.imagen);
+        form.append("descripcion", formValue.descripcion);
         const url = `${BASE_API}/api/mascota_crear/?id_cliente=${id}`;
         const response = await axios.post(url, form)
         

@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks';
 import cerrar from "../../../../public/x.svg"
+<<<<<<< HEAD
 import edit_but from '../../../../public/edit.svg'
 import trash_but from '../../../../public/trashb.svg'
+=======
+import axios from 'axios';
+import Swal from 'sweetalert2'
+>>>>>>> main
 import './PedidosAdmin.scss'
 
 export const PedidosAdmin = () => {
@@ -18,13 +23,31 @@ export const PedidosAdmin = () => {
     total: '',
   });
 
+
   const [currentPage, setCurrentPage] = useState(1);
   const pedidosPorPagina = 6;
   const indiceInicial = (currentPage - 1) * pedidosPorPagina;
   const indiceFinal = currentPage * pedidosPorPagina;
   const pedidosPaginaActual = pedidos.slice(indiceInicial, indiceFinal);
+  const [busqueda, setBusqueda] = useState('');
 
   const [mostrarModal, setMostrarModal] = useState(false);
+
+  const handleReiniciar = async () => {
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api-comercio/pedidos/');
+      if (!response.ok) {
+        throw new Error('No hay datos');
+      }
+      const jsonData = await response.json();
+      setPedidos(jsonData);
+    } catch (error) {
+      console.error('Error');
+    }
+
+
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,16 +56,6 @@ export const PedidosAdmin = () => {
       [name]: value,
     }));
   };
-
-
-  const confirmarEliminarPedido = (idpedido) => {
-    const confirmacion = window.confirm("¿Estás seguro de que quieres eliminar este pedido?");
-    if (confirmacion) {
-      eliminarPedido(idpedido);
-    }
-  };
-
-
 
   useEffect(() => {
     fetchData();
@@ -74,6 +87,28 @@ export const PedidosAdmin = () => {
     setMostrarModal(true);
   };
 
+  const handleBuscar = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api-comercio/filter_pedido/?fecha=${busqueda}`)
+
+      setPedidos(response.data)
+    } catch (error) {
+      console.log("error")
+      Swal.fire({
+        position: "center ",
+        icon: "error",
+        title: "El pedido no existe",
+        showConfirmButton: true,
+      })
+      throw new Error(error);
+    }
+
+
+
+
+
+  }
+
   const handleGuardarCambios = async (e) => {
     e.preventDefault();
     if (!nuevosDatos.fecha || !nuevosDatos.estado || !nuevosDatos.tipo_entrega || !nuevosDatos.total) {
@@ -92,8 +127,19 @@ export const PedidosAdmin = () => {
         }
       );
       if (response.ok) {
-        console.log('Pedido editado con éxito');
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Pedido editado con éxito!",
+          showConfirmButton: false,
+          timer: 3000
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log("I was closed by the timer");
 
+          }
+        });
         const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api-comercio/pedidos/');
         if (nuevaRespuesta.ok) {
           const nuevosDatos = await nuevaRespuesta.json();
@@ -113,24 +159,44 @@ export const PedidosAdmin = () => {
     }
   };
 
-  async function eliminarPedido(idpedido) {
-    try {
-      await fetch(`http://127.0.0.1:8000/api-comercio/eliminar_pedido/?id_pedido=${idpedido}&empleado=${auth.me.idcliente}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      // Refresca la lista de pedidos después de eliminar uno
-      fetchData();
-      console.log("Pedido eliminado correctamente.");
-    } catch (error) {
-      console.error("Error al eliminar el pedido: ", error);
-    }
-  }
+  const handleEliminar = (idpedido) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertirlo",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, Borrar"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          // Realizar la solicitud DELETE al servidor
+          await fetch(`http://127.0.0.1:8000/api-comercio/eliminar_pedido/?id_pedido=${idpedido}&empleado=${auth.me.idcliente}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          // Refresca la lista de pedidos después de eliminar uno
+          fetchData();
+
+          Swal.fire({
+            title: "Eliminado",
+            text: "Pedido eliminado",
+            icon: "success"
+          });
+        } catch (error) {
+          console.error("Error al eliminar el pedido: ", error);
+        }
+      }
+    });
+  };
 
 
   async function fetchPedidoDetallado(idpedido) {
+    console.log("pete")
     try {
       const response = await fetch(`http://127.0.0.1:8000/api-comercio/pedido_extend/?id_pedido=${idpedido}`, {
         method: "GET",
@@ -138,7 +204,10 @@ export const PedidosAdmin = () => {
           "Content-Type": "application/json",
         },
       });
+
       const data = await response.json();
+      console.log(response)
+      console.log(data);
       setPedidoDetallado(data);
       setDetallesVisible(true);
     } catch (error) {
@@ -148,27 +217,41 @@ export const PedidosAdmin = () => {
 
   const handlePaginaAnterior = () => {
     if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-        console.log(`Página actual: ${currentPage - 1}`);
+      setCurrentPage(currentPage - 1);
+      console.log(`Página actual: ${currentPage - 1}`);
     }
-};
+  };
 
 
-const handlePaginaSiguiente = () => {
+  const handlePaginaSiguiente = () => {
     const totalPages = Math.ceil(pedidos.length / pedidosPorPagina);
     if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-        console.log(`Página actual: ${currentPage + 1}`);
+      setCurrentPage(currentPage + 1);
+      console.log(`Página actual: ${currentPage + 1}`);
     }
-};
+  };
 
   return (
     <>
-      <h2 className='titulo-mascotas'>Lista de Pedidos</h2>
+      <h1 className='tituloPedidos'>Lista de Pedidos</h1>
+      <div className='buscador'>
+        <input
+          type="date"
+          placeholder="Buscar pedido"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+
+        />
+        <button className=' btn-16' onClick={handleBuscar}>Buscar</button>
+        <button className=' btn-16' onClick={handleReiniciar}>✖️</button>
+      </div>
+
+
       <div className='container2'>
         <div className="contenedorPedidos">
           <div className="lista-pedidos">
-            <ul className='ulti'>
+
+            <ul className='ulti container'>
               {pedidosPaginaActual.map((pedido) => (
                 <li key={pedido.idpedido}>
                   <div className="tarjetaPedido">
@@ -187,14 +270,8 @@ const handlePaginaSiguiente = () => {
                           }).format(pedido.total)}
                     </p>
                     <button className="verDetalle custom-btn btn-16" onClick={() => fetchPedidoDetallado(pedido.idpedido)}>Ver Detalles</button>
-                    <div className='contentBtn'>
-                    <button className='button_edit' onClick={() => handleEditar(pedido)}>
-                      <img src={edit_but} alt="Editar" />
-                    </button>
-                    <button className='eliminar-button_mas' onClick={() => confirmarEliminarPedido(pedido.idpedido)}>
-                      <img src={trash_but} alt="Eliminar" />
-                    </button>
-                    </div>
+                    <button className='custom-btn btn-16' onClick={() => handleEliminar(pedido.idpedido)}>Eliminar</button>
+                    <button className='custom-btn btn-16' onClick={() => handleEditar(pedido)}>Editar</button>
                   </div>
 
                 </li>
@@ -202,9 +279,9 @@ const handlePaginaSiguiente = () => {
             </ul>
 
             <div className="paginacion">
-                <span>Página {currentPage} de {Math.ceil(pedidos.length / pedidosPorPagina)}</span>
-                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
-                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(pedidos.length / pedidos)}>Siguiente</button>
+              <span>Página {currentPage} de {Math.ceil(pedidos.length / pedidosPorPagina)}</span>
+              <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+              <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(pedidos.length / pedidos)}>Siguiente</button>
             </div>
           </div>
 
@@ -222,12 +299,15 @@ const handlePaginaSiguiente = () => {
                     <p>{detalle.cantidad}</p>
                     <h3>ID del Pedido</h3>
                     <p>{detalle.pedido_idPedido}</p>
-                    <button className="custom-btn btn-16" onClick={() => setDetallesVisible(false)}>Cerrar</button>
 
                   </div>
 
                 </div>
               ))}
+              {detallesVisible &&
+                <button className="custom-btn btn-16" onClick={() => setDetallesVisible(false)}>Cerrar</button>
+              }
+
             </div>
           </div>
         </div>
@@ -239,17 +319,9 @@ const handlePaginaSiguiente = () => {
       {mostrarModal && pedidoAEditar && (
         <div className='modal-background'>
           <div className='modal-content'>
-            <h2 className='titulo2'>Editar Cliente</h2>
+            <h2 className='titulo2'>Editar Pedido</h2>
             <form>
-              <div className='input-group'>
-                <input
-                  type="text"
-                  name="fecha"
-                  value={nuevosDatos.fecha !== undefined ? nuevosDatos.fecha : pedidoAEditar.fecha}
-                  onChange={handleInputChange}
-                  placeholder="Fecha"
-                />
-              </div>
+
               <div className='input-group'>
                 <label>Estado:</label>
                 <select
@@ -263,24 +335,8 @@ const handlePaginaSiguiente = () => {
                 </select>
               </div>
 
-              <div className='input-group'>
-                <input
-                  type="text"
-                  name="tipo_entrega"
-                  value={nuevosDatos.tipo_entrega !== undefined ? nuevosDatos.tipo_entrega : pedidoAEditar.tipo_entrega}
-                  onChange={handleInputChange}
-                  placeholder="Tipo de entrega"
-                />
-              </div>
-              <div className='input-group'>
-                <input
-                  type="text"
-                  name="total"
-                  value={nuevosDatos.total !== undefined ? nuevosDatos.total : pedidoAEditar.total}
-                  onChange={handleInputChange}
-                  placeholder="Total"
-                />
-              </div>
+
+
               <button className='button_save' type="button_save" onClick={handleGuardarCambios}>
                 Guardar Cambios
               </button>

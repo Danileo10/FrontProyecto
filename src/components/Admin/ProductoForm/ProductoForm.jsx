@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useAuth } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 import { crearProductoApi } from '../../../api/user'
@@ -19,7 +20,20 @@ export const ProductoForm = () => {
             try {
                 console.log(formValue.imagen)
                 const response = await crearProductoApi(formValue, auth.me.idcliente);
-                navigate('/admin/productos');
+                Swal.fire({
+                    position: "center ",
+                    icon: "success",
+                    title: "Mascota editada con éxito!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                      console.log("I was closed by the timer");
+                      navigate('/admin/productos');
+                    }
+                  });
+                
 
             } catch (e) {
                 console.log("Error");
