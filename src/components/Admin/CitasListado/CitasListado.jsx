@@ -101,7 +101,7 @@ export const CitasListado = () => {
                         <p>Bloque de horas de la Cita: {cita.Bloque}</p>
                         <p>Servicio a atender: {cita.Servicio}</p>
                         <p>Mascota a atender: {cita.Nombre_mascota} - {cita.Raza_mascota}</p>
-                        <p>Descripcion: {cita.Descripcion}</p>
+                        <p>Descripción: {cita.Descripcion}</p>
                         <div className='contentBtn'>
                             <button className="eliminar-button_cita" onClick={() => handleEliminar(cita.idcita)}>
                                 <img src={trash_but} alt="Eliminar" />

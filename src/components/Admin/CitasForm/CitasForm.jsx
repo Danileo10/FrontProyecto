@@ -99,8 +99,14 @@ export const CitasForm = () => {
                 
 
             } catch (e) {
-                console.log("Error");
-                console.log(e);
+                Swal.fire({
+                    position: "center ",
+                    icon: "error",
+                    title: `${e.message}`,
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
+                
             }
         }
     });

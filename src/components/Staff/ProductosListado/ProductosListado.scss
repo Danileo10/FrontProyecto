@@ -8,15 +8,15 @@ input[type="text"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px ;
+    margin-bottom: 0px ;
     width: 100%;
     max-width: 400px; /* Ajusta el ancho máximo según tus preferencias */
 }
 .ajustar{
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: 1fr;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 .title{
     display: flex;
@@ -117,6 +117,7 @@ input[type="text"] {
 
 .botonCrearProducto{
     display: flex;
-    justify-content: flex-start;
+  margin-right: 2rem;
     align-items: center;
+    justify-content: center;
 }

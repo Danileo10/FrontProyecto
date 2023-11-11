@@ -9,6 +9,7 @@ import './PerfilUsuario.scss'
 
 export const PerfilUsuario = () => {
   const { auth } = useAuth();
+  
   const [newFoto, setNewfoto] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [datosEditados, setDatosEditados] = useState({
@@ -19,6 +20,8 @@ export const PerfilUsuario = () => {
     direccion: auth.me.direccion,
     imagen: auth.me.imagen
   });
+
+  
 
   const habilitarEdicion = () => {
     setModoEdicion(true);
@@ -78,7 +81,9 @@ export const PerfilUsuario = () => {
         ...prevData,
         [name]: files[0], // Almacena el archivo de imagen en el estado
       }));
+      
     } else {
+      
       setDatosEditados((prevData) => ({
         ...prevData,
         [name]: value,
@@ -87,6 +92,10 @@ export const PerfilUsuario = () => {
   };
 
   const validarCampos = () => {
+    const onlyLettersRegex = /^[A-Za-z]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneNumberRegex = /^\d+$/;
+    
     if (!datosEditados.nombre || !datosEditados.apellido || !datosEditados.email || !datosEditados.telefono || !datosEditados.direccion) {
       // Muestra un mensaje de error o realiza alguna acción para indicar que los campos son obligatorios
       Swal.fire({
@@ -96,9 +105,60 @@ export const PerfilUsuario = () => {
       });
       return false;
     }
+  
+    if (newFoto) {
+      // Si hay una imagen seleccionada, valida el formato
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif']; // Puedes agregar más extensiones según tus necesidades
+      const fileExtension = newFoto.name.split('.').pop().toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Por favor, selecciona un archivo de imagen válido (jpg, jpeg, png, gif)',
+        });
+        return false;
+      }
+    }
+  
+    if (!datosEditados.apellido.trim() || !onlyLettersRegex.test(datosEditados.apellido)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El apellido solo puede contener letras',
+      });
+      return false;
+    }
+  
+    if (!datosEditados.telefono.trim() || !phoneNumberRegex.test(datosEditados.telefono)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El teléfono solo puede contener números',
+      });
+      return false;
+    }
+  
+    if (!datosEditados.email.trim() || !emailRegex.test(datosEditados.email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ingresa un correo electrónico válido',
+      });
+      return false;
+    }
+  
+    if (!datosEditados.nombre.trim() || !onlyLettersRegex.test(datosEditados.nombre)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El nombre solo puede contener letras',
+      });
+      return false;
+    }
+  
     return true;
   };
-
+  
 
   const guardarCambios = async () => {
     if (!validarCampos()) {

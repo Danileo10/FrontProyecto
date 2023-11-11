@@ -2,6 +2,7 @@ import { passwordChange } from "../../../../api/user";
 import {Form, Button} from 'semantic-ui-react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2'
 
 export const ResetPassword = (props) => {
     const formik = useFormik({
@@ -16,16 +17,33 @@ export const ResetPassword = (props) => {
                 
                 console.log(response);
                 props.handlePasswordChangeSubmit()
+                Swal.fire({
+                  position: "center ",
+                  icon: "success",
+                  title: "Contraseña cambiada",
+                  showConfirmButton: false,
+                  timer: 1000
+                }).then((result) => {
+                  /* Read more about handling dismissals below */
+                  if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                    
+                  }
+                });
             }catch(e){
-                console.log("Error");
-                console.log(e);
+              Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "Error en las contraseñas, recuerda que deben ser iguales",
+                showConfirmButton: true,
+              })
             }
         }
       });
       
   return (
     <>
-      <Form className='register-form-admin' onSubmit={formik.handleSubmit}>
+      <Form className='login-form-admin_reset' onSubmit={formik.handleSubmit}>
         <Form.Input
             name="new_password"
             type='password'

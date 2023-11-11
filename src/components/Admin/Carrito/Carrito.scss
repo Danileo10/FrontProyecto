@@ -63,6 +63,14 @@
     height:100%;
 }
 
+.button_save:disabled:hover{
+    background-color: grey;
+}
+
+.button_save:disabled{
+    background-color: grey;
+}
+
 .ladoder_producto{
     width: 70%;
     display: flex;

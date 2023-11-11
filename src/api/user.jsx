@@ -145,13 +145,15 @@ export const crearCitaApi = async (formValue) => {
         const response = await fetch(url, params);
 
         if (response.status !== 201) {
-            throw new Error(response.statusText);
+            
+            throw new Error(await response.json());
         }
 
         const result = await response.json();
-
+       
         return result;
     } catch (error) {
+        console.log(error)
         throw error;
     }
 }

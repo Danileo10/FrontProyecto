@@ -23,17 +23,17 @@ export const ProductoForm = () => {
                 Swal.fire({
                     position: "center ",
                     icon: "success",
-                    title: "Mascota editada con éxito!",
+                    title: "Producto creado con éxito!",
                     showConfirmButton: false,
                     timer: 1000
-                  }).then((result) => {
+                }).then((result) => {
                     /* Read more about handling dismissals below */
                     if (result.dismiss === Swal.DismissReason.timer) {
-                      console.log("I was closed by the timer");
-                      navigate('/admin/productos');
+                        console.log("I was closed by the timer");
+                        navigate('/admin/productos');
                     }
-                  });
-                
+                });
+
 
             } catch (e) {
                 console.log("Error");
@@ -83,16 +83,17 @@ export const ProductoForm = () => {
                     error={formik.errors.stock}
                 />
 
-                <Form.Field>
-                    <label>Imagen del producto</label>
-                    <input
-                        type="file"
-                        name="imagen"
-                        onChange={(e) => {
-                            formik.setFieldValue("imagen", e.target.files[0]);
-                        }}
-                    />
-                </Form.Field>
+
+                <label>Imagen del producto</label>
+                <Form.Input
+                    type="file"
+                    name="imagen"
+                    onChange={(e) => {
+                        formik.setFieldValue("imagen", e.target.files[0]);
+                    }}
+                    error={formik.errors.imagen}
+                />
+
 
                 <div className='contenedorBtn'>
                     <Button type='submit' content="Crear" className='btn-crear' />
@@ -120,6 +121,14 @@ const validationSchema = () => {
         precio: Yup.number().required("El precio del producto es obligatorio").positive("El precio debe ser un número positivo"),
         descripcion: Yup.string().required("La descripción del producto es obligatoria"),
         stock: Yup.number().required("El stock del producto es obligatorio").integer("El stock debe ser un número entero").positive("El stock debe ser un número positivo"),
-        imagen: Yup.mixed().required("La imagen del producto es obligatoria"),
+        imagen: Yup.mixed()
+            .required("La imagen del producto es obligatoria")
+            .test("fileFormat", "Formato de archivo no válido. Utiliza solo formatos de imagen (jpg, jpeg, png, gif)", (value) => {
+                if (value) {
+                    const supportedFormats = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
+                    return supportedFormats.includes(value.type);
+                }
+                return false;
+            }),
     };
 };

@@ -67,12 +67,26 @@ export const ClientesListado = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const inputValue = type === 'checkbox' ? checked : value;
+
+    const onlyLettersRegex = /^[A-Za-z]+$/;
+
+    // Validar solo letras para nombre y apellido
+    let inputValue;
+    if ((name === 'nombre' || name === 'apellido') && value.trim() !== '') {
+      inputValue = onlyLettersRegex.test(value) ? value : nuevosDatos[name];
+      
+    } else {
+      inputValue = type === 'checkbox' ? checked : value;
+    }
+
+
+
     setNuevosDatos((prevState) => ({
       ...prevState,
       [name]: inputValue,
     }));
   };
+
 
   const handleBuscar = async () => {
     try {
@@ -99,7 +113,12 @@ export const ClientesListado = () => {
   const handleGuardarCambios = async (e) => {
     e.preventDefault();
     if (!nuevosDatos.nombre || !nuevosDatos.apellido || !nuevosDatos.email || !nuevosDatos.direccion) {
-      console.error('Todos los campos son obligatorios');
+      Swal.fire({
+        position: "center ",
+        icon: "error",
+        title: "Todos los campos son obligatorios",
+        showConfirmButton: true,
+      })
       return;
     }
     try {
@@ -168,18 +187,18 @@ export const ClientesListado = () => {
     <div className=''>
       <h2 className="titulo-mascotas">Listado de Usuarios</h2 >
       <div className='buscador'>
-         <input
-        type="text"
-        placeholder="Buscar usuario"
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-      />
-      <button className='btn-16' onClick={handleBuscar}>
-        <img src={busc_but} alt="cerrar" className='cerrar' />
-      </button>
-      <button className='btn-16' onClick={handleReiniciar}>✖️</button>
+        <input
+          type="text"
+          placeholder="Buscar usuario"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+        <button className='btn-16' onClick={handleBuscar}>
+          <img src={busc_but} alt="cerrar" className='cerrar' />
+        </button>
+        <button className='btn-16' onClick={handleReiniciar}>✖️</button>
       </div>
-     
+
       <ul className='ulC  '>
         {clientesPaginaActual.map((item) => (
           <li key={item.idcliente} className='c'>
@@ -237,6 +256,7 @@ export const ClientesListado = () => {
                   value={nuevosDatos.email !== undefined ? nuevosDatos.email : clienteAEditar.persona_idusuario.email}
                   onChange={handleInputChange}
                   placeholder="Email"
+                  disabled={true}
                 />
               </div>
               <div className='input-group'>
@@ -257,7 +277,6 @@ export const ClientesListado = () => {
                   checked={nuevosDatos.is_staff}
                   onChange={handleInputChange}
                 />
-
               </div>
               <button className='button_save' type="button_save" onClick={handleGuardarCambios}>
                 Guardar Cambios

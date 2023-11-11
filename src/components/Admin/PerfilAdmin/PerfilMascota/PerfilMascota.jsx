@@ -11,15 +11,16 @@ export const PerfilMascota = () => {
     const [mascotas, setMascotas] = useState([]);
     const [modoEdicion, setModoEdicion] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const mascotasPorPagina = 6;
+    const mascotasPorPagina = 4;
     const { auth } = useAuth();
     const [mascotaAEditar, setMascotaAEditar] = useState(null);
     const [nuevosDatos, setNuevosDatos] = useState({
+        imagen: '',
         nombre: '',
         fecha_nacim: '',
         raza: '',
         especie: '',
-        descripcion: '',
+        descripcion: null,
         fecha_defun: null,
 
     });
@@ -52,11 +53,30 @@ export const PerfilMascota = () => {
             });
             return;
         }
+        if (name === "nombre" && value !== "" && !regex.test(value)) {
+            // Mostrar una alerta si el valor no cumple con la expresión regular
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "El nombre solo puede contener letras y espacios",
+                showConfirmButton: false,
+                timer: 3000
+            });
+            return;
+        }
 
         setNuevosDatos({
             ...nuevosDatos,
             [name]: value,
         });
+    };
+
+    const obtenerFechaActualFormatoInput = () => {
+        const fechaActual = new Date();
+        const mes = fechaActual.getMonth() + 1; // Sumar 1 porque los meses en JavaScript son 0-indexados
+        const dia = fechaActual.getDate();
+        const formatoFecha = `${fechaActual.getFullYear()}-${mes < 10 ? '0' + mes : mes}-${dia < 10 ? '0' + dia : dia}`;
+        return formatoFecha;
     };
 
     useEffect(() => {
@@ -82,6 +102,7 @@ export const PerfilMascota = () => {
         setModoEdicion(true);
         setMascotaAEditar(mascota);
         setNuevosDatos({
+            imagen: mascota.imagen || '',
             nombre: mascota.nombre || '',
             fecha_nacim: mascota.fecha_nacim || '',
             raza: mascota.raza || '',
@@ -103,8 +124,7 @@ export const PerfilMascota = () => {
             !nuevosDatos.nombre ||
             !nuevosDatos.fecha_nacim ||
             !nuevosDatos.raza ||
-            !nuevosDatos.especie ||
-            !nuevosDatos.descripcion
+            !nuevosDatos.especie 
         ) {
             Swal.fire({
                 position: "center ",
@@ -114,20 +134,19 @@ export const PerfilMascota = () => {
                 timer: 3000
             })
         }
+        const nuevosDatosConFechaDefun = {
+            ...nuevosDatos,
+            imagen: nuevosDatos.imagen || null, 
+            descripcion: nuevosDatos.descripcion || null,
+            fecha_defun: nuevosDatos.fecha_defun || null,
+        };
+    
 
         console.log(nuevosDatos)
 
-        const fechaDefuncion = new Date(nuevosDatos.fecha_defun); // Convertir la fecha de defunción a un objeto Date
+        
 
-        if (fechaDefuncion < fechaActual) {
-            Swal.fire({
-                position: "center ",
-                icon: "error",
-                title: "La fecha de defunción tiene como rango la fecha actual hasta 20 años atras",
-                showConfirmButton: false,
-                timer: 3000
-            })
-        }
+
 
         try {
             const response = await fetch(
@@ -137,9 +156,9 @@ export const PerfilMascota = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(nuevosDatos),
+                    body: JSON.stringify(nuevosDatosConFechaDefun),
                 },
-                console.log(nuevosDatos)
+            
             );
 
             if (response.ok) {
@@ -309,13 +328,14 @@ export const PerfilMascota = () => {
                                     className='textTarea'
                                     placeholder="Descripcion"
                                 />
-                                <label htmlFor="">Fecha de defución</label>
+                                <label htmlFor="">Fecha de fallecimiento</label>
                                 <input
                                     type="date"
                                     name="fecha_defun"
                                     value={nuevosDatos.fecha_defun !== undefined ? nuevosDatos.fecha_defun : mascotaAEditar.fecha_defun}
                                     onChange={handleInputChange}
                                     placeholder="fecha de defucion"
+                                    max={obtenerFechaActualFormatoInput()}
                                 />
 
                             </div>

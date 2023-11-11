@@ -51,7 +51,7 @@ export const PasswordReset1 = () => {
                 />
             )}
             {step === 4 && (
-                navigate('/admin')
+                navigate('/home')
             )}
             
             

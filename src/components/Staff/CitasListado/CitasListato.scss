@@ -5,3 +5,20 @@
     padding: 10px;
     border: 1px solid #c7c6c6;
 }
+
+.BuscadorCita{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10rem;
+}
+
+.buscadorHistorial{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tituloBuscador{
+    margin-right: 1rem;
+}

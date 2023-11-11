@@ -3,6 +3,7 @@ import './ProductosListado.scss'
 import close from "../../../../public/x.svg"
 import edit_but from '../../../../public/edit.svg'
 import trash_but from '../../../../public/trashb.svg'
+import agregar from '../../../../public/boton-agregar.png'
 import Swal from 'sweetalert2'
 import { useAuth } from '../../../hooks';
 import axios from 'axios';
@@ -64,6 +65,10 @@ export const ProductosListado = () => {
         setMostrarModal(true);
     };
 
+    const handleImageChange = (event) => {
+        const imagen = event.target.files[0];
+        setNuevosDatos({ ...nuevosDatos, imagen: imagen || null }); // Almacena la imagen en el estado o nulo si no hay imagen
+    };
 
     // Función para manejar los cambios en los campos de edición
     const handleInputChange = (e) => {
@@ -80,7 +85,7 @@ export const ProductosListado = () => {
         const { nombre, precio, descripcion, imagen } = nuevosDatos;
 
         // Validar los datos
-        if (!validarNombre(nombre) || !validarPrecio(precio) || !validarDescripcion(descripcion) || !validarImagen(imagen)) {
+        if (!validarNombre(nombre) || !validarPrecio(precio) || !validarDescripcion(descripcion) ) {
             // La validación falló, no envíes los datos al servidor
             return;
         }
@@ -91,7 +96,9 @@ export const ProductosListado = () => {
             formData.append('nombre', nuevosDatos.nombre);
             formData.append('precio', nuevosDatos.precio);
             formData.append('descripcion', nuevosDatos.descripcion);
-            formData.append('imagen', nuevosDatos.imagen); // Agrega la imagen al formData
+            if (imagen) {
+                formData.append('imagen', imagen);
+            }
 
             const datosConId = {
                 ...nuevosDatos
@@ -141,7 +148,13 @@ export const ProductosListado = () => {
     };
     const validarNombre = (nombre) => {
         if (!nombre || nombre.trim() === '') {
-            alert('El nombre es obligatorio.');
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "El nombre es obligatorio",
+                showConfirmButton: false,
+                timer: 1000
+              })
             return false;
         }
         return true;
@@ -149,7 +162,13 @@ export const ProductosListado = () => {
 
     const validarImagen = (imagen) => {
         if (!imagen) {
-            alert('Debes seleccionar una imagen.');
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "Debes seleccionar una imagen",
+                showConfirmButton: false,
+                timer: 1000
+              })
             return false;
         }
 
@@ -159,7 +178,13 @@ export const ProductosListado = () => {
     const validarPrecio = (precio) => {
         const numeroPrecio = parseFloat(precio);
         if (isNaN(numeroPrecio) || numeroPrecio <= 0) {
-            alert('El precio debe ser un número positivo.');
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "El precio debe ser un número positivo y es obligatorio",
+                showConfirmButton: false,
+                timer: 1000
+              })
             return false;
         }
         return true;
@@ -167,17 +192,20 @@ export const ProductosListado = () => {
 
     const validarDescripcion = (descripcion) => {
         if (!descripcion || descripcion.trim() === '') {
-            alert('La descripción es obligatoria.');
+            Swal.fire({
+                position: "center ",
+                icon: "error",
+                title: "La descripción es obligatoria",
+                showConfirmButton: false,
+                timer: 1000
+              })
             return false;
         }
         return true;
     };
 
 
-    const handleImageChange = (event) => {
-        const imagen = event.target.files[0];
-        setNuevosDatos({ ...nuevosDatos, imagen }); // Almacena la imagen en el estado
-    };
+  
 
     const handleEliminar = async (idProducto) => {
         Swal.fire({
@@ -244,12 +272,12 @@ export const ProductosListado = () => {
 
 
     return (
-        <div className='content3'>
+        <div className=''>
             <h2 className="titulo-mascotas">Listado de Productos</h2>
             <div className='ajustar'>
                 <Link className="botonCrearProducto" to={"/admin/productos/crear"}>
-                    <button className="editar ">
-                        Crear Producto
+                    <button className="button_edit ">
+                        <img src={agregar} alt="" />
                     </button>
                 </Link>
                 <input
@@ -258,84 +286,85 @@ export const ProductosListado = () => {
                     value={busqueda}
                     onChange={handleBusqueda}
                 />
-                <ul className='productosT container'>
-                    {productosPaginaActual.map((item) => (
-                        <li key={item.idproducto} className='c' >
-                            <img className="foto_mascota" src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
-                            <div className="product-info">
-                                <h2 className="product-title">{item.nombre}</h2>
-                                <p className="product-price">
-                                    {new Intl.NumberFormat("es-CL", {
-                                        style: "currency",
-                                        currency: "CLP",
-                                        minimumFractionDigits: 0,
-                                    }).format(item.precio)}
-                                </p>
-                                <p className="product-description">{item.descripcion}</p>
-                            </div>
-                            <div className='contentBtn'>
-                                <button className='button_edit' onClick={() => handleEditar(item)}>
-                                    <img src={edit_but} alt="Editar" />
-                                </button>
-                                <button className='eliminar-button_mas' onClick={() => handleEliminar(item.idproducto)}>
-                                    <img src={trash_but} alt="Eliminar" />
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                <div className="paginacion">
-                    <span>Página {currentPage} de {Math.ceil(productos.length / productosPorPagina)}</span>
-                    <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
-                    <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
-                </div>
-
-                {mostrarModal && productoAEditar && (
-                    <div className='modal-pro'>
-                        <form className='form-dos'>
-                            <h2 className='title'>Editar Producto</h2>
-                            <label htmlFor="">Nombre</label>
-                            <input
-                                className='input-1'
-                                type="text"
-                                name="nombre"
-                                value={(productoAEditar && nuevosDatos.nombre) || ''}
-                                onChange={handleInputChange}
-                                placeholder="Nombre"
-                            />
-                            <label htmlFor="">Precio</label>
-                            <input
-                                className='input-1'
-                                type="text"
-                                name="precio"
-                                value={(productoAEditar && nuevosDatos.precio) || ''}
-                                onChange={handleInputChange}
-                                placeholder="Precio"
-                            />
-                            <label htmlFor="">Descripción</label>
-                            <input
-                                className='input-1'
-                                type="text"
-                                name="descripcion"
-                                value={(productoAEditar && nuevosDatos.descripcion) || ''}
-                                onChange={handleInputChange}
-                                placeholder="Descripción"
-                            />
-                            <input
-                                className='input-1'
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                placeholder="Imagen"
-                            />
-                            <button className='button-guardar' type="button-g" onClick={handleGuardarCambios}>Guardar Cambios</button>
-                            <button className='button-close' type="button-close" onClick={() => setMostrarModal(false)}>
-                                <img src={close} alt="close" className='close' />
-                            </button>
-                        </form>
-                    </div>
-                )}
             </div>
+            <ul className='productosT container'>
+                {productosPaginaActual.map((item) => (
+                    <li key={item.idproducto} className='c' >
+                        <img className="foto_mascota" src={`http://127.0.0.1:8000${item.imagen}`} alt="producto" />
+                        <div className="product-info">
+                            <h2 className="product-title">{item.nombre}</h2>
+                            <p className="product-price">
+                                {new Intl.NumberFormat("es-CL", {
+                                    style: "currency",
+                                    currency: "CLP",
+                                    minimumFractionDigits: 0,
+                                }).format(item.precio)}
+                            </p>
+                            <p className="product-description">{item.descripcion}</p>
+                        </div>
+                        <div className='contentBtn'>
+                            <button className='button_edit' onClick={() => handleEditar(item)}>
+                                <img src={edit_but} alt="Editar" />
+                            </button>
+                            <button className='eliminar-button_mas' onClick={() => handleEliminar(item.idproducto)}>
+                                <img src={trash_but} alt="Eliminar" />
+                            </button>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+            <div className="paginacion">
+                <span>Página {currentPage} de {Math.ceil(productos.length / productosPorPagina)}</span>
+                <button className="btn-16" onClick={handlePaginaAnterior} disabled={currentPage === 1}>Anterior</button>
+                <button className="btn-16" onClick={handlePaginaSiguiente} disabled={currentPage === Math.ceil(productos.length / productos)}>Siguiente</button>
+            </div>
+
+            {mostrarModal && productoAEditar && (
+                <div className='modal-pro'>
+                    <form className='form-dos'>
+                        <h2 className='title'>Editar Producto</h2>
+                        <label htmlFor="">Nombre</label>
+                        <input
+                            className='input-1'
+                            type="text"
+                            name="nombre"
+                            value={(productoAEditar && nuevosDatos.nombre) || ''}
+                            onChange={handleInputChange}
+                            placeholder="Nombre"
+                        />
+                        <label htmlFor="">Precio</label>
+                        <input
+                            className='input-1'
+                            type="text"
+                            name="precio"
+                            value={(productoAEditar && nuevosDatos.precio) || ''}
+                            onChange={handleInputChange}
+                            placeholder="Precio"
+                        />
+                        <label htmlFor="">Descripción</label>
+                        <input
+                            className='input-1'
+                            type="text"
+                            name="descripcion"
+                            value={(productoAEditar && nuevosDatos.descripcion) || ''}
+                            onChange={handleInputChange}
+                            placeholder="Descripción"
+                        />
+                        <input
+                            className='input-1'
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            placeholder="Imagen"
+                        />
+                        <button className='button-guardar' type="button-g" onClick={handleGuardarCambios}>Guardar Cambios</button>
+                        <button className='button-close' type="button-close" onClick={() => setMostrarModal(false)}>
+                            <img src={close} alt="close" className='close' />
+                        </button>
+                    </form>
+                </div>
+            )}
+
         </div>
     );
 };

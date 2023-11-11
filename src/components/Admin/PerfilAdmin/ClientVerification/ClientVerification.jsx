@@ -60,10 +60,10 @@ export const ClientVerification = () => {
 
   return (
     <div>
-      <div>
+      <div className="login-form-admin_reset">
         {/* Elimina las llaves alrededor de "token" para pasar el valor directamente */}
-        <button className="eliminar-button_pet" onClick={() => verificarEmail(token)}>Verificar Email</button>
-        {responseMessage && <div>Mensaje de respuesta: {responseMessage}</div>}
+        <button className="btnRegister" onClick={() => verificarEmail(token)}>Verificar Email</button>
+
       </div>
 
     </div>

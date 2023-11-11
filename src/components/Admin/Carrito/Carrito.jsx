@@ -37,6 +37,10 @@ export const Carrito = () => {
   };
 
   const handlePagar = async () => {
+
+    console.log(carrito)
+    console.log(carrito.length)
+
     // Crear un array de productos seleccionados con sus cantidades
     const productosSeleccionados = carrito.map((item) => ({
       producto_idProducto: item.idproducto,
@@ -140,7 +144,7 @@ export const Carrito = () => {
             <option value="Domicilo">Domicilio</option>
             <option value="Recoger en tienda">Recoger en tienda</option>
           </select>
-          <button className='button_save' onClick={handlePagar}>Pagar</button>
+          <button className='button_save' onClick={handlePagar} disabled={carrito.length == 0 ? true : false }>Pagar</button>
         </div>
       </div>
     </>

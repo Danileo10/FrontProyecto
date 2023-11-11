@@ -15,11 +15,13 @@ export const CitasListado = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const citasPorPagina = 6;
+  const citasPorPagina = 8;
   const indiceInicial = (currentPage - 1) * citasPorPagina;
   const indiceFinal = currentPage * citasPorPagina;
   const citasPaginaActual = citas.slice(indiceInicial, indiceFinal);
   const [busqueda, setBusqueda] = useState('');
+  const [busquedaEmail, setBusquedaEmail] = useState('')
+  const [busquedaMascota, setBusquedaMascota] = useState('')
   const [mostrarModal, setMostrarModal] = useState(false);
 
   const handleInputChange = (e) => {
@@ -41,6 +43,9 @@ export const CitasListado = () => {
       }
       const jsonData = await response.json();
       setCitas(jsonData);
+      setBusqueda('')
+      setBusquedaEmail('')
+      setBusquedaMascota('')
     } catch (error) {
       console.error('Error');
     }
@@ -110,6 +115,23 @@ export const CitasListado = () => {
     setMostrarModal(true);
   };
 
+  const handleHistorialCitas = async (e) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api-citas/mascota/?cliente=${busquedaEmail}&mascota=${busquedaMascota}`)
+
+      setCitas(response.data)
+      setBusqueda('')
+    } catch (error) {
+      console.log("error")
+      Swal.fire({
+        position: "center ",
+        icon: "error",
+        title: "Datos no encontrados",
+        showConfirmButton: true,
+      })
+      throw new Error(error);
+    }
+  }
   const handleGuardarCambios = async (e) => {
     e.preventDefault()
     try {
@@ -131,7 +153,7 @@ export const CitasListado = () => {
           icon: "success",
           title: "Descripción agregada",
           showConfirmButton: false,
-          timer: 3000
+          timer: 1000
         })
 
         const nuevaRespuesta = await fetch('http://127.0.0.1:8000/api-citas/citas/');
@@ -159,29 +181,66 @@ export const CitasListado = () => {
       <h2 className="titulo-mascotas">Listado de citas</h2>
 
       <div className='buscador'>
-        <input
-          type="date"
-          placeholder="Buscar cita"
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
+        <div className='BuscadorCita'>
+          <h2>Fecha de la cita</h2>
+          <input
+            type="date"
+            placeholder="Buscar cita"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
 
-        />
+          />
+          <button className='btn-16' onClick={handleBuscar}>
+            <img src={busc_but} alt="cerrar" className='cerrar' />
+          </button>
+          <button className='btn-16' onClick={handleReiniciar}>✖️</button>
+        </div>
 
-        <button className='btn-16' onClick={handleBuscar}>
-          <img src={busc_but} alt="cerrar" className='cerrar' />
-        </button>
-        <button className='btn-16' onClick={handleReiniciar}>✖️</button>
+
+        <div className='buscadorHistorial'>
+          <h2 className='tituloBuscador'>Mirar historial de citas</h2>
+          <div>
+            <input
+            type="text"
+            placeholder="Ingrese email cliente"
+            value={busquedaEmail}
+            onChange={(e) => setBusquedaEmail(e.target.value)}
+
+          />
+          <input
+            type="text"
+            placeholder="Ingrese nombre mascota"
+            value={busquedaMascota}
+            onChange={(e) => setBusquedaMascota(e.target.value)}
+
+          />
+          </div>
+          
+          <button className='btn-16' onClick={handleHistorialCitas}>
+            <img src={busc_but} alt="cerrar" className='cerrar' />
+          </button>
+          
+
+          <button className='btn-16' onClick={handleReiniciar}>✖️</button>
+        </div>
+
       </div>
 
       <ul className='ulC'>
         {citasPaginaActual.map((item) => (
           <li key={item.id} className='c'>
-            <p>fecha: {item.Fecha}</p>
-            <p>bloque: {item.Bloque}</p>
-            <p>servicio: {item.Servicio}</p>
-            <p>cliente: {item.Cliente}</p>
-            <p>mascota: {item.Mascota} - {item.Raza}</p>
-            <p>Descripcion: {item.Descripcion}</p>
+            <h3>Fecha</h3>
+            <p> {item.Fecha}</p>
+            <h3>Bloque </h3>
+            <p>{item.Bloque}</p>
+            <h3>Servicio </h3>
+            <p>{item.Servicio}</p>
+            <h3>Cliente </h3>
+            <p>{item.Cliente}</p>
+            <h3>Mascota </h3>
+            <p>{item.Mascota} - {item.Raza}</p>
+            <h3>Descripción </h3>
+            <p>{item.Descripcion}</p>
             <button className='button1' onClick={() => handleEditar(item)}>Agregar Descripción</button>
 
           </li>

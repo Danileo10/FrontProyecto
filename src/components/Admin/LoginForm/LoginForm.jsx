@@ -83,7 +83,7 @@ const initialValues = () => {
 
 const validationSchema = () => {
   return {
-    email: Yup.string().email("error en dato").required(true),
+    email: Yup.string().email('Ingresa un correo electrónico válido').required('El correo electrónico es obligatorio'),
     password: Yup.string().required("inserte una contraseña"),
   }
 }

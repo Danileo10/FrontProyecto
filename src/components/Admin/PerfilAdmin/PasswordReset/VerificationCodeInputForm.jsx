@@ -2,6 +2,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {Form, Button} from 'semantic-ui-react';
 import { codeVerification } from '../../../../api/user';
+import Swal from 'sweetalert2'
 
 export const VerificationCodeInputForm = (props) => {
   
@@ -16,16 +17,26 @@ export const VerificationCodeInputForm = (props) => {
         console.log(response);
         props.setID(response)
         props.handleCodeVerificationSubmit();
+        Swal.fire({
+          position: "center ",
+          icon: "success",
+          title: "Codigo de verificación correcto",
+          showConfirmButton: true,
+        })
       }catch(e){
-        console.log("Error");
-        console.log(e);
+        Swal.fire({
+          position: "center ",
+          icon: "error",
+          title: "Código incorrecto",
+          showConfirmButton: true,
+        })
       }
     }
   });
     
   return (
     <>
-      <Form className='login-form-admin' onSubmit={formik.handleSubmit}>
+      <Form className='login-form-admin_reset paso2' onSubmit={formik.handleSubmit}>
             <Form.Input
                 name="codigo"
                 placeholder="Codigo"

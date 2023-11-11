@@ -103,7 +103,7 @@ export const RegisterForm = () => {
           onChange={formik.handleChange}
           error={formik.errors.email}
         />
-        <label htmlFor="telefono" className='label'>Telefono</label>
+        <label htmlFor="telefono" className='label'>Teléfono</label>
         <Form.Input
           name="telefono"
           type="text"  // Cambiado a tipo de texto para aceptar entrada alfanumérica
@@ -130,10 +130,10 @@ export const RegisterForm = () => {
           onChange={formik.handleChange}
           error={formik.errors.confirmPassword}
         />
-        <label htmlFor="nombre" className='label'>Direccion</label>
+        <label htmlFor="nombre" className='label'>Dirección</label>
         <Form.Input
           name="direccion"
-          placeholder="Direccion"
+          placeholder="Dirección"
           value={formik.values.direccion}
           onChange={formik.handleChange}
           error={formik.errors.direccion}
@@ -162,6 +162,11 @@ const validationSchema = () => {
     nombre: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el nombre'),
     apellido: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el apellido'),
     password: Yup.string().required("inserte una contraseña"),
+    telefono: Yup.string()
+      .matches(/^\d+$/, 'Solo se permiten números en el teléfono')
+      .max(10, 'El teléfono no debe tener más de 10 dígitos')
+      .required('El teléfono es obligatorio'),
+    email: Yup.string().email('Ingresa un correo electrónico válido').required('El correo electrónico es obligatorio'),
     confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Las Contraseñas deben coincidir')
   };
 }

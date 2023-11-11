@@ -30,15 +30,15 @@ export const MascotasForm = () => {
                 !formValue.raza ||
                 !formValue.descripcion ||
                 !formValue.imagen
-              ) {
+            ) {
                 Swal.fire({
                     position: "center ",
                     icon: "error",
                     title: "Todos los campos son obligatorios",
                     showConfirmButton: false,
                     timer: 1000
-                  })
-              }
+                })
+            }
             try {
                 console.log(formValue)
                 const response = await crearMascotaApi(formValue, auth.me.idcliente);
@@ -50,23 +50,19 @@ export const MascotasForm = () => {
                         title: "Mascota creada con éxito!",
                         showConfirmButton: false,
                         timer: 1000
-                      }).then((result) => {
+                    }).then((result) => {
                         /* Read more about handling dismissals below */
                         if (result.dismiss === Swal.DismissReason.timer) {
-                          console.log("I was closed by the timer");
-                          window.location.reload();
+                            console.log("I was closed by the timer");
+                            window.location.reload();
                         }
-                      });
-    
-                     // Recarga la página después de mostrar la notificación
-                } else {
-                    // Si hay un error en la creación de la mascota, muestra una notificación de error
-                    toast.error('Error al crear la mascota');
+                    });
+
+                
                 }
 
             } catch (e) {
-                console.log("Error");
-                console.log(e);
+                console.log(e.response)
             }
         }
     });
@@ -81,7 +77,7 @@ export const MascotasForm = () => {
                     placeholder="Nombre de la mascota"
                     value={formik.values.string}
                     onChange={formik.handleChange}
-                    error={formik.errors.string}
+                    error={formik.errors.nombre}
                 />
                 <label htmlFor="" className='label1'>Fecha de nacimiento</label>
                 <Form.Input
@@ -153,20 +149,21 @@ const initialValues = (id) => {
 
 const validationSchema = () => {
     return {
-      fecha_nacim: Yup.date()
-      .max(new Date(), 'La fecha de nacimiento no puede ser posterior a hoy')
-      .required('La fecha de nacimiento es obligatoria'),
-      imagen: Yup.mixed().required('Imagen obligatoria')
-      .test('fileFormat', 'Formato de imagen no válido', (value) => {
-        if (value) {
-          const supportedFormats = ['image/jpeg', 'image/png', 'image/gif']; // Lista de formatos de imagen admitidos
-          return supportedFormats.includes(value.type);
-        }
-        return true; // Si no se proporciona ninguna imagen, la validación pasa
-      }),
-      raza: Yup.string()
-      .matches(/^[a-zA-Z]+$/, 'La raza solo puede contener letras')
-      .required('La raza es obligatoria'),
-      
+        nombre: Yup.string().matches(/^[A-Za-z]+$/, 'Solo se permiten letras en el nombre'),
+        fecha_nacim: Yup.date()
+            .max(new Date(), 'La fecha de nacimiento no puede ser posterior a hoy')
+            .required('La fecha de nacimiento es obligatoria'),
+        imagen: Yup.mixed().required('Imagen obligatoria')
+            .test('fileFormat', 'Formato de imagen no válido', (value) => {
+                if (value) {
+                    const supportedFormats = ['image/jpeg', 'image/png', 'image/gif']; // Lista de formatos de imagen admitidos
+                    return supportedFormats.includes(value.type);
+                }
+                return true; // Si no se proporciona ninguna imagen, la validación pasa
+            }),
+        raza: Yup.string()
+            .matches(/^[a-zA-Z]+$/, 'La raza solo puede contener letras')
+            .required('La raza es obligatoria'),
+
     };
-  }
+}
